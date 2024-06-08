@@ -8,11 +8,53 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors:{
+        primary: {
+          1:'#A4FFFF',
+          2:'#94F2F2',
+          3:'#73D7D7',
+          4:'#42B0B0',
+          5:'#006262',
+          6:'#004A4A',
+          7:'#002525',
+          8:'#001919',
+          9:'#000C0C',
+        },
+        secondry : {
+          1:'#FFFFFF',
+          2:'#FFFBE5',
+          3:'#FFEF99',
+          4:'#FFE766',
+          5:'#FFDF33',
+          6:'#FFD700',
+          7:'#665600',
+          8:'#332B00',
+          9:'#1A1600',
+        },
+        tertiary: {
+          1:'#A1A1A1',
+          2:'#929292',
+          3:'#757575',
+          4:'#666666',
+          5:'#484848',
+          6:'#2B2B2B',
+          7:'#0D0D0D',
+          8:'#0A0A0A',
+        },
+        neutral: {
+          1:'#FFFFFF',
+          2:'#E1E1E1',
+          3:'#C4C4C4',
+          4:'#A6A6A6',
+          5:'#979797',
+          6:'#898989',
+          7:'#7A7A7A',
+          8:'#6B6B6B',
+        }
       },
+      fontFamily: {
+        poppins : ['Poppins', 'sans-serif']
+      }
     },
   },
   plugins: [],

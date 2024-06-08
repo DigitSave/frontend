@@ -2,32 +2,79 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+
+/**
+Poppins font
+**/
+
+/* 100 */
+@font-face{
+  font-family: 'Poppins';
+  src: url('../../public/font/Poppins-Thin.ttf');
+  font-weight: 100;
+  font-style: normal;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+/* 200 */
+@font-face{
+  font-family: 'Poppins';
+  src: url('../../public/font/Poppins-ExtraLight.ttf');
+  font-weight: 200;
+  font-style: normal;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+/* 300 */
+@font-face{
+  font-family: 'Poppins';
+  src: url('../../public/font/Poppins-Light.ttf');
+  font-weight: 300;
+  font-style: normal;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* 400 */
+@font-face{
+  font-family: 'Poppins';
+  src: url('../../public/font/Poppins-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* 500 */
+@font-face{
+  font-family: 'Poppins';
+  src: url('../../public/font/Poppins-Medium.ttf');
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* 600 */
+@font-face{
+  font-family: 'Poppins';
+  src: url('../../public/font/Poppins-SemiBold.ttf');
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* 700 */
+@font-face{
+  font-family: 'Poppins';
+  src: url('../../public/font/Poppins-Bold.ttf');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* 800 */
+@font-face{
+  font-family: 'Poppins';
+  src: url('../../public/font/Poppins-ExtraBold.ttf');
+  font-weight: 800;
+  font-style: normal;
+}
+
+/* 900 */
+@font-face{
+  font-family: 'Poppins';
+  src: url('../../public/font/Poppins-Black.ttf');
+  font-weight: 900;
+  font-style: normal;
 }
