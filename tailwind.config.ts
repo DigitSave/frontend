@@ -62,7 +62,7 @@ const config: Config = {
       },
       boxShadow: {
         'custom': '-1px 4px 41.7px 15px rgba(0, 128, 128, 0.5)',
-      },
+      }
     },
   },
   plugins: [],
