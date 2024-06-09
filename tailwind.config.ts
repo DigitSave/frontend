@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       colors:{
         primary: {
+          '0':'#008080',
           1:'#A4FFFF',
           2:'#94F2F2',
           3:'#73D7D7',
@@ -21,6 +22,7 @@ const config: Config = {
           9:'#000C0C',
         },
         secondry : {
+          '0':'#FFD700',
           1:'#FFFFFF',
           2:'#FFFBE5',
           3:'#FFEF99',
@@ -32,6 +34,7 @@ const config: Config = {
           9:'#1A1600',
         },
         tertiary: {
+          '0':'#0D0D0D',
           1:'#A1A1A1',
           2:'#929292',
           3:'#757575',
@@ -42,6 +45,7 @@ const config: Config = {
           8:'#0A0A0A',
         },
         neutral: {
+          '0':'#0D0D0D',
           1:'#FFFFFF',
           2:'#E1E1E1',
           3:'#C4C4C4',
@@ -53,8 +57,12 @@ const config: Config = {
         }
       },
       fontFamily: {
-        poppins : ['Poppins', 'sans-serif']
-      }
+        poppins : ['Poppins', 'sans-serif'],
+        swiss : ['Swiss721BoldExtendedBT', 'sans-serif']
+      },
+      boxShadow: {
+        'custom': '-1px 4px 41.7px 15px rgba(0, 128, 128, 0.5)',
+      },
     },
   },
   plugins: [],
