@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import {HamburgerIcon, LogoIcon} from '../../icon.js'
+import { BlueCreateWalletButton } from './BlueCreateWalletButton';
+
 export default function Header() {
   return (
     <header className='relative w-full h-20'>
@@ -18,7 +20,8 @@ export default function Header() {
                     <li><Link href={''}>FAQ</Link></li>
                 </ul>
 
-                <Link href="/dashboard" className="w-40 py-3 px-8 text-center rounded-lg bg-primary-0 text-neutral-3"> Launch app</Link>
+                {/* <Link href="/dashboard" className="w-40 py-3 px-8 text-center rounded-lg bg-primary-0 text-neutral-3"> Launch app</Link> */}
+                <BlueCreateWalletButton />
             </nav>
 
             {/* Mobile Nav menu */}
@@ -40,7 +43,8 @@ export default function Header() {
                 <li><Link href={''}>FAQ</Link></li>
             </ul>
 
-            <Link href="/dashboard" className="w-40 py-3 px-8 text-center rounded-lg bg-primary-0 text-neutral-3"> Launch app</Link>
+            {/* <Link href="/dashboard" className="w-40 py-3 px-8 text-center rounded-lg bg-primary-0 text-neutral-3"> Launch app</Link> */}
+            <BlueCreateWalletButton />
         </nav>
 
     </header>

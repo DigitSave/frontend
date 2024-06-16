@@ -1,11 +1,26 @@
+'use client'
+
 import FaqData from "@/components/front/FaqData";
 import Footer from "@/components/front/Footer";
 import Header from "@/components/front/Header";
 import { DashedLine, SecurityIcon, WalletIcon } from "@/icon";
 import Image from "next/image";
 import Link from "next/link";
+import { useSession } from 'next-auth/react';
+
 
 export default function Home() {
+
+  const { data: session, status } = useSession();
+
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
+
+  // if (!session) {
+  //   return <div>You are not logged in</div>;
+  // }
+
   return (
     <>
       <Header />
@@ -112,7 +127,7 @@ export default function Home() {
 
         {/* About */}
 
-        <div className="w-full font-swiss text-neutral-3 pt-24 px-20">
+        <div className="w-full font-swiss text-neutral-3 pt-28 px-20">
           <div className="text-center w-[70%] mx-auto">
             <h2 className="font-bold text-3xl leading-relaxed">Stay the course, reap the reward</h2>
             <p className="leading-relaxed pt-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the.</p>
@@ -150,7 +165,7 @@ export default function Home() {
         </div>
 
         {/* More */}
-        <div className="px-20 flex w-full gap-24 pt-24 items-center">
+        <div className="px-20 flex w-full gap-24 pt-28 items-center">
           
           <div className="w-1/2">
             <Image
@@ -174,7 +189,7 @@ export default function Home() {
         </div>
 
         {/* Assets */}
-        <div className="px-20 flex w-full gap-24 pt-24 items-center">
+        <div className="px-20 flex w-full gap-24 pt-28 items-center">
           
           <div className="w-1/2 font-swiss">
             <h1 className="font-bold text-neutral-2 text-3xl leading-relaxed">Create a save for diversified crypto assets</h1>
@@ -196,10 +211,10 @@ export default function Home() {
         </div>
 
         {/* FAQ */}
-        <div className="w-[70%] mx-auto pt-24 text-neutral-2 ">
+        {/* <div className="w-[70%] mx-auto pt-24 text-neutral-2 ">
           <h2 className="font-bold text-4xl text-center leading-loose py-4">We answered all your money questions</h2>
           <FaqData />
-        </div>
+        </div> */}
 
         {/* Footer */}
         <Footer />

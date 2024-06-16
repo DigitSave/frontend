@@ -4,7 +4,7 @@ import { GithubIcon, LogoIcon, TwitterIcon } from '../../icon'
 
 export default function Footer() {
   return (
-    <section className='w-full px-20 pt-24'>
+    <section className='w-full px-20 pt-28'>
       <div className='flex w-full justify-between mb-8 items-center'>
         <div className="flex flex-col gap-8 ">
           <Link href={'/'}>
