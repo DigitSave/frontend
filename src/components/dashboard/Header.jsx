@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {LogoIcon} from '../../icon.js'
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export default function Header() {
   return (
@@ -9,7 +10,7 @@ export default function Header() {
                 <LogoIcon />
             </Link>
             
-            <Link href="/dashboard" className="w-40 py-3 px-8 text-center rounded-lg bg-primary-0 text-neutral-3"> Disconnect</Link>
+            <ConnectButton showBalance={false} />
 
         </div>
   )

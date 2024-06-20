@@ -1,25 +1,27 @@
 'use client'
 
+import { BlueCreateWalletButton } from "@/components/front/BlueCreateWalletButton";
 import FaqData from "@/components/front/FaqData";
 import Footer from "@/components/front/Footer";
 import Header from "@/components/front/Header";
 import { DashedLine, SecurityIcon, WalletIcon } from "@/icon";
 import Image from "next/image";
 import Link from "next/link";
-import { useSession } from 'next-auth/react';
+import { useAccount } from "wagmi";
+import { useRouter } from 'next/navigation';
+import { useEffect } from "react";
+
 
 
 export default function Home() {
+  const { isConnected } = useAccount();
+  const router = useRouter();
 
-  const { data: session, status } = useSession();
-
-  if (status === 'loading') {
-    return <div>Loading...</div>;
-  }
-
-  // if (!session) {
-  //   return <div>You are not logged in</div>;
-  // }
+  useEffect(() => {
+    if (isConnected) {
+      router.push('/dashboard');
+    }
+  }, [isConnected, router]);
 
   return (
     <>
@@ -28,14 +30,15 @@ export default function Home() {
         
         {/* Hero Section */}
 
-        <div className="px-20 flex w-full gap-24 py-12 items-center">
+        <div className="px-20 flex w-full gap-24 mt-12 py-12 items-center">
           <div className="w-1/2 font-swiss">
             <h1 className="font-bold text-neutral-2 text-5xl leading-relaxed">Savings that helps you build wealth</h1>
 
             <p className="text-neutral-2 font-light text-justify py-6">Easily diversify your crypto savings across multiple assets of your choice. Group assets flexibly in a safe and to it overtime, Track the appreciation of your crypto savfes. Start saving today, and access your funds after your specified period for optimal growth.</p>
 
-            <Link href="/dashboard" className="w-52 text-center py-4 px-6 mt-6 mb-14 block rounded-lg bg-primary-0 text-neutral-1 shadow-custom font-bold text-xl">Start Saving</Link>
 
+            {!isConnected && <BlueCreateWalletButton label="Start Saving" styles='w-52 text-center py-4 px-6 mt-6 mb-14 block rounded-lg bg-primary-0 text-neutral-1 shadow-custom font-bold text-xl' />}
+            
           </div>
 
           <div className="w-1/2">
@@ -71,7 +74,7 @@ export default function Home() {
         </div>
 
         {/* How to */}
-        <div className="px-20 flex w-full gap-24 pt-24 items-center">
+        <div id="learn" className="px-20 flex w-full gap-24 pt-24 items-center">
           <div className="w-1/2 font-swiss">
             <h2 className="font-bold text-neutral-2 text-3xl leading-relaxed">Its only takes 5 minutes...</h2>
 
@@ -110,7 +113,7 @@ export default function Home() {
               </div>
             </div>
 
-            <Link href="/dashboard" className="w-40 py-4 px-8 text-center rounded-lg bg-primary-0 text-neutral-3"> Launch app</Link>
+            {!isConnected && <BlueCreateWalletButton label="Launch app" styles='w-42 py-4 px-8 text-center rounded-lg bg-primary-0 text-neutral-3' />}
 
           </div>
 
@@ -127,7 +130,7 @@ export default function Home() {
 
         {/* About */}
 
-        <div className="w-full font-swiss text-neutral-3 pt-28 px-20">
+        <div id="about" className="w-full font-swiss text-neutral-3 pt-28 px-20">
           <div className="text-center w-[70%] mx-auto">
             <h2 className="font-bold text-3xl leading-relaxed">Stay the course, reap the reward</h2>
             <p className="leading-relaxed pt-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the.</p>
@@ -182,22 +185,22 @@ export default function Home() {
 
             <p className="text-neutral-2 font-light text-justify py-6 mb-12">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the.</p>
 
-            <Link href="/dashboard" className="w-40 py-4 mt-6 px-8 text-center rounded-lg bg-primary-0 text-neutral-3">Begin your savings Journey</Link>
+            {!isConnected && <BlueCreateWalletButton label="Begin your savings Journey" styles='block w-80 py-4 mt-6 px-8 text-center rounded-lg bg-primary-0 text-neutral-3' />}
 
           </div>
 
         </div>
 
         {/* Assets */}
-        <div className="px-20 flex w-full gap-24 pt-28 items-center">
+        <div id="assets" className="px-20 flex w-full gap-24 pt-28 items-center">
           
           <div className="w-1/2 font-swiss">
             <h1 className="font-bold text-neutral-2 text-3xl leading-relaxed">Create a save for diversified crypto assets</h1>
 
             <p className="text-neutral-2 font-light text-justify py-6 mb-12">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the.</p>
 
-            <Link href="/dashboard" className="w-40 py-4 mt-6 px-8 text-center rounded-lg bg-primary-0 text-neutral-3">Create Savings</Link>
-          
+            {!isConnected && <BlueCreateWalletButton label="Create Savings" styles='w-44 py-4 mt-6 px-4 text-center rounded-lg bg-primary-0 text-neutral-3' />}
+
           </div>
         <div className="w-1/2">
             <Image
@@ -211,10 +214,10 @@ export default function Home() {
         </div>
 
         {/* FAQ */}
-        {/* <div className="w-[70%] mx-auto pt-24 text-neutral-2 ">
+        <div id="faq" className="w-[70%] mx-auto pt-24 text-neutral-2 ">
           <h2 className="font-bold text-4xl text-center leading-loose py-4">We answered all your money questions</h2>
           <FaqData />
-        </div> */}
+        </div>
 
         {/* Footer */}
         <Footer />

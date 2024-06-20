@@ -1,34 +1,33 @@
-'use client'
-
 import React, { useCallback } from 'react';
-import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { useAccount, useConnect } from 'wagmi';
 import { CoinbaseWalletLogo } from './CoinbaseWalletLogo';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 
- 
- 
-export function BlueCreateWalletButton() {
-  const { connectors, connect, data } = useConnect();
 
-  console.log(connectors, connect, data)
- 
+export function BlueCreateWalletButton({label, coinbaseLogo = false, styles=""}) {
+  const { connectors, connect } = useConnect();
+  const { isConnected } = useAccount();
+
   const createWallet = useCallback(() => {
     const coinbaseWalletConnector = connectors.find(
       (connector) => connector.id === 'coinbaseWalletSDK'
     );
     if (coinbaseWalletConnector) {
-      connect({ connector: coinbaseWalletConnector });
+      connect({
+        connector: coinbaseWalletConnector,
+      });
     }
   }, [connectors, connect]);
 
+
   return (
     <>
-     <button className='flex gap-2 items-center w-52 py-3 px-4 justify-center rounded-lg bg-primary-0 text-neutral-3' onClick={createWallet}>
-       <CoinbaseWalletLogo />
-       <span>Create Wallet</span>
-     </button>
-     
-      <ConnectButton showBalance={false} />
+      {!isConnected && (
+        <button className={`${styles ? styles : 'flex gap-2 items-center font-semibold  justify-center rounded-lg bg-primary-0 text-neutral-3 w-44 py-2 px-2'}`} onClick={createWallet}>
+          {coinbaseLogo && <CoinbaseWalletLogo />}
+          <span>{label}</span>
+        </button>
+      )}
+      
     </>
   );
 }

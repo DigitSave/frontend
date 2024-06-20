@@ -1,27 +1,91 @@
 'use client'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { WagmiProvider } from 'wagmi'
 import '@rainbow-me/rainbowkit/styles.css';
-import { RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
+import { AuthenticationStatus, RainbowKitAuthenticationProvider, RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
 import { RainbowKitSiweNextAuthProvider, GetSiweMessageOptions } from '@rainbow-me/rainbowkit-siwe-next-auth';
 import { SessionProvider } from 'next-auth/react';
 import { config } from '@/wagmi'
+import { createAuthenticationAdapter } from '@rainbow-me/rainbowkit';
+import { SiweMessage } from 'siwe';
+import { fetchUser } from '@/actions/actions';
 
-
-const getSiweMessageOptions: GetSiweMessageOptions = () => ({
-  statement: 'Sign in to DigitSafe',
-});
 
 export function Providers(props: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient())
+  const [authStatus, setAuthStatus] = useState<AuthenticationStatus>('loading');
+
+
+  useEffect( () => {
+
+    const fetchData = async () => {
+      const user = await fetchUser();
+      setAuthStatus(user);
+    };
+
+    fetchData();
+  }, [])
+
+  // if (!authStatus) {
+  //   console.log('No auth status')
+  // }
+
+  const getSiweMessageOptions: GetSiweMessageOptions = () => ({
+    statement: 'Welcome to DigitSafe. Signing is the only way we can truly know that you are the owner of the wallet you are connecting. Signing is a safe, gas-less transaction that does not in any way give DigitSafe permission to perform any transactions with your wallet.',
+  });
+
+  const authenticationAdapter = createAuthenticationAdapter({
+    getNonce: async () => {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/nonce`);
+      const { nonce } = await response.json();
+      console.log(nonce)
+      return nonce;
+    },
+  
+    createMessage: ({ nonce, address, chainId }) => {
+        return new SiweMessage({
+          domain: window.location.host,
+          address,
+          statement: 'Sign in with Ethereum to the app.',
+          uri: window.location.origin,
+          version: '1',
+          chainId,
+          nonce,
+        });
+    },
+
+    getMessageBody: ({ message }) => {
+        return message.prepareMessage();
+    },
+
+    verify: async ({ message, signature }) => {
+        const verifyRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/verify`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message, signature }),
+        });
+
+        return Boolean(verifyRes.ok);
+    },
+
+    signOut: async () => {
+        console.log('Signing out');
+        await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/logout`);
+    },
+  })
+
 
   return (
     <WagmiProvider config={config}>
-        <SessionProvider >
+        {/* <SessionProvider > */}
         <QueryClientProvider client={queryClient}>
-          <RainbowKitSiweNextAuthProvider getSiweMessageOptions={getSiweMessageOptions}>
+          {/* <RainbowKitSiweNextAuthProvider getSiweMessageOptions={getSiweMessageOptions}> */}
+          {/* <RainbowKitAuthenticationProvider
+            adapter={authenticationAdapter}
+            status={authStatus}
+          > */}
             <RainbowKitProvider
               theme={darkTheme(
                 {
@@ -40,9 +104,10 @@ export function Providers(props: { children: ReactNode }) {
             >
               {props.children}
             </RainbowKitProvider>
-          </RainbowKitSiweNextAuthProvider>
+          {/* </RainbowKitAuthenticationProvider> */}
+          {/* </RainbowKitSiweNextAuthProvider> */}
         </QueryClientProvider>
-      </SessionProvider>
+      {/* </SessionProvider> */}
      </WagmiProvider>
   )
 }
