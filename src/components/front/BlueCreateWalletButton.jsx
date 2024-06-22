@@ -22,7 +22,7 @@ export function BlueCreateWalletButton({label, coinbaseLogo = false, styles=""})
   return (
     <>
       {!isConnected && (
-        <button className={`${styles ? styles : 'flex gap-2 items-center font-semibold  justify-center rounded-lg bg-primary-0 text-neutral-3 w-44 py-2 px-2'}`} onClick={createWallet}>
+        <button className={`${styles ? styles : 'flex gap-2 items-center font-semibold  justify-center rounded-lg bg-primary-0 text-neutral-3 w-44 py-[7px] px-2'}`} onClick={createWallet}>
           {coinbaseLogo && <CoinbaseWalletLogo />}
           <span>{label}</span>
         </button>

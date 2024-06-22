@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useAccount } from 'wagmi';
 
 
-export default function Dashboard() {
+export default function Activities() {
   const { isDisconnected } = useAccount();
   const router = useRouter();
 
@@ -21,8 +21,10 @@ export default function Dashboard() {
         <Header />
         <section className='flex border-t border-tertiary-6'>
             <Sidebar />
-            <div className="m-h-screen w-4/4 px-4">body</div>
+            {/* body */}
+            <div className='flex'>
 
+            </div>
         </section>
     </main>
   )

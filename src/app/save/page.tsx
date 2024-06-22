@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useAccount } from 'wagmi';
 
 
-export default function Dashboard() {
+export default function Save() {
   const { isDisconnected } = useAccount();
   const router = useRouter();
 
