@@ -32,7 +32,7 @@ export default function Sidebar() {
     
   return (
     <>
-        <div className="min-h-screen flex flex-col w-1/5 border-r border-tertiary-6 px-6">
+        <div className="min-h-screen flex flex-col w-full border-r border-tertiary-6 px-6">
             <ul className='w-full flex flex-col gap-6 text-neutral-6 py-16'>
                 
                 <ListItem path="/dashboard" label="Overview" icon={OverviewIcon} />
