@@ -11,7 +11,6 @@ import { useAccount, useDisconnect } from 'wagmi';
 const ListItem = ({ path, label, icon: Icon }) => {
     const pathname = usePathname();
     const isActive = pathname === path;
-    console.log(isActive, pathname)
     
     return (
         <Link href={path} className={`w-full pl-12 flex py-3 px-4 gap-2 rounded-md ${isActive ? 'bg-tertiary-6' : ''}`}>
@@ -37,7 +36,7 @@ export default function Sidebar() {
                 
                 <ListItem path="/dashboard" label="Overview" icon={OverviewIcon} />
                 <ListItem path="/save" label="Save" icon={SaveIcon} />
-                <ListItem path="/activities" label="Overview" icon={ActivitiesIcon} />
+                <ListItem path="/activities" label="Activities" icon={ActivitiesIcon} />
 
             </ul>
 
