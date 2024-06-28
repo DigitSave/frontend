@@ -5,7 +5,7 @@ import { base, baseSepolia } from 'wagmi/chains'
 
 const chain = process.env.NODE_ENV === 'development' ? baseSepolia : process.env.NODE_ENV === 'production' ? base : baseSepolia;
 
-export const FactoryWagmiConfig = {
+export const StorageWagmiConfig = {
     
     abi:StorageContractAbi,
     address: storageContractAddrs,
