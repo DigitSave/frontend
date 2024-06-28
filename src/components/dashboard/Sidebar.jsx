@@ -13,7 +13,7 @@ const ListItem = ({ path, label, icon: Icon }) => {
     const isActive = pathname === path;
     
     return (
-        <Link href={path} className={`w-full pl-12 flex py-3 px-4 gap-2 rounded-md ${isActive ? 'bg-tertiary-6' : ''}`}>
+        <Link href={path} className={`w-full pl-12 flex py-3 px-4 gap-2 rounded-md ${isActive ? 'bg-[#2B2B2BE5]' : ''}`}>
         <Icon color={isActive ? 'white' : 'currentColor'} />
         <span className={isActive ? 'text-white' : 'text-current'}>{label}</span>
         </Link>

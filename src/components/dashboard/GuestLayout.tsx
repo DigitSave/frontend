@@ -16,7 +16,7 @@ export default function GuestLayout(props: { children: ReactNode }) {
                             
                             <p className='font-semibold'>Information</p>
 
-                            <div className="w-full flex flex-col rounded-lg bg-tertiary-6">
+                            <div className="w-full flex flex-col rounded-lg bg-[#2B2B2B80]">
                                 {props.children}
                             </div>
                         </div>

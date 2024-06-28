@@ -1,9 +1,12 @@
 import { EyeIcon } from '@/icon'
+import Link from 'next/link'
 import React from 'react'
+import { usePathname } from 'next/navigation';
 
 
-export default function GuestBalance() {
+export default function Balances() {
 
+    const pathname = usePathname();
 
   return (
     <section className="w-full m-h-screen w-4/4 px-6 py-10">
@@ -18,7 +21,12 @@ export default function GuestBalance() {
 
             <p className='font-bold font-swiss text-4xl'>$0.00</p>
 
-           
+            <div className="flex justify-between item-center">
+                <p className='text-xs'>You gained +$32.004 in the past 7 days</p>
+                {pathname == '/save' && <Link href="/save" className={`flex gap-2 items-center justify-center rounded-lg border border-secondry-6 text-secondry-6 w-44 py-2 px-5 `}>
+                    create save lock
+                </Link>}
+            </div>
 
             </div>
 
