@@ -8,7 +8,7 @@ export default function GuestLayout(props: { children: ReactNode }) {
               {/* Balances */}
               <GuestBalance />
 
-              {/* history and token */}
+              {/* info and token */}
               {<section className="w-full m-h-screen w-4/4 px-6 py-0">
                     <div className='flex gap-4 w-full'>
                     
