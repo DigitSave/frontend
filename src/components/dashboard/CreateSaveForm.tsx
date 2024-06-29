@@ -6,19 +6,27 @@ import React, { useEffect, useRef, useState } from 'react'
 import SubmitBtn from '@/components/dashboard/SubmitBtn';
 import { format, addMonths } from 'date-fns';
 import { CreateSave } from '@/actions/actions';
-import { FetchSavingsAcct } from '@/utils/fetchSavingsAcct';
-import { useAccount } from 'wagmi';
-import { Hex } from 'viem';
-import { useWriteContract } from 'wagmi';
-
+import { useRouter } from 'next/navigation';
+import { useAccount, useReadContract } from 'wagmi';
+import { base, baseSepolia } from 'wagmi/chains'
+import { factoryContractAddrs } from "@/constants";
+import { FactoryAbi } from '@/abis/FactoryContractAbi'
 
 
 export default function CreateSaveForm() {
     const ref = useRef<HTMLFormElement>(null)
   const [lockPeriod, setLockPeriod] = useState('');
   const [displayText, setDisplayText] = useState('');
-  const [contractAddress, setContractAddress] = useState<Hex | undefined>(undefined);
   const { address } = useAccount();
+  const chain = process.env.NODE_ENV === 'development' ? baseSepolia : process.env.NODE_ENV === 'production' ? base : baseSepolia;  const { isDisconnected } = useAccount();
+  const router = useRouter();
+
+
+  useEffect(() => {
+    if(isDisconnected){
+      router.push('/save')
+    }
+  }, [isDisconnected, router])
 
 
     useEffect(() => {
@@ -44,17 +52,15 @@ export default function CreateSaveForm() {
     }
     };
 
-    useEffect(() => {
-        const fetchAddress = async () => {
-          if (address) {
-            const contractAddr = await FetchSavingsAcct();
-            setContractAddress(contractAddr);
-            console.log(contractAddr)
-          }
-        };
-    
-        fetchAddress();
-      }, [address]);
+
+
+      const { data: contractAddress, error }:any = useReadContract({
+        abi:FactoryAbi,
+        address: factoryContractAddrs,
+        functionName: 'userSavingsContracts',
+        args: [address],
+        chainId: chain.id,
+    });
 
 
  
@@ -86,6 +92,8 @@ export default function CreateSaveForm() {
         </div>
 
         <input required type="hidden" name='contractAddress' value={contractAddress}  />
+
+        <input required type="hidden" name='address' value={address}  />
 
 
         <div className="flex gap-2 flex-col">
