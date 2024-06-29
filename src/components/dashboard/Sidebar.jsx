@@ -1,6 +1,6 @@
 'use client'
 
-import { ActivitiesIcon, DisconnectIcon, OverviewIcon, SaveIcon } from '@/icon'
+import { ActivitiesIcon, DisconnectIcon, OverviewIcon, LearnIcon, SaveIcon, AccountIcon } from '@/icon'
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCallback } from 'react';
@@ -8,18 +8,18 @@ import { useAccount, useDisconnect } from 'wagmi';
 
 
 
-const ListItem = ({ path, label, icon: Icon }) => {
+const ListItem = ({ path, label, icon: Icon, otherPaths }) => {
     const pathname = usePathname();
-    const isActive = pathname === path;
-    
+    const additionalPaths = otherPaths ? otherPaths.split(',') : [];
+    const isActive = pathname === path || additionalPaths.includes(pathname);
+  
     return (
-        <Link href={path} className={`w-full pl-12 flex py-3 px-4 gap-2 rounded-md ${isActive ? 'bg-[#2B2B2BE5]' : ''}`}>
+      <Link href={path} className={`w-full pl-12 flex py-3 px-4 gap-2 rounded-md ${isActive ? 'bg-[#2B2B2BE5]' : ''}`}>
         <Icon color={isActive ? 'white' : 'currentColor'} />
         <span className={isActive ? 'text-white' : 'text-current'}>{label}</span>
-        </Link>
+      </Link>
     );
-
-}
+  };
 
 export default function Sidebar() {
     const { isConnected } = useAccount();
@@ -35,8 +35,11 @@ export default function Sidebar() {
             <ul className='w-full flex flex-col gap-6 text-neutral-6 py-16'>
                 
                 <ListItem path="/dashboard" label="Overview" icon={OverviewIcon} />
-                <ListItem path="/save" label="Save" icon={SaveIcon} />
+                <ListItem path="/save" otherPaths="/create-save" label="Save" icon={SaveIcon} />
+                <ListItem path="/learn" label="Learn" icon={LearnIcon} />
                 <ListItem path="/activities" label="Activities" icon={ActivitiesIcon} />
+                <ListItem path="/settings" label="Activities" icon={AccountIcon} />
+
 
             </ul>
 
