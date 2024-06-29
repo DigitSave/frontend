@@ -10,7 +10,6 @@ import { SessionProvider } from 'next-auth/react';
 import { config } from '@/wagmi'
 import { createAuthenticationAdapter } from '@rainbow-me/rainbowkit';
 import { SiweMessage } from 'siwe';
-import { fetchUser } from '@/actions/actions';
 
 
 export function Providers(props: { children: ReactNode }) {
@@ -18,19 +17,6 @@ export function Providers(props: { children: ReactNode }) {
   const [authStatus, setAuthStatus] = useState<AuthenticationStatus>('loading');
 
 
-  useEffect( () => {
-
-    const fetchData = async () => {
-      const user = await fetchUser();
-      setAuthStatus(user);
-    };
-
-    fetchData();
-  }, [])
-
-  // if (!authStatus) {
-  //   console.log('No auth status')
-  // }
 
   const getSiweMessageOptions: GetSiweMessageOptions = () => ({
     statement: 'Welcome to DigitSafe. Signing is the only way we can truly know that you are the owner of the wallet you are connecting. Signing is a safe, gas-less transaction that does not in any way give DigitSafe permission to perform any transactions with your wallet.',

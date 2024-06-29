@@ -8,20 +8,10 @@ import { DashedLine, SecurityIcon, WalletIcon } from "@/icon";
 import Image from "next/image";
 import Link from "next/link";
 import { useAccount } from "wagmi";
-import { useRouter } from 'next/navigation';
-import { useEffect } from "react";
-
 
 
 export default function Home() {
   const { isConnected } = useAccount();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (isConnected) {
-      router.push('/dashboard');
-    }
-  }, [isConnected, router]);
 
   return (
     <>
@@ -113,7 +103,11 @@ export default function Home() {
               </div>
             </div>
 
-            {!isConnected && <BlueCreateWalletButton label="Launch app" styles='w-42 py-4 px-8 text-center rounded-lg bg-primary-0 text-neutral-3' />}
+            {/* {!isConnected && <BlueCreateWalletButton label="Launch app" styles='w-42 py-4 px-8 text-center rounded-lg bg-primary-0 text-neutral-3' />} */}
+
+            <Link href="/dashboard" className="w-42 py-4 px-8 text-center rounded-lg bg-primary-0 text-neutral-3">
+            Launch app
+            </Link>
 
           </div>
 
@@ -138,28 +132,28 @@ export default function Home() {
 
           <div className="grid grid-cols-2 gap-5 pt-20">
 
-            <div className="p-14 leading-relaxed bg-tertiary-6 border rounded-3xl">
+            <div className="p-14 leading-relaxed bg-[#99999900] border rounded-3xl">
               <SecurityIcon />
               <h2 className="font-bold text-2xl leading-relaxed py-8">Blockchain Security</h2>
               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the  standard dummy text ever since the.</p>
             </div>
 
 
-            <div className="p-14 leading-relaxed bg-tertiary-6 border rounded-3xl">
+            <div className="p-14 leading-relaxed bg-[#99999900] border rounded-3xl">
               <SecurityIcon />
               <h2 className="font-bold text-2xl leading-relaxed py-8">Blockchain Security</h2>
               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the  standard dummy text ever since the.</p>
             </div>
 
 
-            <div className="p-14 leading-relaxed bg-tertiary-6 border rounded-3xl">
+            <div className="p-14 leading-relaxed bg-[#99999900] border rounded-3xl">
               <SecurityIcon />
               <h2 className="font-bold text-2xl leading-relaxed py-8">Blockchain Security</h2>
               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the  standard dummy text ever since the.</p>
             </div>
 
 
-            <div className="p-14 leading-relaxed bg-tertiary-6 border rounded-3xl">
+            <div className="p-14 leading-relaxed bg-[#99999900] border rounded-3xl">
               <SecurityIcon />
               <h2 className="font-bold text-2xl leading-relaxed py-8">Blockchain Security</h2>
               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the  standard dummy text ever since the.</p>
