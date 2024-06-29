@@ -25,14 +25,12 @@ import GuestLayout from '@/components/dashboard/GuestLayout';
 import { BlueCreateWalletButton } from '@/components/front/BlueCreateWalletButton';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Assets from '@/components/dashboard/Assets';
+import { chain } from '@/utils/chain'
 
 
 export default function Save() {
   
   const { isConnected, address } = useAccount();
-  const chain = process.env.NODE_ENV === 'development' ? baseSepolia : process.env.NODE_ENV === 'production' ? base : baseSepolia;
-  const [event, setEvent] = useState<any>();  
-  const [loading, setLoading] = useState(false);  
   
 
     // fetch users contract >> savings account

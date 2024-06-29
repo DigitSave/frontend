@@ -22,12 +22,12 @@ import { BlueCreateWalletButton } from '@/components/front/BlueCreateWalletButto
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import GuestLayout from '@/components/dashboard/GuestLayout';
 import Assets from '@/components/dashboard/Assets';
+import { chain } from '@/utils/chain'
 
 
 export default function Dashboard() {
   
   const { address, isConnected } = useAccount();
-  const chain = process.env.NODE_ENV === 'development' ? baseSepolia : process.env.NODE_ENV === 'production' ? base : baseSepolia;
   const [event, setEvent] = useState<any>();  
   const [loading, setLoading] = useState(false);
 

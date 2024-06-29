@@ -1,9 +1,9 @@
 import { digitsafeAcctContractAddrs } from "@/constants";
 import { DigitSaveAcctAbi } from './DigitsaveAcctContractAbi'
 import { base, baseSepolia } from 'wagmi/chains'
+import { chain } from '@/utils/chain'
 
 
-const chain = process.env.NODE_ENV === 'development' ? baseSepolia : process.env.NODE_ENV === 'production' ? base : baseSepolia;
 
 export const DigitsaveAcctWagmiConfig = {
     

@@ -11,6 +11,7 @@ import { useAccount, useReadContract } from 'wagmi';
 import { base, baseSepolia } from 'wagmi/chains'
 import { factoryContractAddrs } from "@/constants";
 import { FactoryAbi } from '@/abis/FactoryContractAbi'
+import { chain } from '@/utils/chain'
 
 
 export default function CreateSaveForm() {
@@ -18,7 +19,7 @@ export default function CreateSaveForm() {
   const [lockPeriod, setLockPeriod] = useState('');
   const [displayText, setDisplayText] = useState('');
   const { address } = useAccount();
-  const chain = process.env.NODE_ENV === 'development' ? baseSepolia : process.env.NODE_ENV === 'production' ? base : baseSepolia;  const { isDisconnected } = useAccount();
+  const { isDisconnected } = useAccount();
   const router = useRouter();
 
 
