@@ -20,9 +20,12 @@ const connectors = connectorsForWallets(
 
 
 export const config = createConfig({
+  // chains: process.env.NODE_ENV === 'development' ? 
+  // [baseSepolia] : 
+  // process.env.NODE_ENV === 'production' ? [base] : [base, baseSepolia],
   chains: process.env.NODE_ENV === 'development' ? 
   [baseSepolia] : 
-  process.env.NODE_ENV === 'production' ? [base] : [base, baseSepolia],
+  process.env.NODE_ENV === 'production' ? [baseSepolia] : [base, baseSepolia],
   
   // connectors: [
   //   coinbaseWallet({ appName: 'DigitSave', preference: 'smartWalletOnly' }),
