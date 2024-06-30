@@ -85,7 +85,7 @@ export function Providers(props: { children: ReactNode }) {
               modalSize="compact"
               appInfo={{
                 appName: 'DigitSave',
-                learnMoreUrl: process.env.NEXT_PUBLIC_APP_URL,
+                learnMoreUrl: 'https://digitsave.onrender.com/#faq',
               }}
             >
               {props.children}

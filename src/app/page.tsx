@@ -33,12 +33,20 @@ export default function Home() {
             
           </div>
 
-          <div className="w-1/2">
+          <div className="w-1/2 relative ">
             <Image
               className=""
               width={542}
               height={482}
               src="/images/hero-image.png" 
+              alt="Hero Image"
+            />
+
+            <Image
+              className="absolute top-[60%] left-[-20%]"
+              width={261}
+              height={85}
+              src="/images/save-ding.png" 
               alt="Hero Image"
             />
           </div>
