@@ -75,7 +75,7 @@ export default function Footer() {
           <nav className="hidden md:flex gap-4 items-center">
               <ul className='flex gap-8'>
                   <li><Link href={'#'}><TwitterIcon /></Link></li>
-                  <li><Link href={'#'}><GithubIcon /></Link></li>
+                  <li><Link href={'https://github.com/orgs/DigitSave/repositories'}><GithubIcon /></Link></li>
               </ul>
           </nav>
         </div>
