@@ -28,7 +28,7 @@ export default function Header() {
 
   return (
     <header className='relative w-full h-20'>
-        <div className={`w-full fixed top-0 left-0 ${scrolled ? 'bg-neutral-8' : ''} transition-all duration-500 ease-in-out`}>
+        <div className={`w-full z-50 fixed top-0 left-0 ${scrolled ? 'bg-neutral-8' : ''} transition-all duration-500 ease-in-out`}>
 
             <div className={`flex justify-between items-center h-20 px-10 md:py-6 md:px-20`}>
                 <Link href={'/'}>
