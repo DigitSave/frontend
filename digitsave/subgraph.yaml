@@ -5,37 +5,25 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: DigitSaveAccount
+    name: DigitSaveFactory
     network: base-sepolia
     source:
-      address: "0xb2f0a1f5E7D89003eF94B1640D3A2F11e9420804"
-      abi: DigitSaveAccount
-      startBlock: 11722605
+      address: "0xc6Bb6bD945Af880fab19B5fbaC0D8e42a8942E12"
+      abi: DigitSaveFactory
+      startBlock: 11672717
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - AssetAdded
-        - AssetToppedUp
-        - AssetWithdrawn
-        - OwnershipTransferred
-        - SavingCompleted
-        - SavingCreated
+        - SavingsAccountOwnershipTransfered
+        - SavingsContractCreated
       abis:
-        - name: DigitSaveAccount
-          file: ./abis/DigitSaveAccount.json
+        - name: DigitSaveFactory
+          file: ./abis/DigitSaveFactory.json
       eventHandlers:
-        - event: AssetAdded(indexed uint256,indexed uint256,uint256)
-          handler: handleAssetAdded
-        - event: AssetToppedUp(indexed uint256,indexed uint256,uint256)
-          handler: handleAssetToppedUp
-        - event: AssetWithdrawn(indexed uint256,indexed uint256,indexed uint256,uint256)
-          handler: handleAssetWithdrawn
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
-        - event: SavingCompleted(indexed uint256,indexed uint256)
-          handler: handleSavingCompleted
-        - event: SavingCreated(indexed uint256,indexed uint256)
-          handler: handleSavingCreated
-      file: ./src/digit-save-account.ts
+        - event: SavingsAccountOwnershipTransfered(indexed address,indexed address,indexed uint256)
+          handler: handleSavingsAccountOwnershipTransfered
+        - event: SavingsContractCreated(indexed address,indexed address,indexed uint256)
+          handler: handleSavingsContractCreated
+      file: ./src/digit-save-factory.ts
