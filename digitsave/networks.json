@@ -1,0 +1,8 @@
+{
+  "base-sepolia": {
+    "DigitSaveFactory": {
+      "address": "0xc6Bb6bD945Af880fab19B5fbaC0D8e42a8942E12",
+      "startBlock": 11672717
+    }
+  }
+}
