@@ -27,3 +27,58 @@ dataSources:
         - event: SavingsContractCreated(indexed address,indexed address,indexed uint256)
           handler: handleSavingsContractCreated
       file: ./src/digit-save-factory.ts
+  - kind: ethereum
+    name: DigitSaveStorage
+    network: base-sepolia
+    source:
+      address: "0xFD0D395CA4E8b22f657F55e635F4D27D987BeFC0"
+      abi: DigitSaveStorage
+      startBlock: 11672697
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+      abis:
+        - name: DigitSaveStorage
+          file: ./abis/DigitSaveStorage.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/digit-save-storage.ts
+  - kind: ethereum
+    name: DigitSaveAccount
+    network: base-sepolia
+    source:
+      address: "0xb2f0a1f5E7D89003eF94B1640D3A2F11e9420804"
+      abi: DigitSaveAccount
+      startBlock: 11722605
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AssetAdded
+        - AssetToppedUp
+        - AssetWithdrawn
+        - DigitSaveAccountOwnershipTransferred
+        - SavingCompleted
+        - SavingCreated
+      abis:
+        - name: DigitSaveAccount
+          file: ./abis/DigitSaveAccount.json
+      eventHandlers:
+        - event: AssetAdded(indexed uint256,indexed uint256,uint256)
+          handler: handleAssetAdded
+        - event: AssetToppedUp(indexed uint256,indexed uint256,uint256)
+          handler: handleAssetToppedUp
+        - event: AssetWithdrawn(indexed uint256,indexed uint256,indexed uint256,uint256)
+          handler: handleAssetWithdrawn
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: SavingCompleted(indexed uint256,indexed uint256)
+          handler: handleSavingCompleted
+        - event: SavingCreated(indexed uint256,indexed uint256)
+          handler: handleSavingCreated
+      file: ./src/digit-save-account.ts
