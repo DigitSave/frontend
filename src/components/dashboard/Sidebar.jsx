@@ -38,7 +38,7 @@ export default function Sidebar() {
                 <ListItem path="/save" otherPaths="/create-save" label="Save" icon={SaveIcon} />
                 <ListItem path="/learn" label="Learn" icon={LearnIcon} />
                 <ListItem path="/activities" label="Activities" icon={ActivitiesIcon} />
-                <ListItem path="/settings" label="Activities" icon={AccountIcon} />
+                <ListItem path="/account" label="Account" icon={AccountIcon} />
 
 
             </ul>

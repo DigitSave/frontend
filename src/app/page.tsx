@@ -1,6 +1,7 @@
 'use client'
 
 import { BlueCreateWalletButton } from "@/components/front/BlueCreateWalletButton";
+import { CustomConnectButton } from "@/components/front/CustomConnectButton";
 import FaqData from "@/components/front/FaqData";
 import Footer from "@/components/front/Footer";
 import Header from "@/components/front/Header";
@@ -24,12 +25,15 @@ export default function Home() {
           <div className="w-1/2 font-swiss">
             <h1 className="font-bold text-neutral-2 text-5xl leading-relaxed">Savings that helps you build wealth</h1>
 
-            <p className="text-neutral-2 font-light text-justify py-6">Easily diversify your crypto savings across multiple assets of your choice. Group assets flexibly in a safe add to it overtime, Track the appreciation of your crypto saves. Start saving today, and access your funds after your specified period for optimal growth.</p>
+            <p className="text-neutral-2 font-light text-justify pt-6">Easily diversify your crypto savings across multiple assets of your choice. Group assets flexibly in a safe add to it overtime, Track the appreciation of your crypto saves. Start saving today, and access your funds after your specified period for optimal growth.</p>
 
 
-            {!isConnected && <BlueCreateWalletButton label="Start Saving" styles='w-52 text-center py-4 px-6 mt-6 mb-14 block rounded-lg bg-primary-0 text-neutral-1 shadow-custom font-bold text-xl' />}
+            {/* {!isConnected && <BlueCreateWalletButton label="Start Saving" styles='w-52 text-center py-4 px-6 mt-6 mb-14 block rounded-lg bg-primary-0 text-neutral-1 shadow-custom font-bold text-xl' />} */}
 
-            {isConnected && <Link href='/save' className='w-52 text-center py-4 px-6 mt-6 mb-14 block rounded-lg bg-primary-0 text-neutral-1 shadow-custom font-bold text-xl'>Start Saving</Link>}
+            {/* {isConnected && <Link href='/save' className='w-52 text-center py-4 px-6 mt-6 mb-14 block rounded-lg bg-primary-0 text-neutral-1 shadow-custom font-bold text-xl'>Start Saving</Link>} */}
+
+            <Link href="/dashboard" className=' text-center py-4 px-10 mt-10 inline-block rounded-lg bg-primary-0 text-neutral-1 bg-custom text-xl font-bold'>Lunch App</Link>
+
             
           </div>
 
@@ -115,9 +119,13 @@ export default function Home() {
 
             {/* {!isConnected && <BlueCreateWalletButton label="Launch app" styles='w-42 py-4 px-8 text-center rounded-lg bg-primary-0 text-neutral-3' />} */}
 
-            <Link href="/dashboard" className="w-42 py-4 px-8 text-center rounded-lg bg-primary-0 text-neutral-3">
+            {/* <Link href="/dashboard" className="w-42 py-4 px-8 text-center rounded-lg bg-primary-0 text-neutral-3">
             Launch app
-            </Link>
+            </Link> */}          
+
+            {/* <BlueCreateWalletButton label="Connect Wallet" styles='text-center py-4 px-20 mt-10 inline-block rounded-lg bg-primary-0 text-neutral-1 bg-custom text-xl font-medium' /> */}
+
+            <CustomConnectButton />
 
           </div>
 
@@ -142,20 +150,20 @@ export default function Home() {
 
           <div className="grid grid-cols-2 gap-5 pt-20">
 
-            <div className="p-14 leading-relaxed bg-[#99999900] border rounded-3xl">
+            <div className="p-14 leading-relaxed border rounded-3xl" style={{ "backgroundColor": 'rgba(43, 43, 43, 0.15)' }}>
               <SecurityIcon />
               <h2 className="font-bold text-2xl leading-relaxed py-8">Unparalleled Transparency</h2>
               <p>Security is a paramount concern in financial management, and Digitsave addresses this with a robust, decentralized system. By eliminating central points of failure, we significantly reduce the risk of hacks and fraud that plague traditional platforms. Our advanced data encryption techniques further protect personal and financial information, ensuring that your assets remain secure. With Digitsave, you can have peace of mind knowing that your savings are protected by state-of-the-art security measures.</p>
             </div>
 
-            <div className="p-14 leading-relaxed bg-[#99999900] border rounded-3xl">
+            <div className="p-14 leading-relaxed border rounded-3xl" style={{ "backgroundColor": 'rgba(43, 43, 43, 0.15)' }}>
               <SecurityIcon />
               <h2 className="font-bold text-2xl leading-relaxed py-8">Enhanced Security</h2>
               <p>Security is a paramount concern in financial management, and Digitsave addresses this with a robust, decentralized system. By eliminating central points of failure, we significantly reduce the risk of hacks and fraud that plague traditional platforms. Our advanced data encryption techniques further protect personal and financial information, ensuring that your assets remain secure. With Digitsave, you can have peace of mind knowing that your savings are protected by state-of-the-art security measures.</p>
             </div>
 
 
-            <div className="p-14 leading-relaxed bg-[#99999900] border rounded-3xl">
+            <div className="p-14 leading-relaxed border rounded-3xl" style={{ "backgroundColor": 'rgba(43, 43, 43, 0.15)' }}>
               <SecurityIcon />
               <h2 className="font-bold text-2xl leading-relaxed py-8">Superior Efficiency</h2>
               <p>Efficiency is another hallmark of Digitsave. Traditional savings methods often involve delayed transactions and high fees due to the involvement of multiple intermediaries. Digitsave streamlines this process through blockchain technology, enabling near-instantaneous transactions with minimal costs. This not only makes managing your finances more convenient but also ensures that more of your money goes towards growing your savings rather than being lost to fees and delays.</p>
@@ -163,7 +171,7 @@ export default function Home() {
 
 
 
-            <div className="p-14 leading-relaxed bg-[#99999900] border rounded-3xl">
+            <div className="p-14 leading-relaxed border rounded-3xl" style={{ "backgroundColor": 'rgba(43, 43, 43, 0.15)' }}>
               <SecurityIcon />
               <h2 className="font-bold text-2xl leading-relaxed py-8">Maximized Returns and Flexibility</h2>
               <p>Digitsave offers flexibility and higher returns that are hard to match. Users can choose from customizable savings plans tailored to their specific goals, whether they are saving for short-term needs or long-term aspirations like retirement. Our platform supports automatic savings with recurring deposits, ensuring consistent growth. Moreover, by integrating high-yield investments and offering interest on locked assets, Digitsave helps users maximize their returns, providing better outcomes compared to traditional savings accounts. The integration of stablecoins also helps hedge against inflation, ensuring that your savings retain their value over time.</p>
@@ -187,9 +195,11 @@ export default function Home() {
           <div className="w-1/2 font-swiss">
             <h1 className="font-bold text-neutral-2 text-3xl leading-relaxed">Start your saving journey</h1>
 
-            <p className="text-neutral-2 font-light text-justify py-6 mb-12">Embark on your path to financial security and growth with Digitsave. Our innovative platform empowers you to manage your savings with unparalleled transparency, security, and efficiency. Whether you are planning for short-term goals or long-term aspirations, Digitsave offers flexible, savings options tailored to your needs. Join us today and take the first step towards a smarter, more secure financial future</p>
+            <p className="text-neutral-2 font-light text-justify pt-6">Embark on your path to financial security and growth with Digitsave. Our innovative platform empowers you to manage your savings with unparalleled transparency, security, and efficiency. Whether you are planning for short-term goals or long-term aspirations, Digitsave offers flexible, savings options tailored to your needs. Join us today and take the first step towards a smarter, more secure financial future</p>
 
-            {!isConnected && <BlueCreateWalletButton label="Begin your savings Journey" styles='block w-80 py-4 mt-6 px-8 text-center rounded-lg bg-primary-0 text-neutral-3' />}
+            {/* {!isConnected && <BlueCreateWalletButton label="Begin your savings Journey" styles='block w-80 py-4 mt-6 px-8 text-center rounded-lg bg-primary-0 text-neutral-3' />} */}
+
+            <Link href="/dashboard" className=' text-center py-4 px-6 mt-16 inline-block rounded-lg bg-primary-0 text-neutral-1 bg-custom text-xl font-medium'>Start  your saving journey</Link>
 
           </div>
 
@@ -201,9 +211,11 @@ export default function Home() {
           <div className="w-1/2 font-swiss">
             <h1 className="font-bold text-neutral-2 text-3xl leading-relaxed">Create a save for diversified crypto assets</h1>
 
-            <p className="text-neutral-2 font-light text-justify py-6 mb-12">With Digitsave, you can create a save that includes a diverse range of crypto assets, optimizing your investment strategy. Our platform allows you to easily add multiple cryptocurrencies to a single save, providing a balanced approach to managing and growing your portfolio. By diversifying your holdings, you can mitigate risks and capitalize on the potential growth of various digital assets, all within a secure and transparent framework. Start diversifying your crypto portfolio with Digitsave today and enhance your financial resilience..</p>
+            <p className="text-neutral-2 font-light text-justify pt-6">With Digitsave, you can create a save that includes a diverse range of crypto assets, optimizing your investment strategy. Our platform allows you to easily add multiple cryptocurrencies to a single save, providing a balanced approach to managing and growing your portfolio. By diversifying your holdings, you can mitigate risks and capitalize on the potential growth of various digital assets, all within a secure and transparent framework. Start diversifying your crypto portfolio with Digitsave today and enhance your financial resilience..</p>
 
-            {!isConnected && <BlueCreateWalletButton label="Create Savings" styles='w-44 py-4 mt-6 px-4 text-center rounded-lg bg-primary-0 text-neutral-3' />}
+            {/* {!isConnected && <BlueCreateWalletButton label="Create Savings" styles='w-44 py-4 mt-6 px-4 text-center rounded-lg bg-primary-0 text-neutral-3' />} */}
+
+            <Link href="/save" className=' text-center py-4 px-6 mt-16 inline-block rounded-lg bg-primary-0 text-neutral-1 bg-custom text-xl font-medium'>Create savings</Link>
 
           </div>
         <div className="w-1/2">

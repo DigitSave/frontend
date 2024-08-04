@@ -14,7 +14,7 @@ const FAQ: React.FC<FaqProps> = ({question, answer, isOpen, onToggle}) => {
   return (
     <div className='w-full mx-auto pt-4 text-neutral-12'>
 
-        <div   className='border p-6 text-neutral-3 rounded-lg'>
+        <div   className='border p-6 text-neutral-3 rounded-lg' style={{ "backgroundColor": 'rgba(43, 43, 43, 0.1)' }}>
             <div className="flex justify-between item-center">
                 <p className='font-medium text-xl'>{question}</p>
                 <span className='cursor-pointer' onClick={() => onToggle()}><PlusIcon /></span>
