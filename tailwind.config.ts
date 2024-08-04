@@ -75,6 +75,8 @@ const config: Config = {
       },
       backgroundImage: {
         'custom': 'linear-gradient(90deg, #008080 0%, #9F890E 100%)',
+        'btn-gradient-0': 'linear-gradient(90deg, #008080 0%, #9F890E 100%)',
+        'btn-gradient-1': 'linear-gradient(90deg, white 0%, #9F890E 100%)',
       },
 
     },

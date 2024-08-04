@@ -62,7 +62,7 @@ export default function Footer() {
 
         <div className='flex gap-4'>
           <input type="text" placeholder='Enter your email' className='bg-transparent py-1 px-4 placeholder-neutral-3 border rounded-lg' />
-          <Link href="#" className="w-40 py-2 px-8 text-center rounded-lg bg-primary-0 text-neutral-3"> Subscribe</Link>
+          <Link href="#" className="w-40 py-2 px-8 text-center rounded-lg bg-primary-0 text-neutral-1"> Subscribe</Link>
         </div>
       </div>
 

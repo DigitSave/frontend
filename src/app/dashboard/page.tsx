@@ -20,20 +20,39 @@ import OverviewLoader from "@/components/dashboard/Loaders/OverviewLoader";
 import { ethers } from "ethers";
 import { getEventSignature } from "@/utils/getEventSignature";
 import { config } from "@/wagmi";
-import { getEthersProvider } from "@/ethersProvider";
 import { toRelativeTime, toFormattedDate } from "@/utils/dateFormat";
-import SingleActivityLoader from "@/components/dashboard/Loaders/SingleActivityLoader";
+import ActivityLoader from "@/components/dashboard/Loaders/ActivityLoader";
 import Balances from "@/components/dashboard/Balances";
 import { BlueCreateWalletButton } from "@/components/front/BlueCreateWalletButton";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import GuestLayout from "@/components/dashboard/GuestLayout";
 import Assets from "@/components/dashboard/Assets";
 import { chain } from "@/utils/chain";
+import { useQuery } from "urql";
+import { activitiesQuery } from "@/queries/activitiesQuery";
 
 export default function Dashboard() {
   const { address, isConnected } = useAccount();
-  const [event, setEvent] = useState<any>();
-  const [loading, setLoading] = useState(false);
+
+  const activities = activitiesQuery(address);
+  const [result, reexecuteQuery] = useQuery({
+    query: activities,
+    pause: address == undefined,
+  });
+
+  const refreshActivities = () => {
+    // Refetch the query and skip the cache
+    reexecuteQuery({ requestPolicy: "network-only" });
+  };
+
+  const { data: activitiesData, fetching, error: activitiesError } = result;
+
+  // console.log(
+  //   activitiesData,
+  //   Object.values(activitiesData).every(
+  //     (arr) => Array.isArray(arr) && (arr as unknown[]).length === 0
+  //   )
+  // );
 
   // fetch users contract >> savings account
   const {
@@ -54,99 +73,6 @@ export default function Dashboard() {
   // fetch users contract creation event
   useEffect(() => {
     if (!address) return;
-
-    const provider = getEthersProvider(config);
-
-    if (!provider) {
-      console.error("Signer does not have an associated provider");
-      return;
-    }
-    const fetchEvent = async () => {
-      try {
-        // Retrieve contract creation block number
-        const eventSignature = getEventSignature(
-          "SavingsContractCreated",
-          FactoryAbi
-        );
-        const contractCreationTxHash =
-          process.env.NEXT_PUBLIC_FACTORY_CONTRACT_CREATION_TRANSACTION_HASH;
-        const CHUNK_SIZE = 10;
-        setLoading(true);
-
-        if (!contractCreationTxHash) {
-          console.error("Failed to fetch contract creation hash");
-          return;
-        }
-        const contractCreationReceipt = await provider.getTransactionReceipt(
-          contractCreationTxHash
-        );
-
-        if (!contractCreationReceipt) {
-          console.error("Failed to fetch contract creation receipt");
-          return;
-        }
-
-        const contractCreationBlock = contractCreationReceipt.blockNumber;
-
-        // Retrieve current block number
-        const currentBlock = await provider.getBlockNumber();
-
-        // Initialize an empty array to collect results
-        let allLogs: ethers.providers.Log[] = [];
-
-        for (
-          let startBlock = contractCreationBlock;
-          startBlock <= currentBlock;
-          startBlock += CHUNK_SIZE
-        ) {
-          const endBlock = Math.min(startBlock + CHUNK_SIZE - 1, currentBlock);
-
-          // Set up the filter for the current chunk
-          const filter: ethers.providers.Filter = {
-            address: factoryContractAddrs,
-            topics: [
-              ethers.utils.id(eventSignature),
-              ethers.utils.hexZeroPad(address, 32), // Padding the user address to match the event topic
-            ],
-            fromBlock: startBlock,
-            toBlock: endBlock,
-          };
-
-          // Fetch logs for the current chunk
-          const logs = await provider.getLogs(filter);
-          allLogs = allLogs.concat(logs);
-        }
-
-        if (allLogs.length === 0) {
-          console.log("No events found");
-          return;
-        }
-
-        const contractInterface = new ethers.utils.Interface(FactoryAbi);
-        const log = allLogs[0];
-
-        const decodedLog = contractInterface.decodeEventLog(
-          "SavingsContractCreated",
-          log.data,
-          log.topics
-        );
-        console.log(log, decodedLog);
-        setLoading(false);
-
-        const newEvent = {
-          user: decodedLog.user,
-          savingsContract: decodedLog.savingsContract,
-          date: decodedLog.date.toString(), // Convert BigNumber to string if needed
-        };
-
-        setEvent(newEvent);
-        console.log(event);
-      } catch (error) {
-        console.error("Error fetching logs:", error);
-      }
-    };
-
-    fetchEvent();
   }, [address]);
 
   // create a savings account for new user
@@ -156,7 +82,7 @@ export default function Dashboard() {
     functionName: "createSavingsAccount",
     chainId: chain.id,
   });
-  const { writeContract } = useWriteContract();
+  const { writeContract, isPending } = useWriteContract();
 
   return (
     <main className="text-neutral-2">
@@ -221,79 +147,10 @@ export default function Dashboard() {
                 <div className="w-3/5 flex flex-col gap-4">
                   <p className="font-semibold">Recent activities</p>
 
-                  <div className="w-full flex flex-col rounded-lg bg-tertiary-6">
-                    <div className="text-sm p-6">
-                      <div className="flex flex-col gap-6">
-                        <div className="flex gap-8 justify-between items-center">
-                          <div className="flex gap-4">
-                            <WalletIconPlain />
-                            <div className="flex flex-col gap-1 ">
-                              <p>Savings account credited</p>
-                              <p className="text-xs">2 days ago</p>
-                            </div>
-                          </div>
+                  <div className="w-full flex flex-col rounded-lg bg-tertiary-6 min-h-[350px]">
+                    {fetching && <ActivityLoader />}
 
-                          <div className="flex gap-2 py-1 px-3 items-center bg-tertiary-7 rounded-xl">
-                            <Circle />
-                            <p>Successful</p>
-                          </div>
-
-                          <p>$120</p>
-
-                          <p>24-04-2024</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="text-sm p-6">
-                      <div className="flex flex-col gap-6">
-                        <div className="flex gap-8 justify-between items-center">
-                          <div className="flex gap-4">
-                            <WalletIconPlain />
-                            <div className="flex flex-col gap-1 ">
-                              <p>Savings account credited</p>
-                              <p className="text-xs">2 days ago</p>
-                            </div>
-                          </div>
-
-                          <div className="flex gap-2 py-1 px-3 items-center bg-tertiary-7 rounded-xl">
-                            <Circle />
-                            <p>Successful</p>
-                          </div>
-
-                          <p>$120</p>
-
-                          <p>24-04-2024</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="text-sm p-6">
-                      <div className="flex flex-col gap-6">
-                        <div className="flex gap-8 justify-between items-center">
-                          <div className="flex gap-4">
-                            <WalletIconPlain />
-                            <div className="flex flex-col gap-1 ">
-                              <p>Savings account credited</p>
-                              <p className="text-xs">2 days ago</p>
-                            </div>
-                          </div>
-
-                          <div className="flex gap-2 py-1 px-3 items-center bg-tertiary-7 rounded-xl">
-                            <Circle />
-                            <p>Successful</p>
-                          </div>
-
-                          <p>$120</p>
-
-                          <p>24-04-2024</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {!event && loading && <SingleActivityLoader />}
-
-                    {!event && !loading && (
+                    {!activitiesData && !fetching && (
                       <div className="p-6 w-full">
                         <p className="text-positive-7 text-center">
                           error fetching activity
@@ -301,43 +158,79 @@ export default function Dashboard() {
                       </div>
                     )}
 
-                    {event && (
-                      <div className="text-sm p-6">
-                        <div className="flex flex-col gap-6">
-                          <div className="flex gap-8 justify-between items-center">
-                            <div className="flex gap-4">
-                              <WalletIconPlain />
-                              <div className="flex flex-col gap-1 ">
-                                <p>Savings account credited</p>
-                                <p className="text-xs">
-                                  {toRelativeTime(event.date)}
-                                </p>
+                    {activitiesData !== undefined &&
+                      Object.values(activitiesData).every(
+                        (arr) =>
+                          Array.isArray(arr) && (arr as unknown[]).length === 0
+                      ) &&
+                      !fetching && (
+                        <div className="flex w-full flex-col item-center justify-center text-center gap-6 pt-10">
+                          <div className="flex justify-center w-full">
+                            <FileIcon />
+                          </div>
+                          <p className="mx-auto text-neutral-6 w-2/5">
+                            All activities will appear here
+                          </p>
+                          <button
+                            className={`mx-auto mt-10 flex gap-2 items-center font-semibold  justify-center rounded-md bg-primary-0 text-neutral-3  py-4 px-12 ${
+                              fetching ? "cursor-not-allowed" : "cursor-pointer"
+                            }`}
+                            disabled={fetching}
+                            onClick={() => refreshActivities()}
+                          >
+                            {fetching ? "Loading..." : "Refresh"}
+                          </button>
+                        </div>
+                      )}
+
+                    {activitiesData !== undefined &&
+                      activitiesData.savingsContractCreateds[0] && (
+                        <div className="text-sm p-6">
+                          <div className="flex flex-col gap-6">
+                            <div className="flex gap-8 justify-between items-center">
+                              <div className="flex gap-4">
+                                <WalletIconPlain />
+                                <div className="flex flex-col gap-1 ">
+                                  <p>Savings account credited</p>
+                                  <p className="text-xs">
+                                    {toRelativeTime(
+                                      activitiesData.savingsContractCreateds[0]
+                                        .date
+                                    )}
+                                  </p>
+                                </div>
                               </div>
+
+                              <div className="flex gap-2 py-1 px-3 items-center bg-tertiary-7 rounded-xl">
+                                <Circle />
+                                <p>Successful</p>
+                              </div>
+
+                              <a
+                                href={`https://${
+                                  process.env.NODE_ENV === "development"
+                                    ? "sepolia.basescan.org"
+                                    : process.env.NODE_ENV === "production"
+                                    ? "basescan.org"
+                                    : "sepolia.basescan.org"
+                                }/address/${
+                                  activitiesData.savingsContractCreateds[0]
+                                    .savingsContract
+                                }`}
+                                target="_blank"
+                              >
+                                view
+                              </a>
+
+                              <p>
+                                {toFormattedDate(
+                                  activitiesData.savingsContractCreateds[0].date
+                                )}
+                              </p>
                             </div>
-
-                            <div className="flex gap-2 py-1 px-3 items-center bg-tertiary-7 rounded-xl">
-                              <Circle />
-                              <p>Successful</p>
-                            </div>
-
-                            <a
-                              href={`https://${
-                                process.env.NODE_ENV === "development"
-                                  ? "sepolia.basescan.org"
-                                  : process.env.NODE_ENV === "production"
-                                  ? "basescan.org"
-                                  : "sepolia.basescan.org"
-                              }/address/${event.savingsContract}`}
-                              target="_blank"
-                            >
-                              view
-                            </a>
-
-                            <p>{toFormattedDate(event.date)}</p>
                           </div>
                         </div>
-                      </div>
-                    )}
+                      )}
                   </div>
                 </div>
 
@@ -357,7 +250,7 @@ export default function Dashboard() {
               create an account
             </p>
             <button
-              className={`mx-auto mt-10 flex gap-2 items-center font-semibold  justify-center rounded-md bg-primary-0 text-neutral-3 w-44 py-5 px-2 ${
+              className={`mx-auto mt-10 flex gap-2 items-center font-semibold  justify-center rounded-md bg-primary-0 text-neutral-3  py-4 px-12 ${
                 !Boolean(createSavingsAccount?.request)
                   ? "cursor-not-allowed"
                   : "cursor-pointer"
@@ -365,10 +258,14 @@ export default function Dashboard() {
               disabled={!Boolean(createSavingsAccount?.request)}
               onClick={() => writeContract(createSavingsAccount!.request)}
             >
-              create account
+              {isPending ? "Loading..." : "create account"}
             </button>
           </div>
         )}
+
+        {fetching}
+        {activitiesError}
+        {/* {activitiesData } */}
       </section>
     </main>
   );
