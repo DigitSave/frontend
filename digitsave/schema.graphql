@@ -1,7 +1,56 @@
+type AssetAdded @entity(immutable: true) {
+  id: Bytes!
+  assetId: BigInt! # uint256
+  date: BigInt! # uint256
+  amount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type AssetToppedUp @entity(immutable: true) {
+  id: Bytes!
+  assetId: BigInt! # uint256
+  date: BigInt! # uint256
+  amount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type AssetWithdrawn @entity(immutable: true) {
+  id: Bytes!
+  savingId: BigInt! # uint256
+  assetId: BigInt! # uint256
+  date: BigInt! # uint256
+  amount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
 type OwnershipTransferred @entity(immutable: true) {
   id: Bytes!
   previousOwner: Bytes! # address
   newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SavingCompleted @entity(immutable: true) {
+  id: Bytes!
+  DigitSaveAccount_id: BigInt! # uint256
+  date: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SavingCreated @entity(immutable: true) {
+  id: Bytes!
+  DigitSaveAccount_id: BigInt! # uint256
+  date: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
