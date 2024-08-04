@@ -5,25 +5,22 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: DigitSaveFactory
+    name: DigitSaveStorage
     network: base-sepolia
     source:
-      address: "0xc6Bb6bD945Af880fab19B5fbaC0D8e42a8942E12"
-      abi: DigitSaveFactory
-      startBlock: 11672717
+      address: "0xFD0D395CA4E8b22f657F55e635F4D27D987BeFC0"
+      abi: DigitSaveStorage
+      startBlock: 11672697
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - SavingsAccountOwnershipTransfered
-        - SavingsContractCreated
+        - OwnershipTransferred
       abis:
-        - name: DigitSaveFactory
-          file: ./abis/DigitSaveFactory.json
+        - name: DigitSaveStorage
+          file: ./abis/DigitSaveStorage.json
       eventHandlers:
-        - event: SavingsAccountOwnershipTransfered(indexed address,indexed address,indexed uint256)
-          handler: handleSavingsAccountOwnershipTransfered
-        - event: SavingsContractCreated(indexed address,indexed address,indexed uint256)
-          handler: handleSavingsContractCreated
-      file: ./src/digit-save-factory.ts
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/digit-save-storage.ts
