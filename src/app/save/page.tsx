@@ -12,7 +12,7 @@ import {
   useWatchContractEvent,
 } from "wagmi";
 import { factoryContractAddrs, digitsafeAcctContractAddrs } from "@/constants";
-import { DigitsaveAcctAbi } from "@/abis/DigitsaveAcctContractAbi";
+import { DigitsaveAcctAbi } from "@/abis/DigitsaveAccountAbi";
 import { FactoryAbi } from "@/abis/FactoryContractAbi";
 import { base, baseSepolia } from "wagmi/chains";
 import {

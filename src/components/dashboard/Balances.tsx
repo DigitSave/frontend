@@ -23,7 +23,11 @@ export default function Balances() {
 
             <div className="flex justify-between item-center">
                 <p className='text-xs'>You gained +$32.004 in the past 7 days</p>
-                {pathname == '/save' && <Link href="/save" className={`flex gap-2 items-center justify-center rounded-lg border border-secondry-6 text-secondry-6 w-44 py-2 px-5 `}>
+                {pathname == '/dashboard' && <Link href="/save" className={`flex gap-2 items-center justify-center rounded-lg border border-secondry-6 text-secondry-6 w-44 py-2 px-5 `}>
+                    start saving
+                </Link>}
+
+                {pathname == '/save' && <Link href="/create-save" className={`flex gap-2 items-center justify-center rounded-lg border border-secondry-6 text-secondry-6 w-44 py-2 px-5 `}>
                     create savelock
                 </Link>}
             </div>
