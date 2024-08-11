@@ -6,11 +6,19 @@ import { WagmiProvider } from 'wagmi'
 import '@rainbow-me/rainbowkit/styles.css';
 import { AuthenticationStatus, RainbowKitAuthenticationProvider, RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
 import { RainbowKitSiweNextAuthProvider, GetSiweMessageOptions } from '@rainbow-me/rainbowkit-siwe-next-auth';
-import { SessionProvider } from 'next-auth/react';
+// import { SessionProvider } from 'next-auth/react';
 import { config } from '@/wagmi'
 import { createAuthenticationAdapter } from '@rainbow-me/rainbowkit';
 import { SiweMessage } from 'siwe';
+import { Client, Provider as UrqlProvider, cacheExchange, fetchExchange } from 'urql';
 
+const APIURL = "https://api.studio.thegraph.com/query/85604/digitsave/version/latest"
+
+
+const client = new Client({
+  url: APIURL,
+  exchanges: [cacheExchange, fetchExchange],
+});
 
 export function Providers(props: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient())
@@ -76,7 +84,7 @@ export function Providers(props: { children: ReactNode }) {
               theme={darkTheme(
                 {
                   accentColor: '#008080',
-                  accentColorForeground: '#C4C4C4',
+                  accentColorForeground: 'white',
                   borderRadius: 'medium',
                   fontStack: 'system',
                   overlayBlur: 'small',
@@ -85,10 +93,12 @@ export function Providers(props: { children: ReactNode }) {
               modalSize="compact"
               appInfo={{
                 appName: 'DigitSave',
-                learnMoreUrl: 'https://digitsave.onrender.com/#faq',
+                // learnMoreUrl: 'https://digitsave.onrender.com/#faq',
               }}
             >
+              <UrqlProvider value={client}>
               {props.children}
+              </UrqlProvider>
             </RainbowKitProvider>
           {/* </RainbowKitAuthenticationProvider> */}
           {/* </RainbowKitSiweNextAuthProvider> */}
