@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { HamburgerIcon, LogoIcon } from "../../icon.js";
+import { CloseIcon, HamburgerIcon, LogoIcon } from "../../icon.js";
 import { BlueCreateWalletButton } from "./BlueCreateWalletButton";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Link as ScrollLink } from "react-scroll";
@@ -91,65 +91,66 @@ export default function Header() {
           </nav>
 
           {/* Mobile Nav menu */}
-          <div className="lg:hidden">
+          <div className="lg:hidden flex gap-6">
+            <ConnectButton showBalance={false} />
             <button onClick={() => setNavOpen(!navOpen)}>
-              <HamburgerIcon />
+              {navOpen ? <CloseIcon /> : <HamburgerIcon />}
             </button>
           </div>
         </div>
       </div>
 
       {/* mobile nav */}
-      {navOpen && (
-        <nav
-          className={` lg:hidden absolute top-20 right-0 flex flex-col gap-2 items-left bg-neutral`}
-        >
-          <ul className="flex flex-col gap-2 text-neutral-3">
-            <ScrollLink
-              to="learn"
-              spy={true}
-              smooth={true}
-              duration={500}
-              className="cursor-pointer hover:text-white transition-colors duration-300"
-            >
-              Learn
-            </ScrollLink>
+      {/* {navOpen && ( */}
+      <nav
+        className={`lg:hidden absolute top-20 right-0 ${navOpen ? "flex" : "hidden"} flex-col gap-4 items-left bg-tertiary-0 w-full px-6 py-6 transition-all duration-500 ease-in-out`}
+      >
+        <ul className="flex flex-col gap-2 text-neutral-3">
+          <ScrollLink
+            to="learn"
+            spy={true}
+            smooth={true}
+            duration={500}
+            className="cursor-pointer hover:text-white hover:bg-[#2B2B2B4D] py-4 px-4 transition-colors duration-300"
+          >
+            Learn
+          </ScrollLink>
 
-            <ScrollLink
-              to="about"
-              spy={true}
-              smooth={true}
-              duration={500}
-              className="cursor-pointer hover:text-white transition-colors duration-300"
-            >
-              About Us
-            </ScrollLink>
+          <ScrollLink
+            to="about"
+            spy={true}
+            smooth={true}
+            duration={500}
+            className="cursor-pointer hover:text-white  hover:bg-[#2B2B2B4D] py-4 px-4 transition-colors duration-300"
+          >
+            About Us
+          </ScrollLink>
 
-            <ScrollLink
-              to="assets"
-              spy={true}
-              smooth={true}
-              duration={500}
-              className="cursor-pointer hover:text-white transition-colors duration-300"
-            >
-              Crypto Assets
-            </ScrollLink>
+          <ScrollLink
+            to="assets"
+            spy={true}
+            smooth={true}
+            duration={500}
+            className="cursor-pointer hover:text-white hover:bg-[#2B2B2B4D] py-4 px-4 transition-colors duration-300"
+          >
+            Crypto Assets
+          </ScrollLink>
 
-            <ScrollLink
-              to="faq"
-              spy={true}
-              smooth={true}
-              duration={500}
-              className="cursor-pointer hover:text-white transition-colors duration-300"
-            >
-              FAQ
-            </ScrollLink>
-          </ul>
+          <ScrollLink
+            to="faq"
+            spy={true}
+            smooth={true}
+            duration={500}
+            className="cursor-pointer hover:text-white  hover:bg-[#2B2B2B4D] py-4 px-4 transition-colors duration-300"
+          >
+            FAQ
+          </ScrollLink>
+        </ul>
 
-          <BlueCreateWalletButton label="Create Wallet" coinbaseLogo={true} />
-          <ConnectButton showBalance={false} />
-        </nav>
-      )}
+        <BlueCreateWalletButton label="Create Wallet" coinbaseLogo={true} />
+        {/* <ConnectButton showBalance={false} /> */}
+      </nav>
+      {/* )} */}
     </header>
   );
 }
