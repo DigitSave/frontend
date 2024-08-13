@@ -41,7 +41,7 @@ export default function Home() {
               href="/dashboard"
               className=" text-center py-4 px-10 mt-10 inline-block rounded-lg bg-primary-0 text-neutral-1 bg-custom text-xl font-bold"
             >
-              Lunch App
+              Launch App
             </Link>
           </div>
 

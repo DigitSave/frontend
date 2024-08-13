@@ -5,7 +5,7 @@ import { FactoryAbi } from '@/abis/FactoryContractAbi'
 
 export function FetchSavingsAcct() {
 
-    const { address } = useAccount();
+    const { address, chainId } = useAccount();
     const chain = process.env.NODE_ENV === 'development' ? baseSepolia : process.env.NODE_ENV === 'production' ? base : baseSepolia;
 
     // fetch users contract >> savings account
@@ -14,7 +14,7 @@ export function FetchSavingsAcct() {
         address: factoryContractAddrs,
         functionName: 'userSavingsContracts',
         args: [address],
-        chainId: chain.id,
+        chainId,
     });
 
     // if (data) {

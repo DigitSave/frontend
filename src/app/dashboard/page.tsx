@@ -32,7 +32,7 @@ import { useQuery } from "urql";
 import { activitiesQuery } from "@/queries/activitiesQuery";
 
 export default function Dashboard() {
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, chainId } = useAccount();
 
   const activities = activitiesQuery(address);
   const [result, reexecuteQuery] = useQuery({
@@ -64,7 +64,7 @@ export default function Dashboard() {
     address: factoryContractAddrs,
     functionName: "userSavingsContracts",
     args: [address],
-    chainId: chain.id,
+    chainId,
   });
 
   // validates if user has created a savings account
@@ -80,7 +80,7 @@ export default function Dashboard() {
     abi: FactoryAbi,
     address: factoryContractAddrs,
     functionName: "createSavingsAccount",
-    chainId: chain.id,
+    chainId,
   });
   const { writeContract, isPending } = useWriteContract();
 
@@ -101,20 +101,10 @@ export default function Dashboard() {
                 <FileIcon />
               </div>
               <p className="mx-auto text-neutral-6 w-4/5">
-                If you don’t have a savings account yet, create a wallet or
-                connect a wallet you already own to to create a savings account
-                and start saving.
+                Connect your wallet to start saving.
               </p>
 
-              <p className="mx-auto text-neutral-6 w-4/5">
-                If you already have a savings account connect your wallet to
-                view savings.
-              </p>
               <div className="flex justify-center gap-6">
-                <BlueCreateWalletButton
-                  label="Create Wallet"
-                  coinbaseLogo={true}
-                />
                 <ConnectButton showBalance={false} />
               </div>
             </div>
@@ -245,12 +235,15 @@ export default function Dashboard() {
             <div className="flex justify-center w-full">
               <FileIcon />
             </div>
+
+            <p className="text-neutral-3 text-xl font-medium">
+              No savings Account found
+            </p>
             <p className="mx-auto text-neutral-6 w-2/5">
-              You don’t have a savings account yet, click on the button below to
-              create an account
+              You don’t have a savings account yet.
             </p>
             <button
-              className={`mx-auto mt-10 flex gap-2 items-center font-semibold  justify-center rounded-md bg-primary-0 text-neutral-3  py-4 px-12 ${
+              className={`mx-auto mt-10 flex gap-2 items-center font-semibold  justify-center rounded-md bg-primary-0 text-white  py-4 px-12 ${
                 !Boolean(createSavingsAccount?.request)
                   ? "cursor-not-allowed"
                   : "cursor-pointer"
