@@ -14,7 +14,6 @@ export function FetchSavingsAcct() {
         address: factoryContractAddrs,
         functionName: 'userSavingsContracts',
         args: [address],
-        chainId,
     });
 
     // if (data) {

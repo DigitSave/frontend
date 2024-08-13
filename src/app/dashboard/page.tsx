@@ -8,31 +8,23 @@ import {
   useWriteContract,
   useSimulateContract,
   useReadContract,
-  useWatchContractEvent,
 } from "wagmi";
 import { factoryContractAddrs } from "@/constants";
 import { FactoryAbi } from "@/abis/FactoryContractAbi";
-import { base, baseSepolia } from "wagmi/chains";
 import { Circle, FileIcon, WalletIconPlain } from "@/icon";
-import Image from "next/image";
 import { isValidAddress } from "@/utils/validateAddress";
 import OverviewLoader from "@/components/dashboard/Loaders/OverviewLoader";
-import { ethers } from "ethers";
-import { getEventSignature } from "@/utils/getEventSignature";
-import { config } from "@/wagmi";
 import { toRelativeTime, toFormattedDate } from "@/utils/dateFormat";
 import ActivityLoader from "@/components/dashboard/Loaders/ActivityLoader";
 import Balances from "@/components/dashboard/Balances";
-import { BlueCreateWalletButton } from "@/components/front/BlueCreateWalletButton";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import GuestLayout from "@/components/dashboard/GuestLayout";
 import Assets from "@/components/dashboard/Assets";
-import { chain } from "@/utils/chain";
 import { useQuery } from "urql";
 import { activitiesQuery } from "@/queries/activitiesQuery";
 
 export default function Dashboard() {
-  const { address, isConnected, chainId } = useAccount();
+  const { address, isConnected } = useAccount();
 
   const activities = activitiesQuery(address);
   const [result, reexecuteQuery] = useQuery({
@@ -64,7 +56,6 @@ export default function Dashboard() {
     address: factoryContractAddrs,
     functionName: "userSavingsContracts",
     args: [address],
-    chainId,
   });
 
   // validates if user has created a savings account
@@ -80,7 +71,6 @@ export default function Dashboard() {
     abi: FactoryAbi,
     address: factoryContractAddrs,
     functionName: "createSavingsAccount",
-    chainId,
   });
   const { writeContract, isPending } = useWriteContract();
 
@@ -96,7 +86,7 @@ export default function Dashboard() {
 
         {!isConnected && (
           <GuestLayout>
-            <div className="flex w-full flex-col item-center py-10 justify-center text-center gap-6">
+            <div className="flex w-full flex-col item-center py-10 justify-center text-center gap-6 min-h-[350px]">
               <div className="flex justify-center w-full">
                 <FileIcon />
               </div>

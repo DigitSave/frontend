@@ -2,19 +2,16 @@
 
 import Header from "@/components/dashboard/Header";
 import Sidebar from "@/components/dashboard/Sidebar";
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import React from "react";
 import {
   useAccount,
   useWriteContract,
   useSimulateContract,
   useReadContract,
-  useWatchContractEvent,
 } from "wagmi";
-import { factoryContractAddrs, digitsafeAcctContractAddrs } from "@/constants";
+import { factoryContractAddrs } from "@/constants";
 import { DigitsaveAcctAbi } from "@/abis/DigitsaveAccountAbi";
 import { FactoryAbi } from "@/abis/FactoryContractAbi";
-import { base, baseSepolia } from "wagmi/chains";
 import {
   Circle,
   FileIcon,
@@ -23,25 +20,16 @@ import {
   SearchIcon,
   WalletIconPlain,
 } from "@/icon";
-import Image from "next/image";
 import { isValidAddress } from "@/utils/validateAddress";
 import OverviewLoader from "@/components/dashboard/Loaders/OverviewLoader";
-import { ethers } from "ethers";
-import { getEventSignature } from "@/utils/getEventSignature";
-import { config } from "@/wagmi";
-import { getEthersProvider } from "@/ethersProvider";
-import { toRelativeTime, toFormattedDate } from "@/utils/dateFormat";
-import SingleActivityLoader from "@/components/dashboard/Loaders/ActivityLoader";
 import Balances from "@/components/dashboard/Balances";
 import Link from "next/link";
 import GuestLayout from "@/components/dashboard/GuestLayout";
-import { BlueCreateWalletButton } from "@/components/front/BlueCreateWalletButton";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Assets from "@/components/dashboard/Assets";
-import { chain } from "@/utils/chain";
 
 export default function Save() {
-  const { isConnected, address, chainId } = useAccount();
+  const { isConnected, address } = useAccount();
 
   // fetch users contract >> savings account
   const {
@@ -53,7 +41,6 @@ export default function Save() {
     address: factoryContractAddrs,
     functionName: "userSavingsContracts",
     args: [address],
-    chainId,
   });
 
   // validates if user has created a savings account
@@ -66,7 +53,6 @@ export default function Save() {
     abi: FactoryAbi,
     address: factoryContractAddrs,
     functionName: "createSavingsAccount",
-    chainId,
   });
   const { writeContract, isPending } = useWriteContract();
 
@@ -79,7 +65,6 @@ export default function Save() {
     abi: DigitsaveAcctAbi,
     address: savingsAcct,
     functionName: "savingId",
-    chainId,
   });
 
   // validates if user has atleast 1 savings
@@ -99,7 +84,7 @@ export default function Save() {
         {/* guest */}
         {!isConnected && (
           <GuestLayout>
-            <div className="flex w-full flex-col item-center py-10 justify-center text-center gap-6">
+            <div className="flex w-full flex-col item-center py-10 justify-center text-center gap-6 min-h-[350px]">
               <div className="flex justify-center w-full">
                 <FileIcon />
               </div>

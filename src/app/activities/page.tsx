@@ -5,8 +5,7 @@ import Sidebar from '@/components/dashboard/Sidebar'
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/navigation';
 import { useAccount } from 'wagmi';
-import Image from 'next/image';
-import { Circle, EyeIcon, WalletIconPlain } from '@/icon';
+import { Circle, WalletIconPlain } from '@/icon';
 
 
 export default function Activities() {
