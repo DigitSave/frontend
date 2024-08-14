@@ -22,9 +22,17 @@ import GuestLayout from "@/components/dashboard/GuestLayout";
 import Assets from "@/components/dashboard/Assets";
 import { useQuery } from "urql";
 import { activitiesQuery } from "@/queries/activitiesQuery";
+import { DigitsaveAcctAbi } from "@/abis/DigitsaveAccountAbi";
+import { getEthersProvider } from "@/ethersProvider";
+import { config } from "@/wagmi";
+import { ethers } from "ethers";
 
 export default function Dashboard() {
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, chainId } = useAccount();
+  const [savings, setSavings] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [nextSavingId, setNextSavingId] = useState<number | null>(null);
+  const provider = getEthersProvider(config);
 
   const activities = activitiesQuery(address);
   const [result, reexecuteQuery] = useQuery({
@@ -39,13 +47,6 @@ export default function Dashboard() {
 
   const { data: activitiesData, fetching, error: activitiesError } = result;
 
-  // console.log(
-  //   activitiesData,
-  //   Object.values(activitiesData).every(
-  //     (arr) => Array.isArray(arr) && (arr as unknown[]).length === 0
-  //   )
-  // );
-
   // fetch users contract >> savings account
   const {
     data: savingsAcct,
@@ -57,6 +58,86 @@ export default function Dashboard() {
     functionName: "userSavingsContracts",
     args: [address],
   });
+
+  // Fetch nextAssetId using useReadContract
+  const {
+    data: nextSavingIdData,
+    error: errorSavingId,
+    isLoading: isLoadingSavingId,
+  } = useReadContract({
+    abi: DigitsaveAcctAbi,
+    address: savingsAcct,
+    functionName: "savingId",
+    args: [],
+  });
+
+  console.log(savings);
+
+  useEffect(() => {
+    if (nextSavingIdData) {
+      setNextSavingId(parseInt(nextSavingIdData.toString()));
+    }
+  }, [nextSavingIdData]);
+
+  useEffect(() => {
+    if (nextSavingId !== null) {
+      const fetchAllAssets = async () => {
+        try {
+          const savingPromises = [];
+          for (let i = 1; i < nextSavingId; i++) {
+            // Create a new promise for each asset fetch
+            savingPromises.push(
+              (async () => {
+                const contract = new ethers.Contract(
+                  savingsAcct,
+                  DigitsaveAcctAbi,
+                  provider
+                );
+                
+                const filter = {
+                  address: savingsAcct,
+                  topics: [
+                    ethers.utils.id("SavingCreated(uint256,uint256)"),
+                    ethers.utils.hexZeroPad(ethers.utils.hexlify(i), 32),
+                  ],
+                  fromBlock: 13767310,
+                  toBlock: 13767310,
+                };
+
+                console.log(filter)
+                const [savingData, savingEvent] = await Promise.all([
+                  contract.savings(i),
+                  provider?.getLogs(filter)
+                ]);
+
+                return {
+                  id: savingData.id.toString(),
+                  totalDepositInUSD: savingData.totalDepositInUSD.toString(),
+                  totalWithdrawnInUSD:
+                    savingData.totalWithdrawnInUSD.toString(),
+                  totalAssetLocked: savingData.totalAssetLocked.toString(),
+                  lockPeriod: savingData.lockPeriod,
+                  isCompleted: savingData.isCompleted,
+                  name: savingData.name,
+                  eventLog: savingEvent,
+                };
+              })()
+            );
+          }
+
+          // Wait for all promises to resolve
+          const savingsData = await Promise.all(savingPromises);
+          setSavings(savingsData);
+        } catch (error) {
+          console.error("Error fetching assets:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchAllAssets();
+    }
+  }, [nextSavingId, chainId]);
 
   // validates if user has created a savings account
   const isAddressValid = savingsAcct ? isValidAddress(savingsAcct) : false;
@@ -72,7 +153,9 @@ export default function Dashboard() {
     address: factoryContractAddrs,
     functionName: "createSavingsAccount",
   });
+
   const { writeContract, isPending } = useWriteContract();
+
 
   return (
     <main className="text-neutral-2">
@@ -161,7 +244,35 @@ export default function Dashboard() {
                             {fetching ? "Loading..." : "Refresh"}
                           </button>
                         </div>
-                      )}
+                    )}
+
+                    {savings.map((saving, index) => (
+                      <div key={index} className="text-sm p-6">
+                        <div className="flex flex-col gap-6">
+                          <div className="flex gap-8 justify-between items-center">
+                            <div className="flex gap-4">
+                              <WalletIconPlain />
+                              <div className="flex flex-col gap-1 ">
+                                <p><b>{ethers.utils.parseBytes32String(saving.name)}</b> Save created</p>
+                                <p className="text-xs">
+                                  Lock period due in :{" "}
+                                  {toRelativeTime(saving.lockPeriod)}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div className="flex gap-2 py-1 px-3 items-center bg-tertiary-7 rounded-xl">
+                              <Circle />
+                              <p>Successful</p>
+                            </div>
+
+                            <p>manage</p>
+
+                            <p>{toFormattedDate(parseInt(`${ethers.BigNumber.from(saving.eventLog[0].topics[2])}`))}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
 
                     {activitiesData !== undefined &&
                       activitiesData.savingsContractCreateds[0] && (
