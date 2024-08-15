@@ -6,7 +6,6 @@ import { BaseError, useReadContract } from "wagmi";
 import { useAccount } from "wagmi";
 import { StorageContractAbi } from "@/abis/StorageContractAbi";
 import { assetsDetails, storageContractAddrs } from "@/constants";
-import { chain } from "@/utils/chain";
 import { getEthersProvider } from "@/ethersProvider";
 import { config } from "@/wagmi";
 import { ethers } from "ethers";
@@ -19,7 +18,7 @@ export default function Assets() {
   const [nextAssetId, setNextAssetId] = useState<number | null>(null);
   const provider = getEthersProvider(config);
 
-  const { chainId, isDisconnected } = useAccount();
+  const { chainId, isConnected } = useAccount();
   // Fetch nextAssetId using useReadContract
   const {
     data: nextAssetIdData,
@@ -32,7 +31,7 @@ export default function Assets() {
     args: [],
   });
 
-  console.log(assets);
+  // console.log(assets);
   useEffect(() => {
     if (nextAssetIdData) {
       setNextAssetId(parseInt(nextAssetIdData.toString()));
@@ -87,9 +86,9 @@ export default function Assets() {
   if (isLoadingAssetId || loading) return <AssetsLoader />;
   // if (errorAssetId) return <div>Error: {errorAssetId.message}</div>;
 
-  console.log(nextAssetId);
+  // console.log(nextAssetId);
 
-  return !isDisconnected && chainId ? (
+  return !isConnected && chainId ? (
     <div className="w-2/5 flex flex-col gap-4">
       <p className="font-semibold">Supported assets</p>
       {/* {errorAssetId && (
@@ -137,20 +136,7 @@ export default function Assets() {
                         // @ts-ignore
                         assetsDetails[`${chainId}`][asset.assetAddress].decimal
                     }
-                    decimalScale={
-                      asset.price /
-                        10 **
-                          // @ts-ignore
-                          assetsDetails[chainId][asset.assetAddress].decimal &&
-                      (asset.price /
-                        10 **
-                          // @ts-ignore
-                          assetsDetails[chainId][asset.assetAddress].decimal) %
-                        1 ===
-                        0
-                        ? 0
-                        : 2
-                    }
+                    decimalScale={2}
                     fixedDecimalScale={
                       asset.price /
                         10 **
@@ -221,16 +207,7 @@ export default function Assets() {
                       // @ts-ignore
                       10 ** assetsDetails[84532][asset.assetAddress].decimal
                     }
-                    decimalScale={
-                      (asset.price / 10) * // @ts-ignore
-                        assetsDetails[84532][asset.assetAddress].decimal &&
-                      ((asset.price / 10) * // @ts-ignore
-                        assetsDetails[84532][asset.assetAddress].decimal) %
-                        1 ===
-                        0
-                        ? 0
-                        : 2
-                    }
+                    decimalScale={2}
                     fixedDecimalScale={
                       asset.price /
                         10 **
@@ -240,7 +217,7 @@ export default function Assets() {
                         // @ts-ignore
                         10 **
                           // @ts-ignore
-                          assetsDetails[chainId][asset.assetAddress].decimal) %
+                          assetsDetails[84532][asset.assetAddress].decimal) %
                         1 ===
                         0
                         ? true
