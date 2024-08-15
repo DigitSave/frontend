@@ -3,6 +3,7 @@ import { base, baseSepolia } from 'wagmi/chains';
 import { connectorsForWallets } from '@rainbow-me/rainbowkit';
 // import { coinbaseWallet, } from 'wagmi/connectors';
 import {coinbaseWallet} from '@rainbow-me/rainbowkit/wallets';
+import { walletConnect } from 'wagmi/connectors';
 
 
 const connectors = connectorsForWallets(
@@ -18,6 +19,10 @@ const connectors = connectorsForWallets(
   }
 );
 
+const connector = walletConnect({ 
+  projectId: '3fcc6bba6f1de962d911bb5b5c3dba68',
+})
+
 
 export const config = createConfig({
   // chains: process.env.NODE_ENV === 'development' ? 
@@ -32,6 +37,12 @@ export const config = createConfig({
   // ],
   
   connectors,
+
+  // connectors: [
+  //   walletConnect({
+  //     projectId: '8295474d8fcf463107e5ef7380cb2f8e',
+  //   }),
+  // ],
   ssr: true,
   transports: {
     [baseSepolia.id]: http(),

@@ -82,11 +82,18 @@ export default function Header() {
             </ul>
 
             <div className="flex gap-6">
-              <BlueCreateWalletButton
-                label="Create Wallet"
-                coinbaseLogo={true}
-              />
-              <ConnectButton showBalance={false} />
+              <Link
+                href="/dashboard"
+                className={`text-center py-3 px-8 rounded-lg text-neutral-1 transition-all duration-100 ${
+                  scrolled
+                    ? "bg-transparent border border-neutral-1"
+                    : "bg-btn-gradient-0"
+                } font-semibold`}
+              >
+                Launch App
+              </Link>
+              {/* <BlueCreateWalletButton label="Create Wallet" coinbaseLogo={true} /> */}
+              {/* <ConnectButton showBalance={false} /> */}
             </div>
           </nav>
 
@@ -149,6 +156,12 @@ export default function Header() {
 
         <BlueCreateWalletButton label="Create Wallet" coinbaseLogo={true} />
         {/* <ConnectButton showBalance={false} /> */}
+        <Link
+          href="/dashboard"
+          className=" text-center py-3 px-8 rounded-lg bg-primary-0 text-neutral-1 bg-custom font-semibold"
+        >
+          Launch App
+        </Link>
       </nav>
       {/* )} */}
     </header>

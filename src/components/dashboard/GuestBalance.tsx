@@ -26,7 +26,7 @@ export default function GuestBalance() {
             <div className='flex flex-col gap-4'>
                 <span className='text-sm text-neutral-6'>Intrest Balance</span>
                 <p className='font-bold font-swiss text-4xl text-neutral-6'>$0.00</p>
-                <span className='pt-2 text-neutral-3'>Feature coming soon</span>
+                {/* <span className='pt-2 text-neutral-3'>Feature coming soon</span>  */}
 
             </div>
 

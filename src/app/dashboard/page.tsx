@@ -8,31 +8,32 @@ import {
   useWriteContract,
   useSimulateContract,
   useReadContract,
-  useWatchContractEvent,
 } from "wagmi";
 import { factoryContractAddrs } from "@/constants";
 import { FactoryAbi } from "@/abis/FactoryContractAbi";
-import { base, baseSepolia } from "wagmi/chains";
 import { Circle, FileIcon, WalletIconPlain } from "@/icon";
-import Image from "next/image";
 import { isValidAddress } from "@/utils/validateAddress";
 import OverviewLoader from "@/components/dashboard/Loaders/OverviewLoader";
-import { ethers } from "ethers";
-import { getEventSignature } from "@/utils/getEventSignature";
-import { config } from "@/wagmi";
 import { toRelativeTime, toFormattedDate } from "@/utils/dateFormat";
 import ActivityLoader from "@/components/dashboard/Loaders/ActivityLoader";
 import Balances from "@/components/dashboard/Balances";
-import { BlueCreateWalletButton } from "@/components/front/BlueCreateWalletButton";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import GuestLayout from "@/components/dashboard/GuestLayout";
 import Assets from "@/components/dashboard/Assets";
-import { chain } from "@/utils/chain";
 import { useQuery } from "urql";
 import { activitiesQuery } from "@/queries/activitiesQuery";
+import { DigitsaveAcctAbi } from "@/abis/DigitsaveAccountAbi";
+import { getEthersProvider } from "@/ethersProvider";
+import { config } from "@/wagmi";
+import { ethers } from "ethers";
+import Link from "next/link";
 
 export default function Dashboard() {
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, chainId } = useAccount();
+  const [savings, setSavings] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [nextSavingId, setNextSavingId] = useState<number | null>(null);
+  const provider = getEthersProvider(config);
 
   const activities = activitiesQuery(address);
   const [result, reexecuteQuery] = useQuery({
@@ -47,13 +48,6 @@ export default function Dashboard() {
 
   const { data: activitiesData, fetching, error: activitiesError } = result;
 
-  // console.log(
-  //   activitiesData,
-  //   Object.values(activitiesData).every(
-  //     (arr) => Array.isArray(arr) && (arr as unknown[]).length === 0
-  //   )
-  // );
-
   // fetch users contract >> savings account
   const {
     data: savingsAcct,
@@ -64,8 +58,87 @@ export default function Dashboard() {
     address: factoryContractAddrs,
     functionName: "userSavingsContracts",
     args: [address],
-    chainId: chain.id,
   });
+
+  // Fetch nextAssetId using useReadContract
+  const {
+    data: nextSavingIdData,
+    error: errorSavingId,
+    isLoading: isLoadingSavingId,
+  } = useReadContract({
+    abi: DigitsaveAcctAbi,
+    address: savingsAcct,
+    functionName: "savingId",
+    args: [],
+  });
+
+  console.log(savings);
+
+  useEffect(() => {
+    if (nextSavingIdData) {
+      setNextSavingId(parseInt(nextSavingIdData.toString()));
+    }
+  }, [nextSavingIdData]);
+
+  useEffect(() => {
+    if (nextSavingId !== null) {
+      const fetchAllSavings = async () => {
+        try {
+          const savingPromises = [];
+          for (let i = 1; i < nextSavingId; i++) {
+            // Create a new promise for each asset fetch
+            savingPromises.push(
+              (async () => {
+                const contract = new ethers.Contract(
+                  savingsAcct,
+                  DigitsaveAcctAbi,
+                  provider
+                );
+                
+                const filter = {
+                  address: savingsAcct,
+                  topics: [
+                    ethers.utils.id("SavingCreated(uint256,uint256)"),
+                    ethers.utils.hexZeroPad(ethers.utils.hexlify(i), 32),
+                  ],
+                  fromBlock: 13767310,
+                  toBlock: 13767310,
+                };
+
+                console.log(filter)
+                const [savingData, savingEvent] = await Promise.all([
+                  contract.savings(i),
+                  provider?.getLogs(filter)
+                ]);
+
+                return {
+                  id: savingData.id.toString(),
+                  totalDepositInUSD: savingData.totalDepositInUSD.toString(),
+                  totalWithdrawnInUSD:
+                    savingData.totalWithdrawnInUSD.toString(),
+                  totalAssetLocked: savingData.totalAssetLocked.toString(),
+                  lockPeriod: savingData.lockPeriod,
+                  isCompleted: savingData.isCompleted,
+                  name: savingData.name,
+                  eventLog: savingEvent,
+                };
+              })()
+            );
+          }
+
+          // Wait for all promises to resolve
+          const savingsData = await Promise.all(savingPromises);
+          setSavings(savingsData);
+        } catch (error) {
+          console.error("Error fetching assets:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchAllSavings();
+    }
+  }, [nextSavingId, chainId]);
 
   // validates if user has created a savings account
   const isAddressValid = savingsAcct ? isValidAddress(savingsAcct) : false;
@@ -80,9 +153,10 @@ export default function Dashboard() {
     abi: FactoryAbi,
     address: factoryContractAddrs,
     functionName: "createSavingsAccount",
-    chainId: chain.id,
   });
+
   const { writeContract, isPending } = useWriteContract();
+
 
   return (
     <main className="text-neutral-2">
@@ -96,25 +170,15 @@ export default function Dashboard() {
 
         {!isConnected && (
           <GuestLayout>
-            <div className="flex w-full flex-col item-center py-10 justify-center text-center gap-6">
+            <div className="flex w-full flex-col item-center py-10 justify-center text-center gap-6 min-h-[350px]">
               <div className="flex justify-center w-full">
                 <FileIcon />
               </div>
               <p className="mx-auto text-neutral-6 w-4/5">
-                If you don’t have a savings account yet, create a wallet or
-                connect a wallet you already own to to create a savings account
-                and start saving.
+                Connect your wallet to start saving.
               </p>
 
-              <p className="mx-auto text-neutral-6 w-4/5">
-                If you already have a savings account connect your wallet to
-                view savings.
-              </p>
               <div className="flex justify-center gap-6">
-                <BlueCreateWalletButton
-                  label="Create Wallet"
-                  coinbaseLogo={true}
-                />
                 <ConnectButton showBalance={false} />
               </div>
             </div>
@@ -181,7 +245,38 @@ export default function Dashboard() {
                             {fetching ? "Loading..." : "Refresh"}
                           </button>
                         </div>
-                      )}
+                    )}
+
+                    {savings.map((saving, index) => (
+                      <div key={index} className="text-sm p-6">
+                        <div className="flex flex-col gap-6">
+                          <div className="flex gap-8 justify-between items-center">
+                            <div className="flex gap-4">
+                              <WalletIconPlain />
+                              <div className="flex flex-col gap-1 ">
+                                <p><b>{ethers.utils.parseBytes32String(saving.name)}</b> Save created</p>
+                                <p className="text-xs">
+                                  Lock period due in :{" "}
+                                  {toRelativeTime(saving.lockPeriod)}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div className="flex gap-2 py-1 px-3 items-center bg-tertiary-7 rounded-xl">
+                              <Circle />
+                              <p>Successful</p>
+                            </div>
+
+
+                            <Link href={`/view-save?id=${saving.id}`} className="block">
+                              manage
+                            </Link>
+
+                            <p>{toFormattedDate(parseInt(`${ethers.BigNumber.from(saving.eventLog[0].topics[2])}`))}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
 
                     {activitiesData !== undefined &&
                       activitiesData.savingsContractCreateds[0] && (
@@ -245,12 +340,15 @@ export default function Dashboard() {
             <div className="flex justify-center w-full">
               <FileIcon />
             </div>
+
+            <p className="text-neutral-3 text-xl font-medium">
+              No savings Account found
+            </p>
             <p className="mx-auto text-neutral-6 w-2/5">
-              You don’t have a savings account yet, click on the button below to
-              create an account
+              You don’t have a savings account yet.
             </p>
             <button
-              className={`mx-auto mt-10 flex gap-2 items-center font-semibold  justify-center rounded-md bg-primary-0 text-neutral-3  py-4 px-12 ${
+              className={`mx-auto mt-10 flex gap-2 items-center font-semibold  justify-center rounded-md bg-primary-0 text-white  py-4 px-12 ${
                 !Boolean(createSavingsAccount?.request)
                   ? "cursor-not-allowed"
                   : "cursor-pointer"

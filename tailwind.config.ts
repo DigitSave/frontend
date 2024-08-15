@@ -78,9 +78,55 @@ const config: Config = {
         'btn-gradient-0': 'linear-gradient(90deg, #008080 0%, #9F890E 100%)',
         'btn-gradient-1': 'linear-gradient(90deg, white 0%, #9F890E 100%)',
       },
+      animation: {
+        spin: 'spin 1.5s linear infinite',
+        ring: 'ring 1.5s linear infinite',
+      },
+      keyframes: {
+        spin: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+        ring: {
+          '0%': { transform: 'rotate(0deg) scale(1)' },
+          '100%': { transform: 'rotate(360deg) scale(0.5)' },
+        },
+      },
 
     },
   },
-  plugins: [],
+  plugins: [
+    // @ts-ignore
+    // function ({ addUtilities }) {
+    //   addUtilities({
+    //     '.border-gradient': {
+    //       borderImage: 'linear-gradient(90deg, #00C8C8, #006262) 1',
+    //       borderRadius: '12px',
+    //     },
+    //   })
+    // },
+
+    // function ({ addUtilities }) {
+    //   addUtilities({
+    //     '.border-gradient': {
+    //       position: 'relative',
+    //       overflow: 'hidden',
+    //     },
+    //     '.border-gradient::before': {
+    //       content: '""',
+    //       position: 'absolute',
+    //       top: '0',
+    //       left: '0',
+    //       right: '0',
+    //       bottom: '0',
+    //       zIndex: '-1',
+    //       borderRadius: '12',
+    //       background: 'linear-gradient(90deg, white 0%, #9F890E 100%)',
+    //       padding: '2px', // Adjust this value as needed to create the border effect
+    //     },
+    //   }, ['responsive', 'hover']);
+    // },
+  
+  ],
 };
 export default config;

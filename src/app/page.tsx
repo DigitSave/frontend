@@ -32,22 +32,17 @@ export default function Home() {
               growth.
             </p>
 
-            <div className="flex justify-center md:justify-start w-full">
-              {!isConnected && (
-                <BlueCreateWalletButton
-                  label="Start Saving"
-                  styles="w-52 text-center py-4 px-6 mt-6 mb-14 block rounded-lg bg-primary-0 text-neutral-1 shadow-custom font-bold sm:text-xl text:sm"
-                />
-              )}
-              {isConnected && (
-                <Link
-                  href="/save"
-                  className="w-52 text-center py-4 px-6 mt-6 mb-14 block rounded-lg bg-primary-0 text-neutral-1 shadow-custom font-bold text-xl"
-                >
-                  Start Saving
-                </Link>
-              )}
-            </div>
+
+            {/* {!isConnected && <BlueCreateWalletButton label="Start Saving" styles='w-52 text-center py-4 px-6 mt-6 mb-14 block rounded-lg bg-primary-0 text-neutral-1 shadow-custom font-bold text-xl' />} */}
+
+            {/* {isConnected && <Link href='/save' className='w-52 text-center py-4 px-6 mt-6 mb-14 block rounded-lg bg-primary-0 text-neutral-1 shadow-custom font-bold text-xl'>Start Saving</Link>} */}
+
+            <Link
+              href="/dashboard"
+              className=" text-center py-4 px-10 mt-10 inline-block rounded-lg bg-primary-0 text-neutral-1 bg-custom text-xl font-bold"
+            >
+              Launch App
+            </Link>
           </div>
 
           <div className="md:w-1/2 w-full sm:w-[80%] md:pb-0 pb-10 relative ">
