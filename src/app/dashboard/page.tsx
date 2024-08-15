@@ -26,6 +26,7 @@ import { DigitsaveAcctAbi } from "@/abis/DigitsaveAccountAbi";
 import { getEthersProvider } from "@/ethersProvider";
 import { config } from "@/wagmi";
 import { ethers } from "ethers";
+import Link from "next/link";
 
 export default function Dashboard() {
   const { address, isConnected, chainId } = useAccount();
@@ -81,7 +82,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (nextSavingId !== null) {
-      const fetchAllAssets = async () => {
+      const fetchAllSavings = async () => {
         try {
           const savingPromises = [];
           for (let i = 1; i < nextSavingId; i++) {
@@ -135,7 +136,7 @@ export default function Dashboard() {
         }
       };
 
-      fetchAllAssets();
+      fetchAllSavings();
     }
   }, [nextSavingId, chainId]);
 
@@ -266,7 +267,10 @@ export default function Dashboard() {
                               <p>Successful</p>
                             </div>
 
-                            <p>manage</p>
+
+                            <Link href={`/view-save?id=${saving.id}`} className="block">
+                              manage
+                            </Link>
 
                             <p>{toFormattedDate(parseInt(`${ethers.BigNumber.from(saving.eventLog[0].topics[2])}`))}</p>
                           </div>

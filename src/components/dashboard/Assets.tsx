@@ -136,20 +136,7 @@ export default function Assets() {
                         // @ts-ignore
                         assetsDetails[`${chainId}`][asset.assetAddress].decimal
                     }
-                    decimalScale={
-                      asset.price /
-                        10 **
-                          // @ts-ignore
-                          assetsDetails[chainId][asset.assetAddress].decimal &&
-                      (asset.price /
-                        10 **
-                          // @ts-ignore
-                          assetsDetails[chainId][asset.assetAddress].decimal) %
-                        1 ===
-                        0
-                        ? 0
-                        : 2
-                    }
+                    decimalScale={2}
                     fixedDecimalScale={
                       asset.price /
                         10 **
@@ -220,16 +207,7 @@ export default function Assets() {
                       // @ts-ignore
                       10 ** assetsDetails[84532][asset.assetAddress].decimal
                     }
-                    decimalScale={
-                      (asset.price / 10) * // @ts-ignore
-                        assetsDetails[84532][asset.assetAddress].decimal &&
-                      ((asset.price / 10) * // @ts-ignore
-                        assetsDetails[84532][asset.assetAddress].decimal) %
-                        1 ===
-                        0
-                        ? 0
-                        : 2
-                    }
+                    decimalScale={2}
                     fixedDecimalScale={
                       asset.price /
                         10 **
