@@ -247,7 +247,7 @@ export default function Dashboard() {
                         </div>
                     )}
 
-                    {savings.map((saving, index) => (
+                    {savings.reverse().map((saving, index) => (
                       <div key={index} className="text-sm p-6">
                         <div className="flex flex-col gap-6">
                           <div className="flex gap-8 justify-between items-center">
@@ -256,7 +256,7 @@ export default function Dashboard() {
                               <div className="flex flex-col gap-1 ">
                                 <p><b>{ethers.utils.parseBytes32String(saving.name)}</b> Save created</p>
                                 <p className="text-xs">
-                                  Lock period due in :{" "}
+                                  Lock period due {" "}
                                   {toRelativeTime(saving.lockPeriod)}
                                 </p>
                               </div>
@@ -272,7 +272,7 @@ export default function Dashboard() {
                               manage
                             </Link>
 
-                            <p>{toFormattedDate(parseInt(`${ethers.BigNumber.from(saving.eventLog[0].topics[2])}`))}</p>
+                            {saving.eventLog[0] && <p>{toFormattedDate(parseInt(`${ethers.BigNumber.from(saving.eventLog[0].topics[2])}`))}</p>}
                           </div>
                         </div>
                       </div>
