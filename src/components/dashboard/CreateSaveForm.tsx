@@ -218,7 +218,7 @@ export default function CreateSaveForm() {
         )}
       </Formik>
 
-      {isConfirming && <Modal
+      {isPending && <Modal
     status={<div className="flex justify-center mb-8">
             <div className="relative w-16 h-16 flex justify-center items-center">
               <div className="absolute w-full h-full border-4 border-yellow-500 border-t-transparent border-solid rounded-full animate-spin"></div>
@@ -230,7 +230,7 @@ export default function CreateSaveForm() {
         subtitle="This will only take a few seconds to complete"
       />}
 
-     {isConfirmed && <Modal
+     {hash && <Modal
         status={
           <svg
             width="140"

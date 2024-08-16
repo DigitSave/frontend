@@ -2,7 +2,14 @@
 import React, { useEffect, useState } from "react";
 import Header from "@/components/dashboard/Header";
 import Sidebar from "@/components/dashboard/Sidebar";
-import { BackArrowIcon, ClockIcon, LockIcon, NoOfAssetsIcon, YellowPlusIcon } from "@/icon";
+import {
+  BackArrowIcon,
+  ClockIcon,
+  FileIcon,
+  LockIcon,
+  NoOfAssetsIcon,
+  YellowPlusIcon,
+} from "@/icon";
 import Link from "next/link";
 import { useAccount, useReadContract } from "wagmi";
 import { DigitsaveAcctAbi } from "@/abis/DigitsaveAccountAbi";
@@ -15,6 +22,8 @@ import { useSearchParams } from "next/navigation";
 import { NumericFormat } from "react-number-format";
 import { toRelativeTime } from "@/utils/dateFormat";
 import ProgressBar from "@/components/dashboard/ProgressBar";
+import OverlayLoader from "@/components/dashboard/Loaders/OverlayLoader";
+import AddAssetModal from "@/components/dashboard/AddAssetModal";
 
 type Save = {
   id: number;
@@ -25,6 +34,7 @@ type Save = {
   isCompleted: boolean;
   name: string;
   date: number;
+  assets: [];
 };
 
 export default function ViewSave() {
@@ -34,6 +44,10 @@ export default function ViewSave() {
   const [saving, setSaving] = useState<Save[]>([]);
   const [loading, setLoading] = useState(true);
   const provider = getEthersProvider(config);
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
+
+  const handleOpenModal = () => setModalOpen(true);
+  const handleCloseModal = () => setModalOpen(false);
 
   // fetch users contract >> savings account
   const {
@@ -60,7 +74,12 @@ export default function ViewSave() {
                 provider
               );
 
-              const savingData = await contract.savings(id);
+              // const savingData = await contract.savings(id);
+
+              const [savingData, savingsAssets] = await Promise.all([
+                contract.savings(id),
+                contract.getSavingsAssets(id),
+              ]);
 
               return {
                 id: savingData.id.toString(),
@@ -71,12 +90,15 @@ export default function ViewSave() {
                 isCompleted: savingData.isCompleted,
                 name: savingData.name,
                 date: 1723658675,
+                assets: savingsAssets,
               };
             })()
           );
 
           // Wait for all promises to resolve
           const savingsData = await Promise.all(savingPromise);
+
+          console.log(savingsAcct, id, savingsData);
 
           setSaving(savingsData);
         } catch (error) {
@@ -89,7 +111,6 @@ export default function ViewSave() {
 
       fetchAllSavings();
     }
-    console.log(savingsAcct, id, saving);
   }, [savingsAcct]);
 
   return (
@@ -121,85 +142,87 @@ export default function ViewSave() {
             </p>
           </div>
 
-          <section className="w-full m-h-screen w-4/4 px-6 py-10">
-            <div className="flex gap-4 w-full">
-              <div className="w-3/5 flex flex-col gap-4 p-6 bg-center rounded-lg bg-[url('/images/stats-bg.png')]">
-                <div className="flex gap-8 items-center">
-                  <p className="font-bold font-swiss text-[32px] text-secondry-4">
-                    {saving[0]?.name && (
-                      <b className="">
-                        {ethers.utils.parseBytes32String(saving[0]?.name)}
-                      </b>
-                    )}{" "}
-                    Save
-                  </p>
-                </div>
-
-                <div className="flex flex-1 justify-between gap-3 item-center">
-                  <div className="flex flex-col gap-2">
-                    <div className="flex">
-                      <div className="flex gap-2">
-                        <LockIcon />
-                        <span className="">Safelock Balance</span>
-                      </div>
-                    </div>
-
-                    <p className="font-bold font-swiss text-2xl">
-                      $
-                      <NumericFormat
-                        thousandSeparator
-                        displayType="text"
-                        value={saving[0]?.totalDepositInUSD}
-                        decimalScale={2}
-                        fixedDecimalScale={
-                          parseInt(saving[0]?.totalDepositInUSD) % 1 === 0
-                            ? true
-                            : false
-                        }
-                      />
+          {saving[0]?.assets.length > 0 && (
+            <section className="w-full m-h-screen w-4/4 px-6 py-10">
+              <div className="flex gap-4 w-full">
+                <div className="w-3/5 flex flex-col gap-4 p-6 bg-center rounded-lg bg-[url('/images/stats-bg.png')]">
+                  <div className="flex gap-8 items-center">
+                    <p className="font-bold font-swiss text-[32px] text-secondry-4">
+                      {saving[0]?.name && (
+                        <b className="">
+                          {ethers.utils.parseBytes32String(saving[0]?.name)}
+                        </b>
+                      )}{" "}
+                      Save
                     </p>
                   </div>
 
-                  <div className="flex flex-col gap-2">
-                    <div className="flex">
-                      <div className="flex gap-2">
-                        <NoOfAssetsIcon />
-                        <span className="">No of assets</span>
+                  <div className="flex flex-1 justify-between gap-3 item-center">
+                    <div className="flex flex-col gap-2">
+                      <div className="flex">
+                        <div className="flex gap-2">
+                          <LockIcon />
+                          <span className="">Safelock Balance</span>
+                        </div>
                       </div>
+
+                      <p className="font-bold font-swiss text-2xl">
+                        $
+                        <NumericFormat
+                          thousandSeparator
+                          displayType="text"
+                          value={saving[0]?.totalDepositInUSD}
+                          decimalScale={2}
+                          fixedDecimalScale={
+                            parseInt(saving[0]?.totalDepositInUSD) % 1 === 0
+                              ? true
+                              : false
+                          }
+                        />
+                      </p>
                     </div>
 
-                    <p className="font-bold font-swiss text-2xl">3</p>
-                  </div>
-
-                  <div className="flex flex-col gap-2">
-                    <div className="flex">
-                      <div className="flex gap-2">
-                        <ClockIcon />
-                        <span className="">Save Progress</span>
+                    <div className="flex flex-col gap-2">
+                      <div className="flex">
+                        <div className="flex gap-2">
+                          <NoOfAssetsIcon />
+                          <span className="">No of assets</span>
+                        </div>
                       </div>
+
+                      <p className="font-bold font-swiss text-2xl">3</p>
                     </div>
 
-                    <div className="flex flex-col justify-between gap-2">
-                      <ProgressBar value={60} />
-                      {saving[0]?.lockPeriod && (
-                        <span className="text-neutral-1 text-xs">
-                          Due {toRelativeTime(saving[0]?.lockPeriod)}
-                        </span>
-                      )}{" "}
+                    <div className="flex flex-col gap-2">
+                      <div className="flex">
+                        <div className="flex gap-2">
+                          <ClockIcon />
+                          <span className="">Save Progress</span>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col justify-between gap-2">
+                        <ProgressBar value={60} />
+                        {saving[0]?.lockPeriod && (
+                          <span className="text-neutral-1 text-xs">
+                            Due {toRelativeTime(saving[0]?.lockPeriod)}
+                          </span>
+                        )}{" "}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="w-2/5 p-6  border border-gradient bg-[#131e1e] text-white">
-                <div className="flex flex-col gap-4">
-                  <span className="text-sm">Intrest Balance</span>
-                  <p className="font-bold font-swiss text-4xl">$0.00</p>
-                  {/* <span className='pt-2 text-neutral-3'>Feature coming soon</span> */}
+                <div className="w-2/5 p-6  border border-gradient bg-[#131e1e] text-white">
+                  <div className="flex flex-col gap-4">
+                    <span className="text-sm">Intrest Balance</span>
+                    <p className="font-bold font-swiss text-4xl">$0.00</p>
+                    {/* <span className='pt-2 text-neutral-3'>Feature coming soon</span> */}
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          )}
 
           <section className="w-full m-h-screen w-4/4 px-6 py-10">
             <h1 className="font-swiss text-2xl p-6 border-b border-tertiary-4 w-full">
@@ -207,28 +230,46 @@ export default function ViewSave() {
             </h1>
             <div className="flex flex-col rounded-md gap-4 w-full border border-tertiary-4">
               <div className=" flex flex-row p-6 border-b border-tertiary-4 w-full justify-between item-center">
-                  <h1 className="font-swiss text-2xl ">
-                    My Assets
-                  </h1>
+                <h1 className="font-swiss text-2xl ">My Assets</h1>
 
-                  <div className="flex gap-4 items-center">
-                    <Link
-                      href="/create-save"
-                      className={`flex gap-2 items-center justify-center rounded-lg border border-secondry-3 text-secondry-3 w-44 py-2 px-5 `}
-                    >
-                      <YellowPlusIcon />
-                      Add assets
-                    </Link>
+                <div className="flex gap-4 items-center">
+                  <button
+                    onClick={handleOpenModal}
+                    className={`flex gap-2 items-center justify-center rounded-lg border border-secondry-3 text-secondry-3 w-44 py-2 px-5 `}
+                  >
+                    <YellowPlusIcon />
+                    Add assets
+                  </button>
+                </div>
+              </div>
+
+              {saving[0]?.assets.length === 0 && (
+                <div className="flex w-full py-10 flex-col item-center justify-center text-center gap-6">
+                  <div className="flex justify-center w-full">
+                    <FileIcon />
                   </div>
-              </div>
 
-              <div className="w-3/5 mx-auto py-6">
-                {/* <CreateSaveForm /> */}
-              </div>
+                  <p className="text-neutral-3 text-xl font-medium">
+                    No assets found
+                  </p>
+                  <p className="mx-auto text-neutral-6 w-2/5">
+                    There are no assets here, all assets added will appear here
+                  </p>
+                  <button
+                    className={`mx-auto mt-5 mb-5 flex gap-2 items-center font-semibold  justify-center rounded-md bg-primary-0 text-white  py-4 px-12`}
+                    onClick={handleOpenModal}
+                  >
+                    Add Assets
+                  </button>
+                </div>
+              )}
             </div>
           </section>
         </div>
       </section>
+
+      {loading && <OverlayLoader />}
+      <AddAssetModal isOpen={isModalOpen} onClose={handleCloseModal} />
     </main>
   );
 }
