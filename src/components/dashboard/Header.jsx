@@ -1,41 +1,44 @@
-'use client'
+"use client";
 
 import Link from "next/link";
-import {LogoIcon} from '../../icon.js'
+import { CloseIcon, HamburgerIcon, LogoIcon } from "../../icon.js";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useEffect, useState } from "react";
 
-export default function Header() {
-
+export default function Header({ navOpen, setNavOpen }) {
   const [scrolled, setScrolled] = useState(false);
 
-    useEffect(() => {
-        const handleScroll = () => {
-          const isScrolled = window.scrollY > 0;
-          if (isScrolled !== scrolled) {
-            setScrolled(isScrolled);
-          }
-        };
-    
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-          window.removeEventListener('scroll', handleScroll);
-        };
-      }, [scrolled]);
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 0;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrolled]);
 
   return (
-    <header className='relative w-full h-20 z-50'>
-      <div className={` w-full fixed top-0 left-0 ${scrolled ? 'bg-[#008888]' : ''}  transition-all duration-500 ease-in-out`}>
-
-      <div className="flex justify-between items-center h-20 px-10 md:py-6 md:px-20">
-        <Link href={'/'}>
+    <header className="relative w-full h-20 z-50">
+      <div
+        className={` w-full fixed top-0 left-0 ${scrolled ? "bg-[#008888]" : ""}  transition-all duration-500 ease-in-out`}
+      >
+        <div className="flex justify-between items-center h-20 px-10 md:py-6 lg:px-20">
+          <Link href={"/"}>
             <LogoIcon />
-        </Link>
-        
-        <ConnectButton showBalance={false} />
-      </div>
-
+          </Link>
+          <div className="flex gap-4">
+            <ConnectButton showBalance={false} />
+            <button className="lg:hidden" onClick={() => setNavOpen(!navOpen)}>
+              {navOpen ? <CloseIcon /> : <HamburgerIcon />}
+            </button>
+          </div>
+        </div>
       </div>
     </header>
-  )
+  );
 }

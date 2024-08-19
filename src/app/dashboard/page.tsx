@@ -2,6 +2,7 @@
 
 import Header from "@/components/dashboard/Header";
 import Sidebar from "@/components/dashboard/Sidebar";
+import MobileSidebar from "@/components/dashboard/MobileSidebar";
 import React, { useEffect, useState } from "react";
 import {
   useAccount,
@@ -27,6 +28,7 @@ import { getEthersProvider } from "@/ethersProvider";
 import { config } from "@/wagmi";
 import { ethers } from "ethers";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Dashboard() {
   const { address, isConnected, chainId } = useAccount();
@@ -34,6 +36,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [nextSavingId, setNextSavingId] = useState<number | null>(null);
   const provider = getEthersProvider(config);
+  const [navOpen, setNavOpen] = useState(false);
 
   const activities = activitiesQuery(address);
   const [result, reexecuteQuery] = useQuery({
@@ -94,7 +97,7 @@ export default function Dashboard() {
                   DigitsaveAcctAbi,
                   provider
                 );
-                
+
                 const filter = {
                   address: savingsAcct,
                   topics: [
@@ -105,10 +108,10 @@ export default function Dashboard() {
                   toBlock: 13767310,
                 };
 
-                console.log(filter)
+                console.log(filter);
                 const [savingData, savingEvent] = await Promise.all([
                   contract.savings(i),
-                  provider?.getLogs(filter)
+                  provider?.getLogs(filter),
                 ]);
 
                 return {
@@ -157,17 +160,37 @@ export default function Dashboard() {
 
   const { writeContract, isPending } = useWriteContract();
 
-
   return (
     <main className="text-neutral-2">
-      <Header />
+      <Header navOpen={navOpen} setNavOpen={setNavOpen} />
       <section className="flex min-h-screen border-t border-tertiary-6">
-        <div className="w-1/5">
+        <div className="w-1/5 hidden lg:block">
           <div className="w-1/5 fixed">
             <Sidebar />
           </div>
         </div>
-
+        <AnimatePresence>
+          {navOpen && (
+            <div className="w-full h-screen lg:hidden fixed block  z-20">
+              <div
+                onClick={() => setNavOpen(!navOpen)}
+                className="h-screen w-full cursor-pointer bg-transparent backdrop-blur-sm fixed z-20"
+              ></div>
+              <motion.div
+                exit={{ width: 0, opacity: 0, transition: { duration: 0.6 } }}
+                animate={{
+                  opacity: 1,
+                  transition: { duration: 0.9 },
+                }}
+                initial={{ opacity: 0 }}
+                className=" sm:w-1/3 w-full fixed bg-tertiary-0 z-40"
+              >
+                {" "}
+                <MobileSidebar />
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
         {!isConnected && (
           <GuestLayout>
             <div className="flex w-full flex-col item-center py-10 justify-center text-center gap-6 min-h-[350px]">
@@ -245,7 +268,7 @@ export default function Dashboard() {
                             {fetching ? "Loading..." : "Refresh"}
                           </button>
                         </div>
-                    )}
+                      )}
 
                     {savings.map((saving, index) => (
                       <div key={index} className="text-sm p-6">
@@ -254,7 +277,14 @@ export default function Dashboard() {
                             <div className="flex gap-4">
                               <WalletIconPlain />
                               <div className="flex flex-col gap-1 ">
-                                <p><b>{ethers.utils.parseBytes32String(saving.name)}</b> Save created</p>
+                                <p>
+                                  <b>
+                                    {ethers.utils.parseBytes32String(
+                                      saving.name
+                                    )}
+                                  </b>{" "}
+                                  Save created
+                                </p>
                                 <p className="text-xs">
                                   Lock period due in :{" "}
                                   {toRelativeTime(saving.lockPeriod)}
@@ -267,12 +297,20 @@ export default function Dashboard() {
                               <p>Successful</p>
                             </div>
 
-
-                            <Link href={`/view-save?id=${saving.id}`} className="block">
+                            <Link
+                              href={`/view-save?id=${saving.id}`}
+                              className="block"
+                            >
                               manage
                             </Link>
 
-                            <p>{toFormattedDate(parseInt(`${ethers.BigNumber.from(saving.eventLog[0].topics[2])}`))}</p>
+                            <p>
+                              {toFormattedDate(
+                                parseInt(
+                                  `${ethers.BigNumber.from(saving.eventLog[0].topics[2])}`
+                                )
+                              )}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -306,8 +344,8 @@ export default function Dashboard() {
                                   process.env.NODE_ENV === "development"
                                     ? "sepolia.basescan.org"
                                     : process.env.NODE_ENV === "production"
-                                    ? "basescan.org"
-                                    : "sepolia.basescan.org"
+                                      ? "basescan.org"
+                                      : "sepolia.basescan.org"
                                 }/address/${
                                   activitiesData.savingsContractCreateds[0]
                                     .savingsContract
