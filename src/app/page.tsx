@@ -18,7 +18,7 @@ export default function Home() {
       <main className="w-full min-h-full">
         {/* Hero Section */}
 
-        <div className="md:px-10 lg:px-20 px-6 flex flex-col md:flex-row w-full lg:gap-24 md:gap-10 mt-10 sm:mt-12 lg:py-12 items-center">
+        <div className="md:px-10 lg:px-20 px-6 pb-4 flex flex-col md:flex-row w-full lg:gap-24 md:gap-10 mt-10 sm:mt-12 lg:py-12 items-center">
           <div className="lg:w-1/2 md:w-full font-swiss md:text-left text-center">
             <h1 className="font-bold text-neutral-2 lg:text-5xl sm:text-4xl text-[1.8rem] te leading-10 sm:leading-relaxed">
               Savings that helps you build wealth
@@ -32,7 +32,6 @@ export default function Home() {
               growth.
             </p>
 
-
             {/* {!isConnected && <BlueCreateWalletButton label="Start Saving" styles='w-52 text-center py-4 px-6 mt-6 mb-14 block rounded-lg bg-primary-0 text-neutral-1 shadow-custom font-bold text-xl' />} */}
 
             {/* {isConnected && <Link href='/save' className='w-52 text-center py-4 px-6 mt-6 mb-14 block rounded-lg bg-primary-0 text-neutral-1 shadow-custom font-bold text-xl'>Start Saving</Link>} */}
@@ -45,7 +44,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="md:w-1/2 w-full sm:w-[80%] md:pb-0 pb-10 relative ">
+          <div className="md:w-1/2 w-full sm:w-[80%] md:pb-0 pb-10 pt-6  relative ">
             <Image
               className=""
               width={542}
