@@ -132,7 +132,7 @@ export default function Header() {
               transition: { duration: 0.9 },
             }}
             initial={{ height: 0 }}
-            className={`lg:hidden absolute top-20 overflow-hidden right-0 flex-col gap-4 items-left bg-tertiary-0 w-full px-6 py-6 `}
+            className={`lg:hidden z-50 top-20 fixed overflow-hidden right-0 flex-col gap-4 items-left bg-tertiary-0 w-full px-6 py-6 `}
           >
             <ul className="flex flex-col gap-2 text-neutral-3">
               <ScrollLink
