@@ -25,6 +25,7 @@ import ProgressBar from "@/components/dashboard/ProgressBar";
 import OverlayLoader from "@/components/dashboard/Loaders/OverlayLoader";
 import AddAssetModal from "@/components/dashboard/AddAssetModal";
 
+
 type Save = {
   id: number;
   totalDepositInUSD: string;
@@ -37,7 +38,7 @@ type Save = {
   assets: [];
 };
 
-export default function ViewSave() {
+function SafeData() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const { address } = useAccount();
@@ -62,7 +63,7 @@ export default function ViewSave() {
   });
 
   useEffect(() => {
-    if (savingsAcct !== null) {
+    if (savingsAcct !== null && id) {
       const fetchAllSavings = async () => {
         try {
           const savingPromise = [];
@@ -111,10 +112,9 @@ export default function ViewSave() {
 
       fetchAllSavings();
     }
-  }, [savingsAcct]);
+  }, [savingsAcct, id]);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
       <main className="text-neutral-2">
         <Header />
         <section className="flex min-h-screen border-t border-tertiary-6">
@@ -273,6 +273,11 @@ export default function ViewSave() {
         {loading && <OverlayLoader />}
         <AddAssetModal isOpen={isModalOpen} onClose={handleCloseModal} />
       </main>
-    </Suspense>
   );
+}
+
+export default function ViewSave() {
+  <Suspense fallback={<div>Loading...</div>}>
+    <SafeData />
+  </Suspense>
 }
