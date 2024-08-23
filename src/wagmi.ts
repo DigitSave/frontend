@@ -45,6 +45,7 @@ export const config = createConfig({
   // ],
   ssr: true,
   transports: {
+    // [baseSepolia.id]: http('https://go.getblock.io/ea7b725fe40c4fa79ec15d2a9ae9346e'),
     [baseSepolia.id]: http(),
     [base.id]: http(),
   },
