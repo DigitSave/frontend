@@ -8,7 +8,6 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "DigitSave",
   description: "Savings that helps you build wealth",
-  manifest: "/site.webmanifest.json",
 };
 
 export default function RootLayout({

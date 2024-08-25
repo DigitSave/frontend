@@ -4,7 +4,16 @@ import { BlueCreateWalletButton } from "@/components/front/BlueCreateWalletButto
 import FaqData from "@/components/front/FaqData";
 import Footer from "@/components/front/Footer";
 import Header from "@/components/front/Header";
-import { DashedLine, SecurityIcon, WalletIcon } from "@/icon";
+import {
+  CryptoAssetsIcon,
+  CustomizedIcon,
+  DashedLine,
+  DiverseIcon,
+  FundDistributionIcon,
+  PerformanceIcon,
+  SecurityIcon,
+  WalletIcon,
+} from "@/icon";
 import Image from "next/image";
 import Link from "next/link";
 import { useAccount } from "wagmi";
@@ -116,19 +125,18 @@ export default function Home() {
                 </div>
                 <div className="text-center sm:text-left">
                   <h2 className="font-bold text-lg sm:text-xl leading-loose mb-2 sm:mb-6">
-                    Connect & Fund Your wallet
+                    Connect Your wallet
                   </h2>
                   <p className="text-sm sm:text-base">
-                    Create a new wallet or connect a wallet you already own to
-                    start saving in your personalised savings account and
-                    likewise managing your assets in your save(s).
+                    Easily access and manage your assets effortlessly with just
+                    a few clicks by connecting your wallet
                   </p>
                 </div>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex flex-col items-center">
-                  <WalletIcon />
+                  <CryptoAssetsIcon />
                   <div className="hidden sm:block">
                     <DashedLine />
                   </div>
@@ -146,7 +154,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex flex-col items-center">
-                  <WalletIcon />
+                  <FundDistributionIcon />
                   <div className="hidden sm:block">
                     <DashedLine />
                   </div>
@@ -156,9 +164,8 @@ export default function Home() {
                     Fund Distribution
                   </h2>
                   <p className="text-sm sm:text-base">
-                    Add as many assets as you do like and allocate funds to each
-                    lock according to your saving goals, funds will be
-                    distributed accross selected assets.
+                    Add as many assets as you'd like and allocate funds to each
+                    lock according to your saving goals.
                   </p>
                 </div>
               </div>
@@ -195,7 +202,7 @@ export default function Home() {
         >
           <div className="text-center w-full sm:w-[70%] mx-auto">
             <h2 className="font-bold text-xl sm:text-3xl leading-relaxed">
-              Why choose Digitsave
+              Why Choose Digitsave
             </h2>
             <p className="leading-relaxed pt-2 text-sm sm:text-base">
               In the evolving landscape of financial management, choosing the
@@ -213,70 +220,45 @@ export default function Home() {
             <div className="sm:p-14 p-5 text-center sm:text-left flex flex-col items-center md:items-start leading-relaxed bg-[#99999900] border  rounded-3xl">
               <SecurityIcon />
               <h2 className="font-bold sm:text-2xl text-xl  leading-relaxed py-8">
-                Unparalleled Transparency
+                Blockchain Security
               </h2>
               <p>
-                Security is a paramount concern in financial management, and
-                Digitsave addresses this with a robust, decentralized system. By
-                eliminating central points of failure, we significantly reduce
-                the risk of hacks and fraud that plague traditional platforms.
-                Our advanced data encryption techniques further protect personal
-                and financial information, ensuring that your assets remain
-                secure. With Digitsave, you can have peace of mind knowing that
-                your savings are protected by state-of-the-art security
-                measures.
+                We leverages advanced blockchain technology to provide top-notch
+                security, ensuring your savings are protected from fraud and
+                unauthorized access.
               </p>
             </div>
             <div className="sm:p-14 p-5 text-center sm:text-left flex flex-col items-center md:items-start leading-relaxed bg-[#99999900] border  rounded-3xl">
-              <SecurityIcon />
+              <PerformanceIcon />
               <h2 className="font-bold sm:text-2xl text-xl  leading-relaxed py-8">
-                Enhanced Security
+                Real Time Performance
               </h2>
               <p>
-                Security is a paramount concern in financial management, and
-                Digitsave addresses this with a robust, decentralized system. By
-                eliminating central points of failure, we significantly reduce
-                the risk of hacks and fraud that plague traditional platforms.
-                Our advanced data encryption techniques further protect personal
-                and financial information, ensuring that your assets remain
-                secure. With Digitsave, you can have peace of mind knowing that
-                your savings are protected by state-of-the-art security
-                measures.
+                Track the growth of your crypto portfolio and assets in
+                real-time. Monitor your assets performance performance and make
+                informed decisions.
               </p>
             </div>
             <div className="sm:p-14 p-5 text-center sm:text-left flex flex-col items-center md:items-start leading-relaxed bg-[#99999900] border  rounded-3xl">
-              <SecurityIcon />
+              <DiverseIcon />
               <h2 className="font-bold sm:text-2xl text-xl  leading-relaxed py-8">
-                Superior Efficiency
+                Diverse Token Options
               </h2>
               <p>
-                Efficiency is another hallmark of Digitsave. Traditional savings
-                methods often involve delayed transactions and high fees due to
-                the involvement of multiple intermediaries. Digitsave
-                streamlines this process through blockchain technology, enabling
-                near-instantaneous transactions with minimal costs. This not
-                only makes managing your finances more convenient but also
-                ensures that more of your money goes towards growing your
-                savings rather than being lost to fees and delays.
+                Digitsave upports a wide range of cryptocurrencies, allowing you
+                to diversify your savings and choose the tokens that best meet
+                your financial goals.
               </p>
             </div>
             <div className="sm:p-14 p-5 text-center sm:text-left flex flex-col items-center md:items-start leading-relaxed bg-[#99999900] border  rounded-3xl">
-              <SecurityIcon />
+              <CustomizedIcon />
               <h2 className="font-bold sm:text-2xl text-xl  leading-relaxed py-8">
-                Maximized Returns and Flexibility
+                Customized Savings Plans
               </h2>
               <p>
-                Digitsave offers flexibility and higher returns that are hard to
-                match. Users can choose from customizable savings plans tailored
-                to their specific goals, whether they are saving for short-term
-                needs or long-term aspirations like retirement. Our platform
-                supports automatic savings with recurring deposits, ensuring
-                consistent growth. Moreover, by integrating high-yield
-                investments and offering interest on locked assets, Digitsave
-                helps users maximize their returns, providing better outcomes
-                compared to traditional savings accounts. The integration of
-                stablecoins also helps hedge against inflation, ensuring that
-                your savings retain their value over time.
+                Tailor your savings strategy with Digitsave's customizable
+                plans, giving you the flexibility to set goals and save
+                according to your unique financial needs.
               </p>
             </div>
           </div>
@@ -321,14 +303,14 @@ export default function Home() {
         {/* Assets */}
         <div
           id="assets"
-          className="lg:px-20 sm:px-10 px-6 flex flex-col md:flex-row w-full gap-24 pt-28 items-center"
+          className="lg:ps-20 sm:ps-10 ps-0 pe-0 flex flex-col justify-between md:flex-row w-full gap-24 pt-28 items-center"
         >
           <div className="lg:w-1/2 w-full text-center lg:text-start font-swiss">
             <h1 className="font-bold text-neutral-2 md:text-3xl  text-2xl leading-relaxed">
               Create a save for diversified crypto assets
             </h1>
 
-            <p className="text-neutral-2 font-light text-sm sm:text-base text-justify py-6 mb-12">
+            <p className="text-neutral-2 px-6 sm:px-10 font-light text-sm sm:text-base text-justify py-6 sm:mb-12 mb-3">
               With Digitsave, you can create a save that includes a diverse
               range of crypto assets, optimizing your investment strategy. Our
               platform allows you to easily add multiple cryptocurrencies to a
@@ -355,12 +337,21 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="lg:w-1/2 md:w-[80%] w-full">
+          <div className="xl:w-1/2 w-full hidden md:block">
             <Image
               className="w-full"
               width={542}
               height={482}
               src="/images/flexibility.png"
+              alt="Hero Image"
+            />
+          </div>
+          <div className="block md:hidden w-full">
+            <Image
+              className="w-full"
+              width={542}
+              height={482}
+              src="/images/mobile-flexibility.png"
               alt="Hero Image"
             />
           </div>

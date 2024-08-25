@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { CloseIcon, HamburgerIcon, LogoIcon } from "../../icon.js";
+import { CloseIcon, HamburgerIcon } from "../../icon.js";
 import { BlueCreateWalletButton } from "./BlueCreateWalletButton";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Link as ScrollLink } from "react-scroll";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image.js";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -35,7 +35,13 @@ export default function Header() {
           className={`flex justify-between items-center h-20 px-6 sm:px-10 md:py-6 md:px-20`}
         >
           <Link href={"/"}>
-            <LogoIcon />
+            <Image
+              src="/logo.png"
+              alt="logo"
+              className="md:w-44 w-32"
+              width={100}
+              height={100}
+            />
           </Link>
 
           {/* desktop nav */}
