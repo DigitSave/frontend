@@ -38,7 +38,7 @@ export default function Home() {
 
             <Link
               href="/dashboard"
-              className=" text-center py-4 px-10 mt-10 inline-block rounded-lg bg-primary-0 text-neutral-1 bg-custom text-xl font-bold"
+              className=" text-center py-4 px-10 mt-10 inline-block rounded-lg bg-primary-0 text-neutral-1 bg-custom text-sm md:text-xl font-bold"
             >
               Launch App
             </Link>
@@ -54,7 +54,7 @@ export default function Home() {
             />
 
             <Image
-              className="absolute md:top-[60%] sm:left-[-20%] sm:top-[47%] top-[50%] left-[-5%] sm:w-[261px] w-[200px] sm:h-[85px] h-[60px]"
+              className="absolute md:top-[60%] sm:left-[-20%] sm:top-[47%] top-[50%] left-[5%] sm:w-[261px] w-[200px] sm:h-[85px] h-[60px]"
               width={261}
               height={85}
               src="/images/save-ding.png"
@@ -65,7 +65,7 @@ export default function Home() {
 
         {/* stats */}
 
-        <div className="sm:py-24 py-10 bg-[url('/images/stats-bg.png')] bg-center p-20 w-full font-swiss">
+        <div className="sm:py-24 py-10 bg-[url('/images/stats-bg.png')] bg-center sm:px-20 px-6 w-full font-swiss">
           <div className="w-full flex flex-col md:flex-row items-center">
             <div className="sm:w-1/3 w-full text-center py-6">
               <strong className="font-bold sm:text-5xl text-2xl text-white leading-relaxed">
@@ -166,14 +166,14 @@ export default function Home() {
 
             {/* {!isConnected && <BlueCreateWalletButton label="Launch app" styles='w-42 py-4 px-8 text-center rounded-lg bg-primary-0 text-neutral-3' />} */}
 
-            <div className="flex justify-center lg:justify-start">
+            {/* <div className="flex justify-center lg:justify-start">
               <Link
                 href="/dashboard"
-                className="sm:w-42 w-[80%] py-4 px-8 text-center rounded-lg bg-primary-0 text-neutral-3"
+                className="sm:w-42 w-full py-4 px-8 text-center rounded-lg bg-primary-0 text-neutral-3 bg-custom"
               >
                 Launch app
               </Link>
-            </div>
+            </div> */}
           </div>
 
           <div className="w-1/2 hidden lg:block">
@@ -341,12 +341,18 @@ export default function Home() {
             </p>
 
             <div className="w-full hidden md:flex items-center sm:items-start">
-              {!isConnected && (
+              {/* {!isConnected && (
                 <BlueCreateWalletButton
                   label="Create Savings"
                   styles="w-44 py-4 mt-6 px-4 text-center rounded-lg bg-primary-0 text-neutral-3"
                 />
-              )}
+              )} */}
+              <Link
+                href="/dashboard"
+                className=" text-center py-4 px-10 mt-10 inline-block rounded-lg bg-primary-0 text-neutral-1 bg-custom text-xl font-bold"
+              >
+                Get Started
+              </Link>
             </div>
           </div>
           <div className="lg:w-1/2 md:w-[80%] w-full">
@@ -359,17 +365,26 @@ export default function Home() {
             />
           </div>
           <div className="w-full flex md:hidden justify-center">
-            {!isConnected && (
+            {/* {!isConnected && (
               <BlueCreateWalletButton
                 label="Create Savings"
                 styles="sm:w-44 w-[80%] py-4 mt-6 px-4 text-center rounded-lg bg-primary-0 text-neutral-3"
               />
-            )}
+            )} */}
+            <Link
+              href="/dashboard"
+              className="text-center w-full py-4 px-6 mt-3 inline-block rounded-lg bg-primary-0 text-neutral-1 bg-custom text-sm md:text-xl font-bold"
+            >
+              Get Started
+            </Link>
           </div>
         </div>
 
         {/* FAQ */}
-        <div id="faq" className="w-[70%] mx-auto pt-24 text-neutral-2 ">
+        <div
+          id="faq"
+          className="md:w-[70%] w-[100%] px-6 sm:px-10 md:px-0 mx-auto pt-24 text-neutral-2 "
+        >
           <h2 className="font-bold md:text-4xl sm:text-xl text-center leading-loose py-4">
             We answered all your money questions
           </h2>
