@@ -29,7 +29,7 @@ const ListItem = ({ path, label, icon: Icon, otherPaths }) => {
   );
 };
 
-export default function Sidebar() {
+export default function MobileSidebar() {
   const { isConnected } = useAccount();
   const { disconnect } = useDisconnect();
 
@@ -39,6 +39,7 @@ export default function Sidebar() {
 
   return (
     <>
+      <div className="bg-blend-overlay lg:hidden w-max h-full"></div>
       <div className="min-h-screen flex flex-col w-full border-r border-tertiary-6 px-6">
         <ul className="w-full flex flex-col gap-6 text-neutral-6 py-16">
           <ListItem path="/dashboard" label="Overview" icon={OverviewIcon} />

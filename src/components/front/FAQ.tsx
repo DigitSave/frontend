@@ -1,6 +1,6 @@
 import React from "react";
 import { PlusIcon } from "../../icon";
-
+import { motion, AnimatePresence } from "framer-motion";
 type FaqProps = {
   question: string;
   answer: string;
@@ -18,13 +18,22 @@ const FAQ: React.FC<FaqProps> = ({ question, answer, isOpen, onToggle }) => {
             <PlusIcon />
           </span>
         </div>
-        <div
-          className={`overflow-hidden transition-all duration-300 ease-in-out
-
-                ${isOpen ? "h-full" : "h-0"}`}
-        >
-          <div className="pt-3 text-sm sm:text-base">{answer}</div>
-        </div>
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              exit={{ height: 0, opacity: 0, transition: { duration: 0.6 } }}
+              animate={{
+                height: "100%",
+                opacity: 1,
+                transition: { duration: 0.9 },
+              }}
+              initial={{ height: 0 }}
+              className={`overflow-hidden transition-all duration-300 ease-in-out `}
+            >
+              <div className="pt-3 text-sm sm:text-base">{answer}</div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
