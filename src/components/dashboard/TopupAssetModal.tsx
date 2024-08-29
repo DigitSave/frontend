@@ -184,6 +184,7 @@ const TopupAssetModal: React.FC<TopupAssetModalProps> = ({
     setPercentClicked(id);
   };
 
+  // handles selected asset change
   useEffect(() => {
     if (!isToggled && selectedAsset) {
       setInputValue(
@@ -197,6 +198,7 @@ const TopupAssetModal: React.FC<TopupAssetModalProps> = ({
     }
   }, [selectedAsset]);
 
+  // gets the usd equivalence of crypto amount entered in input
   const getUsdValue = (value: any, price: string, decimal: number) => {
     if (value && price && decimal) {
       const stringValue = inputValue.toString();
@@ -211,6 +213,7 @@ const TopupAssetModal: React.FC<TopupAssetModalProps> = ({
     }
   };
 
+  // gets the crypto equivalence of usd amount entered in input
   const getTokenValue = (value: any, price: string, decimal: number) => {
     if (value && price && decimal) {
       const stringValue = inputValue.toString();
@@ -273,6 +276,7 @@ const TopupAssetModal: React.FC<TopupAssetModalProps> = ({
     }
   };
 
+  // fetches the current changes made to the save
   useEffect(() => {
     fetchSavingsAssets();
   }, [isConfirmed]);
@@ -665,7 +669,7 @@ const TopupAssetModal: React.FC<TopupAssetModalProps> = ({
           </button>
         </div>
 
-        {addAssetHash && <div>Transaction Hash: {addAssetHash}</div>}
+        {/* {addAssetHash && <div>Transaction Hash: {addAssetHash}</div>}
         {isConfirming && <div>Waiting for confirmation...</div>}
         {isConfirmed && <div>Transaction confirmed.</div>}
         {addAssetIsPending && <div>Transaction Pending.</div>}
@@ -677,9 +681,9 @@ const TopupAssetModal: React.FC<TopupAssetModalProps> = ({
               {(addAssetError as BaseError).shortMessage ||
                 addAssetError.message}
             </div>
-            {/* <div>{addAssetError.message}</div> */}
+            <div>{addAssetError.message}</div>
           </>
-        )}
+        )} */}
       </div>
 
       {(isApproving || isConfirming) && (

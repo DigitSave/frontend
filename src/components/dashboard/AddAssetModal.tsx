@@ -185,6 +185,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({
     setPercentClicked(id);
   };
 
+  // handles selected asset change
   useEffect(() => {
     if (!isToggled && selectedAsset) {
       setInputValue(
@@ -198,6 +199,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({
     }
   }, [selectedAsset]);
 
+  // gets the usd equivalence of crypto amount entered in input
   const getUsdValue = (value: any, price: string, decimal: number) => {
     if (value && price && decimal) {
       const stringValue = inputValue.toString();
@@ -212,6 +214,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({
     }
   };
 
+  // gets the crypto equivalence of usd amount entered in input
   const getTokenValue = (value: any, price: string, decimal: number) => {
     if (value && price && decimal) {
       const stringValue = inputValue.toString();
@@ -274,6 +277,7 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({
     }
   };
 
+  // fetches the current changes made to the save
   useEffect(() => {
     fetchSavingsAssets();
   }, [isConfirmed]);
