@@ -76,6 +76,42 @@ export const WalletIcon = () => {
     </svg>
   );
 };
+export const CryptoAssetsIcon = () => {
+  return (
+    <svg
+      width="58"
+      height="57"
+      viewBox="0 0 58 57"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="29" cy="28.5" r="28.5" fill="#008080" fillOpacity="0.5" />
+      <path
+        d="M21.5 16C20.1739 16 18.9021 16.5268 17.9645 17.4645C17.0268 18.4021 16.5 19.6739 16.5 21V31C16.5 31.6566 16.6293 32.3068 16.8806 32.9134C17.1319 33.52 17.5002 34.0712 17.9645 34.5355C18.9021 35.4732 20.1739 36 21.5 36H31.5C32.1566 36 32.8068 35.8707 33.4134 35.6194C34.02 35.3681 34.5712 34.9998 35.0355 34.5355C35.4998 34.0712 35.8681 33.52 36.1194 32.9134C36.3707 32.3068 36.5 31.6566 36.5 31V21C36.5 20.3434 36.3707 19.6932 36.1194 19.0866C35.8681 18.48 35.4998 17.9288 35.0355 17.4645C34.5712 17.0002 34.02 16.6319 33.4134 16.3806C32.8068 16.1293 32.1566 16 31.5 16H21.5ZM32.208 23.708L26.208 29.708C26.1151 29.8011 26.0048 29.875 25.8833 29.9254C25.7618 29.9758 25.6315 30.0018 25.5 30.0018C25.3685 30.0018 25.2382 29.9758 25.1167 29.9254C24.9952 29.875 24.8849 29.8011 24.792 29.708L21.792 26.708C21.699 26.615 21.6253 26.5046 21.575 26.3832C21.5246 26.2617 21.4987 26.1315 21.4987 26C21.4987 25.8685 21.5246 25.7383 21.575 25.6168C21.6253 25.4954 21.699 25.385 21.792 25.292C21.885 25.199 21.9954 25.1253 22.1168 25.075C22.2383 25.0246 22.3685 24.9987 22.5 24.9987C22.6315 24.9987 22.7617 25.0246 22.8832 25.075C23.0046 25.1253 23.115 25.199 23.208 25.292L25.5 27.586L30.792 22.292C30.9798 22.1042 31.2344 21.9987 31.5 21.9987C31.7656 21.9987 32.0202 22.1042 32.208 22.292C32.3958 22.4798 32.5013 22.7344 32.5013 23C32.5013 23.2656 32.3958 23.5202 32.208 23.708ZM22.5 38C23.412 39.214 24.864 40 26.5 40H31.5C33.8869 40 36.1761 39.0518 37.864 37.364C39.5518 35.6761 40.5 33.3869 40.5 31V24C40.5 22.364 39.714 20.912 38.5 20V31C38.5 32.8565 37.7625 34.637 36.4497 35.9497C35.137 37.2625 33.3565 38 31.5 38H22.5Z"
+        fill="white"
+      />
+    </svg>
+  );
+};
+export const FundDistributionIcon = () => {
+  return (
+    <svg
+      width="58"
+      height="57"
+      viewBox="0 0 58 57"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="29" cy="28.5" r="28.5" fill="#008080" fillOpacity="0.5" />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M17.2032 19.7032C16.5 20.4064 16.5 21.5368 16.5 23.8V31C16.5 33.2632 16.5 34.3936 17.2032 35.0968C17.9064 35.8 19.0368 35.8 21.3 35.8H35.7C37.9632 35.8 39.0936 35.8 39.7968 35.0968C40.5 34.3936 40.5 33.2632 40.5 31V23.8C40.5 21.5368 40.5 20.4064 39.7968 19.7032C39.0936 19 37.9632 19 35.7 19H21.3C19.0368 19 17.9064 19 17.2032 19.7032ZM20.1 21.4C19.7817 21.4 19.4765 21.5264 19.2515 21.7515C19.0264 21.9765 18.9 22.2817 18.9 22.6C18.9 22.9183 19.0264 23.2235 19.2515 23.4485C19.4765 23.6736 19.7817 23.8 20.1 23.8H22.5C22.8183 23.8 23.1235 23.6736 23.3485 23.4485C23.5736 23.2235 23.7 22.9183 23.7 22.6C23.7 22.2817 23.5736 21.9765 23.3485 21.7515C23.1235 21.5264 22.8183 21.4 22.5 21.4H20.1ZM33.3 32.2C33.3 31.8817 33.4264 31.5765 33.6515 31.3515C33.8765 31.1264 34.1817 31 34.5 31H36.9C37.2183 31 37.5235 31.1264 37.7485 31.3515C37.9736 31.5765 38.1 31.8817 38.1 32.2C38.1 32.5183 37.9736 32.8235 37.7485 33.0485C37.5235 33.2736 37.2183 33.4 36.9 33.4H34.5C34.1817 33.4 33.8765 33.2736 33.6515 33.0485C33.4264 32.8235 33.3 32.5183 33.3 32.2ZM29.7 27.4C29.7 27.7183 29.5736 28.0235 29.3485 28.2485C29.1235 28.4736 28.8183 28.6 28.5 28.6C28.1817 28.6 27.8765 28.4736 27.6515 28.2485C27.4264 28.0235 27.3 27.7183 27.3 27.4C27.3 27.0817 27.4264 26.7765 27.6515 26.5515C27.8765 26.3264 28.1817 26.2 28.5 26.2C28.8183 26.2 29.1235 26.3264 29.3485 26.5515C29.5736 26.7765 29.7 27.0817 29.7 27.4ZM32.1 27.4C32.1 28.3548 31.7207 29.2705 31.0456 29.9456C30.3705 30.6207 29.4548 31 28.5 31C27.5452 31 26.6295 30.6207 25.9544 29.9456C25.2793 29.2705 24.9 28.3548 24.9 27.4C24.9 26.4452 25.2793 25.5295 25.9544 24.8544C26.6295 24.1793 27.5452 23.8 28.5 23.8C29.4548 23.8 30.3705 24.1793 31.0456 24.8544C31.7207 25.5295 32.1 26.4452 32.1 27.4Z"
+        fill="white"
+      />
+    </svg>
+  );
+};
 
 export const DashedLine = () => {
   return (
@@ -101,92 +137,36 @@ export const DashedLine = () => {
 export const SecurityIcon = () => {
   return (
     <svg
-      width="180"
-      height="180"
-      viewBox="0 0 256 256"
+      width="208"
+      height="202"
+      viewBox="0 0 208 202"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g filter="url(#filter0_d_1_3)">
-        <circle cx="127" cy="124" r="70" fill="#94F2F2" />
+      <g filter="url(#filter0_d_486_805)">
+        <circle cx="102.901" cy="93.9013" r="45.9013" fill="#94F2F2" />
       </g>
       <path
-        d="M95.8629 88.0358L118.126 98.3113H138.678L160.941 88.0358L166.079 98.3113L160.941 122.287L167.791 139.413L162.654 155.683L147.24 151.401L137.821 159.964H118.983L109.564 151.401L94.1503 155.683L89.0126 139.413L95.8629 122.287L90.7252 98.3113L95.8629 88.0358Z"
-        stroke="#000001"
-        strokeWidth="6"
+        d="M102.994 66C94.1282 66 88.3809 71.9507 81.5843 74.1199C78.8197 75.0041 77.4374 75.4433 76.8774 76.0652C76.3174 76.6841 76.1553 77.5949 75.8281 79.4104C72.3208 98.8511 79.9839 116.824 98.2574 123.821C100.217 124.573 101.199 124.947 103.003 124.947C104.806 124.947 105.791 124.57 107.754 123.818C126.024 116.824 133.679 98.8511 130.171 79.4104C129.844 77.5949 129.679 76.6841 129.119 76.0622C128.559 75.4403 127.18 75.0012 124.415 74.1199C117.616 71.9507 111.859 66 102.994 66Z"
+        stroke="black"
+        strokeWidth="5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M112.989 127.424L119.84 129.138"
-        stroke="#000001"
-        strokeWidth="6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M95.8631 122.288L113.845 118.863L116.628 115.223L118.127 98.3116"
-        stroke="#000001"
-        strokeWidth="6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M116.628 115.223L95.8631 88.0358"
-        stroke="#000001"
-        strokeWidth="6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M160.94 122.288L142.958 118.863L140.175 115.223L138.677 98.3116"
-        stroke="#000001"
-        strokeWidth="6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M140.176 115.223L160.941 88.0358"
-        stroke="#000001"
-        strokeWidth="6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M120.883 150.199L122.726 141.126H134.077L135.921 150.199H120.883Z"
-        stroke="#000001"
-        strokeWidth="6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M143.814 127.424L136.964 129.138"
-        stroke="#000001"
-        strokeWidth="6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M89.0126 139.413L113.172 135.988L122.836 141.126"
-        stroke="#000001"
-        strokeWidth="6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M167.791 139.413L143.632 135.988L133.968 141.126"
-        stroke="#000001"
-        strokeWidth="6"
+        d="M97.8419 89.4579C97.8419 89.2811 97.8655 88.2613 97.8714 86.9821C97.8714 85.8091 97.7711 84.6832 98.3311 83.6516C100.424 79.4841 106.436 79.9085 107.922 84.1527C108.178 84.8512 108.196 85.9564 108.187 86.9821C108.178 88.2878 108.205 89.4579 108.205 89.4579M98.0983 90.6987C94.9152 90.6987 93.3236 92.9977 92.9699 94.4124C92.6162 95.8271 92.6162 100.955 92.8284 103.078C93.5358 105.73 95.3042 106.827 97.0373 107.18C98.6288 107.322 105.349 107.269 107.294 107.269C110.123 107.322 112.246 106.261 113.13 103.078C113.307 102.017 113.483 96.1808 113.041 94.4124C112.104 91.5829 109.77 90.6987 108.001 90.6987H98.0983Z"
+        stroke="black"
+        strokeWidth="5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <defs>
         <filter
-          id="filter0_d_1_3"
+          id="filter0_d_486_805"
           x="0"
-          y="0"
-          width="256"
-          height="256"
+          y="-6"
+          width="207.803"
+          height="207.803"
           filterUnits="userSpaceOnUse"
           colorInterpolationFilters="sRGB"
         >
@@ -201,7 +181,7 @@ export const SecurityIcon = () => {
             radius="8"
             operator="dilate"
             in="SourceAlpha"
-            result="effect1_dropShadow_1_3"
+            result="effect1_dropShadow_486_805"
           />
           <feOffset dx="1" dy="4" />
           <feGaussianBlur stdDeviation="25" />
@@ -213,12 +193,12 @@ export const SecurityIcon = () => {
           <feBlend
             mode="normal"
             in2="BackgroundImageFix"
-            result="effect1_dropShadow_1_3"
+            result="effect1_dropShadow_486_805"
           />
           <feBlend
             mode="normal"
             in="SourceGraphic"
-            in2="effect1_dropShadow_1_3"
+            in2="effect1_dropShadow_486_805"
             result="shape"
           />
         </filter>
@@ -227,6 +207,240 @@ export const SecurityIcon = () => {
   );
 };
 
+export const PerformanceIcon = () => {
+  return (
+    <svg
+      width="208"
+      height="202"
+      viewBox="0 0 208 202"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g filter="url(#filter0_d_486_822)">
+        <circle cx="102.901" cy="93.9013" r="45.9013" fill="#4ABC94" />
+      </g>
+      <path
+        d="M87.4444 120.778H118.556M93.6667 108.333V120.778M112.333 108.333V120.778M75 74.1111C75 73.286 75.3278 72.4947 75.9112 71.9112C76.4947 71.3278 77.286 71 78.1111 71H127.889C128.714 71 129.505 71.3278 130.089 71.9112C130.672 72.4947 131 73.286 131 74.1111V105.222C131 106.047 130.672 106.839 130.089 107.422C129.505 108.006 128.714 108.333 127.889 108.333H78.1111C77.286 108.333 76.4947 108.006 75.9112 107.422C75.3278 106.839 75 106.047 75 105.222V74.1111Z"
+        stroke="#111111"
+        strokeWidth="5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M90.5555 95.8889L99.8888 86.5555L106.111 92.7778L115.444 83.4444"
+        stroke="#111111"
+        strokeWidth="5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <defs>
+        <filter
+          id="filter0_d_486_822"
+          x="0"
+          y="-6"
+          width="207.803"
+          height="207.803"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feMorphology
+            radius="8"
+            operator="dilate"
+            in="SourceAlpha"
+            result="effect1_dropShadow_486_822"
+          />
+          <feOffset dx="1" dy="4" />
+          <feGaussianBlur stdDeviation="25" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0.290196 0 0 0 0 0.737255 0 0 0 0 0.580392 0 0 0 0.45 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="BackgroundImageFix"
+            result="effect1_dropShadow_486_822"
+          />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="effect1_dropShadow_486_822"
+            result="shape"
+          />
+        </filter>
+      </defs>
+    </svg>
+  );
+};
+export const DiverseIcon = () => {
+  return (
+    <svg
+      width="208"
+      height="202"
+      viewBox="0 0 208 202"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g filter="url(#filter0_d_486_840)">
+        <circle cx="102.901" cy="93.9013" r="45.9013" fill="#FFEF99" />
+      </g>
+      <path
+        d="M94.1595 95.4757L86.7906 102.845L94.1595 110.214L101.528 102.845L94.1595 95.4757ZM111.845 66C107.01 66.0001 102.353 67.8285 98.8095 71.1184C95.2659 74.4083 93.0974 78.9164 92.7388 83.7385C89.0806 84.0104 85.5773 85.3269 82.6453 87.5314C79.7133 89.7359 77.4758 92.7358 76.1986 96.1747C74.9215 99.6135 74.6584 103.347 75.4407 106.931C76.223 110.515 78.0177 113.799 80.6116 116.393C83.2055 118.986 86.4895 120.781 90.0735 121.563C93.6574 122.346 97.3906 122.083 100.829 120.805C104.268 119.528 107.268 117.291 109.473 114.359C111.677 111.427 112.994 107.924 113.266 104.265C118.209 103.897 122.818 101.626 126.123 97.9305C129.427 94.235 131.171 89.4025 130.987 84.4483C130.803 79.4942 128.706 74.8042 125.136 71.364C121.567 67.9237 116.802 66.0011 111.845 66ZM112.797 98.3908C111.971 94.9483 110.209 91.8013 107.706 89.2981C105.203 86.7948 102.056 85.0329 98.6133 84.2071C98.7961 81.6716 99.7037 79.242 101.228 77.2076C102.752 75.1732 104.829 73.6197 107.211 72.732C109.593 71.8443 112.18 71.6599 114.664 72.2006C117.148 72.7413 119.425 73.9845 121.222 75.782C123.02 77.5796 124.263 79.8558 124.804 82.3397C125.344 84.8237 125.16 87.4107 124.272 89.7928C123.384 92.1749 121.831 94.2517 119.797 95.776C117.762 97.3004 115.333 98.208 112.797 98.3908ZM107.424 102.845C107.424 106.362 106.026 109.736 103.539 112.224C101.051 114.711 97.6774 116.109 94.1595 116.109C90.6417 116.109 87.2679 114.711 84.7804 112.224C82.2929 109.736 80.8955 106.362 80.8955 102.845C80.8955 99.3267 82.2929 95.953 84.7804 93.4655C87.2679 90.978 90.6417 89.5805 94.1595 89.5805C97.6774 89.5805 101.051 90.978 103.539 93.4655C106.026 95.953 107.424 99.3267 107.424 102.845ZM76.4741 79.2641C76.4741 76.1371 77.7163 73.1382 79.9274 70.9271C82.1385 68.716 85.1374 67.4738 88.2644 67.4738H92.6857V73.3689H88.2644C86.7009 73.3689 85.2015 73.99 84.0959 75.0956C82.9903 76.2011 82.3693 77.7006 82.3693 79.2641V83.6854H76.4741V79.2641ZM123.635 108.74V104.318H129.53V108.74C129.53 111.867 128.288 114.866 126.077 117.077C123.866 119.288 120.867 120.53 117.74 120.53H113.319V114.635H117.74C119.304 114.635 120.803 114.014 121.909 112.908C123.014 111.803 123.635 110.303 123.635 108.74Z"
+        fill="black"
+      />
+      <defs>
+        <filter
+          id="filter0_d_486_840"
+          x="0"
+          y="-6"
+          width="207.803"
+          height="207.803"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feMorphology
+            radius="8"
+            operator="dilate"
+            in="SourceAlpha"
+            result="effect1_dropShadow_486_840"
+          />
+          <feOffset dx="1" dy="4" />
+          <feGaussianBlur stdDeviation="25" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 1 0 0 0 0 0.937255 0 0 0 0 0.6 0 0 0 0.45 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="BackgroundImageFix"
+            result="effect1_dropShadow_486_840"
+          />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="effect1_dropShadow_486_840"
+            result="shape"
+          />
+        </filter>
+      </defs>
+    </svg>
+  );
+};
+export const CustomizedIcon = () => {
+  return (
+    <svg
+      width="208"
+      height="202"
+      viewBox="0 0 208 202"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g filter="url(#filter0_d_486_857)">
+        <circle cx="102.901" cy="93.9013" r="45.9013" fill="#FAB67C" />
+      </g>
+      <path
+        d="M104.867 110.344C106.352 110.344 107.776 109.754 108.826 108.704C109.877 107.654 110.467 106.23 110.467 104.744C110.467 103.259 109.877 101.835 108.826 100.785C107.776 99.7344 106.352 99.1444 104.867 99.1444C106.352 99.1444 107.776 98.5544 108.826 97.5042C109.877 96.454 110.467 95.0296 110.467 93.5444C110.467 92.0592 109.877 90.6348 108.826 89.5846C107.776 88.5344 106.352 87.9444 104.867 87.9444H97.4V110.344H104.867Z"
+        stroke="black"
+        strokeWidth="5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M97.4 99.1442H105.332"
+        stroke="black"
+        strokeWidth="5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M103 87.9445V84.2112"
+        stroke="black"
+        strokeWidth="5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M103 114.078V110.344"
+        stroke="black"
+        strokeWidth="5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M77.4889 76.7443H128.511C128.511 76.7443 131 76.7443 131 79.2332V119.055C131 119.055 131 121.544 128.511 121.544H77.4889C77.4889 121.544 75 121.544 75 119.055V79.2332C75 79.2332 75 76.7443 77.4889 76.7443Z"
+        stroke="black"
+        strokeWidth="5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M123.533 76.7443V69.7356C123.534 69.209 123.423 68.6883 123.207 68.2077C122.992 67.7271 122.678 67.2974 122.285 66.947C121.892 66.5965 121.429 66.3331 120.927 66.1742C120.425 66.0152 119.895 65.9642 119.372 66.0246L81.6105 70.3777C79.7898 70.5879 78.11 71.4603 76.891 72.829C75.672 74.1976 74.9989 75.9668 75 77.7996V80.4776"
+        stroke="black"
+        strokeWidth="5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <defs>
+        <filter
+          id="filter0_d_486_857"
+          x="0"
+          y="-6"
+          width="207.803"
+          height="207.803"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feMorphology
+            radius="8"
+            operator="dilate"
+            in="SourceAlpha"
+            result="effect1_dropShadow_486_857"
+          />
+          <feOffset dx="1" dy="4" />
+          <feGaussianBlur stdDeviation="25" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0.980392 0 0 0 0 0.713726 0 0 0 0 0.486275 0 0 0 0.45 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="BackgroundImageFix"
+            result="effect1_dropShadow_486_857"
+          />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="effect1_dropShadow_486_857"
+            result="shape"
+          />
+        </filter>
+      </defs>
+    </svg>
+  );
+};
 export const PlusIcon = () => {
   return (
     <svg
@@ -719,8 +933,8 @@ export const ClockIcon = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M8 1V15" stroke="#FFEF99" stroke-linecap="round" />
-      <path d="M1 8H15" stroke="#FFEF99" stroke-linecap="round" />
+      <path d="M8 1V15" stroke="#FFEF99" strokeLinecap="round" />
+      <path d="M1 8H15" stroke="#FFEF99" strokeLinecap="round" />
     </svg>
   );
 };
@@ -734,8 +948,8 @@ export const YellowPlusIcon = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M8 1V15" stroke="#FFEF99" stroke-linecap="round" />
-      <path d="M1 8H15" stroke="#FFEF99" stroke-linecap="round" />
+      <path d="M8 1V15" stroke="#FFEF99" strokeLinecap="round" />
+      <path d="M1 8H15" stroke="#FFEF99" strokeLinecap="round" />
     </svg>
   );
 };
