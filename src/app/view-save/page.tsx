@@ -24,6 +24,8 @@ import { toRelativeTime } from "@/utils/dateFormat";
 import ProgressBar from "@/components/dashboard/ProgressBar";
 import OverlayLoader from "@/components/dashboard/Loaders/OverlayLoader";
 import AddAssetModal from "@/components/dashboard/AddAssetModal";
+import { AnimatePresence, motion } from "framer-motion";
+import MobileSidebar from "@/components/dashboard/MobileSidebar";
 
 type Save = {
   id: number;
@@ -43,6 +45,7 @@ export default function ViewSave() {
   const { address } = useAccount();
   const [saving, setSaving] = useState<Save[]>([]);
   const [loading, setLoading] = useState(true);
+  const [navOpen, setNavOpen] = useState(false);
   const provider = getEthersProvider(config);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -115,13 +118,35 @@ export default function ViewSave() {
 
   return (
     <main className="text-neutral-2">
-      <Header />
+      <Header navOpen={navOpen} setNavOpen={setNavOpen} />
       <section className="flex min-h-screen border-t border-tertiary-6">
-        <div className="w-1/5">
+        <div className="w-1/5 hidden lg:block">
           <div className="w-1/5 fixed">
             <Sidebar />
           </div>
         </div>
+        <AnimatePresence>
+          {navOpen && (
+            <div className="w-full h-screen lg:hidden fixed block  z-20">
+              <div
+                onClick={() => setNavOpen(!navOpen)}
+                className="h-screen w-full cursor-pointer bg-transparent backdrop-blur-sm fixed z-20"
+              ></div>
+              <motion.div
+                exit={{ width: 0, opacity: 0, transition: { duration: 0.6 } }}
+                animate={{
+                  opacity: 1,
+                  transition: { duration: 0.9 },
+                }}
+                initial={{ opacity: 0 }}
+                className=" sm:w-1/3 w-full fixed bg-tertiary-0 z-40"
+              >
+                {" "}
+                <MobileSidebar />
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
 
         <div className="w-4/5 flex flex-col">
           <Link href="/save" className="flex gap-2 p-6 pb-2 items-center">
