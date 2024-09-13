@@ -92,41 +92,8 @@ const config: Config = {
           '100%': { transform: 'rotate(360deg) scale(0.5)' },
         },
       },
-
     },
   },
-  plugins: [
-    // @ts-ignore
-    // function ({ addUtilities }) {
-    //   addUtilities({
-    //     '.border-gradient': {
-    //       borderImage: 'linear-gradient(90deg, #00C8C8, #006262) 1',
-    //       borderRadius: '12px',
-    //     },
-    //   })
-    // },
-
-    // function ({ addUtilities }) {
-    //   addUtilities({
-    //     '.border-gradient': {
-    //       position: 'relative',
-    //       overflow: 'hidden',
-    //     },
-    //     '.border-gradient::before': {
-    //       content: '""',
-    //       position: 'absolute',
-    //       top: '0',
-    //       left: '0',
-    //       right: '0',
-    //       bottom: '0',
-    //       zIndex: '-1',
-    //       borderRadius: '12',
-    //       background: 'linear-gradient(90deg, white 0%, #9F890E 100%)',
-    //       padding: '2px', // Adjust this value as needed to create the border effect
-    //     },
-    //   }, ['responsive', 'hover']);
-    // },
-  
-  ],
+  plugins: [],
 };
 export default config;

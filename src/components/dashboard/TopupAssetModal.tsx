@@ -1,10 +1,6 @@
 import { StorageContractAbi } from "@/abis/StorageContractAbi";
-import {
-  assetsArray,
-  assetsDetails,
-  factoryContractAddrs,
-  storageContractAddrs,
-} from "@/constants";
+import { assetsArray, assetsDetails } from "@/constants";
+import { useContractAddresses } from "@/constants/index";
 import { getEthersProvider } from "@/ethersProvider";
 import { config } from "@/wagmi";
 import { ethers } from "ethers";
@@ -36,6 +32,7 @@ const TopupAssetModal: React.FC<TopupAssetModalProps> = ({
   savingId,
   assetId: _assetId,
 }) => {
+  const { factoryContractAddrs, storageContractAddrs } = useContractAddresses();
   const { chainId, address } = useAccount();
   const [selectedAsset, setSelectedAsset] = useState<FullAsset>();
   const [inputValue, setInputValue] = useState<number | string>(0);
@@ -534,10 +531,15 @@ const TopupAssetModal: React.FC<TopupAssetModalProps> = ({
                             <Image
                               width={32}
                               height={32}
-                              // @ts-ignore
-                              src={`${assetsDetails[chainId][asset.assetAddress].ticker}`}
-                              // @ts-ignore
-                              alt={`${assetsDetails[chainId][asset.assetAddress].name}`}
+                              src={`${
+                                // @ts-ignore
+                                assetsDetails[chainId][asset.assetAddress]
+                                  .ticker
+                              }`}
+                              alt={`${
+                                // @ts-ignore
+                                assetsDetails[chainId][asset.assetAddress].name
+                              }`}
                               className="border border-white rounded-full"
                             />
                             <div className="flex flex-col">
@@ -613,25 +615,41 @@ const TopupAssetModal: React.FC<TopupAssetModalProps> = ({
               <div className="flex gap-3 mt-2 bg-tertiary-6 p-4 rounded-md">
                 <button
                   onClick={() => handlePercentageClick(0.25, 1)}
-                  className={`font-semibold p-2 rounded-md ${percentClicked === 1 ? "bg-secondry-4 hover:bg-secondry-5 text-tertiary-7 " : "border border-neutral-4 hover:bg-gray-700 text-white "}`}
+                  className={`font-semibold p-2 rounded-md ${
+                    percentClicked === 1
+                      ? "bg-secondry-4 hover:bg-secondry-5 text-tertiary-7 "
+                      : "border border-neutral-4 hover:bg-gray-700 text-white "
+                  }`}
                 >
                   25%
                 </button>
                 <button
                   onClick={() => handlePercentageClick(0.5, 2)}
-                  className={`font-semibold p-2 rounded-md ${percentClicked === 2 ? "bg-secondry-4 hover:bg-secondry-5 text-tertiary-7 " : "border border-neutral-4 hover:bg-gray-700 text-white "}`}
+                  className={`font-semibold p-2 rounded-md ${
+                    percentClicked === 2
+                      ? "bg-secondry-4 hover:bg-secondry-5 text-tertiary-7 "
+                      : "border border-neutral-4 hover:bg-gray-700 text-white "
+                  }`}
                 >
                   50%
                 </button>
                 <button
                   onClick={() => handlePercentageClick(0.75, 3)}
-                  className={`font-semibold p-2 rounded-md ${percentClicked === 3 ? "bg-secondry-4 hover:bg-secondry-5 text-tertiary-7 " : "border border-neutral-4 hover:bg-gray-700 text-white "}`}
+                  className={`font-semibold p-2 rounded-md ${
+                    percentClicked === 3
+                      ? "bg-secondry-4 hover:bg-secondry-5 text-tertiary-7 "
+                      : "border border-neutral-4 hover:bg-gray-700 text-white "
+                  }`}
                 >
                   75%
                 </button>
                 <button
                   onClick={() => handlePercentageClick(1, 4)}
-                  className={`font-semibold p-2 rounded-md ${percentClicked === 4 ? "bg-secondry-4 hover:bg-secondry-5 text-tertiary-7 " : "border border-neutral-4 hover:bg-gray-700 text-white "}`}
+                  className={`font-semibold p-2 rounded-md ${
+                    percentClicked === 4
+                      ? "bg-secondry-4 hover:bg-secondry-5 text-tertiary-7 "
+                      : "border border-neutral-4 hover:bg-gray-700 text-white "
+                  }`}
                 >
                   MAX
                 </button>
@@ -656,7 +674,14 @@ const TopupAssetModal: React.FC<TopupAssetModalProps> = ({
         </div>
         <div className="w-full flex justify-center">
           <button
-            className={`bg-[#008080] hover:bg-teal-600 text-white font-medium text-lg py-3 px-4 mx-auto w-40 rounded-md ${approvalIsPending || addAssetIsPending || isApproving || isConfirming ? "cursor-not-allowed" : ""}`}
+            className={`bg-[#008080] hover:bg-teal-600 text-white font-medium text-lg py-3 px-4 mx-auto w-40 rounded-md ${
+              approvalIsPending ||
+              addAssetIsPending ||
+              isApproving ||
+              isConfirming
+                ? "cursor-not-allowed"
+                : ""
+            }`}
             onClick={() => submit()}
             disabled={
               approvalIsPending ||
