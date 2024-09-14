@@ -33,17 +33,17 @@ import { ethers } from "ethers";
 import { NumericFormat } from "react-number-format";
 import { toFormattedDate, toRelativeTime } from "@/utils/dateFormat";
 import SavingListLoader from "@/components/dashboard/Loaders/SavingListLoader";
-import Web3 from "web3";
+import { AnimatePresence, motion } from "framer-motion";
+import MobileSidebar from "@/components/dashboard/MobileSidebar";
 
 export default function Save() {
   const { factoryContractAddrs } = useContractAddresses();
   const { address, isConnected } = useAccount();
   const [savings, setSavings] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [navOpen, setNavOpen] = useState(false);
   const [nextSavingId, setNextSavingId] = useState<number | null>(null);
   const provider = getEthersProvider(config);
-  const [navOpen, setNavOpen] = useState(false);
-  const web3 = new Web3();
 
   // fetch users contract >> savings account
   const {
@@ -145,11 +145,33 @@ export default function Save() {
     <main className="text-neutral-2">
       <Header navOpen={navOpen} setNavOpen={setNavOpen} />
       <section className="flex min-h-screen border-t border-tertiary-6">
-        <div className="w-1/5">
+        <div className="w-1/5 hidden lg:block">
           <div className="w-1/5 fixed">
             <Sidebar />
           </div>
         </div>
+        <AnimatePresence>
+          {navOpen && (
+            <div className="w-full h-screen lg:hidden fixed block  z-20">
+              <div
+                onClick={() => setNavOpen(!navOpen)}
+                className="h-screen w-full cursor-pointer bg-transparent backdrop-blur-sm fixed z-20"
+              ></div>
+              <motion.div
+                exit={{ width: 0, opacity: 0, transition: { duration: 0.6 } }}
+                animate={{
+                  opacity: 1,
+                  transition: { duration: 0.9 },
+                }}
+                initial={{ opacity: 0 }}
+                className=" sm:w-1/3 w-full fixed bg-tertiary-0 z-40"
+              >
+                {" "}
+                <MobileSidebar />
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
 
         {/* guest */}
         {!isConnected && (
@@ -294,7 +316,7 @@ export default function Save() {
                             >
                               <td className="border-b border-tertiary-5 text-center">
                                 <Link
-                                  href={`/view-save?id=${saving.id}&datecreated=${saving.date}&period=${saving.lockPeriod}`}
+                                  href={`/view-save?id=${saving.id}`}
                                   className="inline-block px-2 py-[23px] w-full"
                                 >
                                   #{index + 1}
@@ -303,17 +325,16 @@ export default function Save() {
 
                               <td className="border-b border-tertiary-5 text-center">
                                 <Link
-                                  href={`/view-save?id=${saving.id}&datecreated=${saving.date}&period=${saving.lockPeriod}`}
+                                  href={`/view-save?id=${saving.id}`}
                                   className="inline-block px-2 py-[23px] w-full"
                                 >
-                                  {/* {ethers.utils.parseBytes32String(saving.name)} */}
-                                  {Web3.utils.hexToUtf8(saving.name)}
+                                  {ethers.utils.parseBytes32String(saving.name)}
                                 </Link>
                               </td>
 
                               <td className="border-b border-tertiary-5 text-center">
                                 <Link
-                                  href={`/view-save?id=${saving.id}&datecreated=${saving.date}&period=${saving.lockPeriod}`}
+                                  href={`/view-save?id=${saving.id}`}
                                   className="inline-block px-2 py-[23px] w-full"
                                 >
                                   {toFormattedDate(saving.date)}
@@ -322,7 +343,7 @@ export default function Save() {
 
                               <td className="border-b border-tertiary-5 text-center">
                                 <Link
-                                  href={`/view-save?id=${saving.id}&datecreated=${saving.date}&period=${saving.lockPeriod}`}
+                                  href={`/view-save?id=${saving.id}`}
                                   className="inline-block px-2 py-[23px] w-full"
                                 >
                                   $
@@ -345,7 +366,7 @@ export default function Save() {
 
                               <td className="border-b border-tertiary-5 text-center">
                                 <Link
-                                  href={`/view-save?id=${saving.id}&datecreated=${saving.date}&period=${saving.lockPeriod}`}
+                                  href={`/view-save?id=${saving.id}`}
                                   className="inline-block px-2 py-[23px] w-full"
                                 >
                                   Fixed
@@ -354,7 +375,7 @@ export default function Save() {
 
                               <td className="border-b border-tertiary-5 text-center">
                                 <Link
-                                  href={`/view-save?id=${saving.id}&datecreated=${saving.date}&period=${saving.lockPeriod}`}
+                                  href={`/view-save?id=${saving.id}`}
                                   className="inline-block px-2 py-[23px] w-full"
                                 >
                                   {toRelativeTime(saving.lockPeriod)}
