@@ -14,7 +14,8 @@ import Link from "next/link";
 import { useAccount, useReadContract } from "wagmi";
 import { DigitsaveAcctAbi } from "@/abis/DigitsaveAccountAbi";
 import { FactoryAbi } from "@/abis/FactoryContractAbi";
-import { assetsArray, factoryContractAddrs } from "@/constants";
+import { assetsArray } from "@/constants";
+import { useContractAddresses } from "@/constants/index";
 import { ethers } from "ethers";
 import { getEthersProvider } from "@/ethersProvider";
 import { config } from "@/wagmi";
@@ -31,6 +32,7 @@ import { BigNumber } from "ethers";
 import Image from "next/image";
 import { CombinedAsset } from "@/@types/assets.types";
 import TopupAssetModal from "@/components/dashboard/TopupAssetModal";
+import Web3 from "web3";
 
 type Save = {
   id: number;
@@ -45,6 +47,7 @@ type Save = {
 };
 
 export default function ViewSave() {
+  const { factoryContractAddrs } = useContractAddresses();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const dateCreated = parseInt(searchParams.get("datecreated") as string);
@@ -54,6 +57,7 @@ export default function ViewSave() {
   const [loading, setLoading] = useState(true);
   const provider = getEthersProvider(config);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const [navOpen, setNavOpen] = useState(false);
   const [isTopupModalOpen, setTopupModalOpen] = useState<boolean>(false);
   const [selectedAssetId, setSelectedAssetId] = useState(1);
   const percentGone = calculatePercentageDaysGone(
@@ -72,6 +76,7 @@ export default function ViewSave() {
   };
 
   useEffect(() => {}, [isModalOpen]);
+  const web3 = new Web3();
 
   // fetch users contract >> savings account
   const {
@@ -136,7 +141,7 @@ export default function ViewSave() {
                 lockPeriod: savingData.lockPeriod,
                 isCompleted: savingData.isCompleted,
                 name: savingData.name,
-                date: 1723658675,
+                date: 1725412179,
                 assets: combinedAssetData,
               };
             })()
@@ -162,7 +167,7 @@ export default function ViewSave() {
 
   return (
     <main className="text-neutral-2">
-      <Header />
+      <Header navOpen={navOpen} setNavOpen={setNavOpen} />
       <section className="flex min-h-screen border-t border-tertiary-6">
         <div className="w-1/5">
           <div className="w-1/5 fixed">
@@ -209,7 +214,7 @@ export default function ViewSave() {
                       <div className="flex">
                         <div className="flex gap-2">
                           <LockIcon />
-                          <span className="">savings Balance</span>
+                          <span className="">Savings Balance</span>
                         </div>
                       </div>
 
@@ -218,8 +223,9 @@ export default function ViewSave() {
                         <NumericFormat
                           thousandSeparator
                           displayType="text"
-                          value={ethers.utils.formatUnits(
-                            saving[0]?.totalDepositInUSD
+                          value={web3.utils.fromWei(
+                            saving[0]?.totalDepositInUSD,
+                            "ether"
                           )}
                           decimalScale={2}
                           fixedDecimalScale={

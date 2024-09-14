@@ -10,7 +10,7 @@ import {
   useSimulateContract,
   useReadContract,
 } from "wagmi";
-import { factoryContractAddrs } from "@/constants";
+import { useChainUrl, useContractAddresses } from "@/constants/index";
 import { FactoryAbi } from "@/abis/FactoryContractAbi";
 import { Circle, FileIcon, WalletIconPlain } from "@/icon";
 import { isValidAddress } from "@/utils/validateAddress";
@@ -29,20 +29,27 @@ import { config } from "@/wagmi";
 import { ethers } from "ethers";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
+import Web3 from "web3";
+import { NumericFormat } from "react-number-format";
+import SavingListLoader from "@/components/dashboard/Loaders/SavingListLoader";
 
 export default function Dashboard() {
+  const { chainUrl } = useChainUrl();
+  const { factoryContractAddrs } = useContractAddresses();
   const { address, isConnected, chainId } = useAccount();
   const [savings, setSavings] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [nextSavingId, setNextSavingId] = useState<number | null>(null);
   const provider = getEthersProvider(config);
-  const [navOpen, setNavOpen] = useState(false);
 
+  const [navOpen, setNavOpen] = useState(false);
   const activities = activitiesQuery(address);
   const [result, reexecuteQuery] = useQuery({
     query: activities,
     pause: address == undefined,
   });
+
+  const web3 = new Web3();
 
   const refreshActivities = () => {
     // Refetch the query and skip the cache
@@ -125,7 +132,7 @@ export default function Dashboard() {
                   totalAssetLocked: savingData.totalAssetLocked.toString(),
                   lockPeriod: savingData.lockPeriod,
                   isCompleted: savingData.isCompleted,
-                  date: 1722482796,
+                  date: 1725412179,
                   name: savingData.name,
                   // eventLog: savingEvent,
                 };
@@ -233,12 +240,12 @@ export default function Dashboard() {
             <Balances />
 
             {/* history and token */}
-            <section className="w-full m-h-screen w-4/4 px-6 py-10">
+            <section className="w-full m-h-screen w-4/4   px-6 py-10">
               <div className="flex gap-4 w-full">
                 <div className="w-3/5 flex flex-col gap-4">
                   <p className="font-semibold">Recent activities</p>
 
-                  <div className="w-full flex flex-col overflow-scroll rounded-lg bg-tertiary-6 h-[350px]">
+                  <div className="w-full flex flex-col overflow-y-scroll rounded-lg bg-[#1B1B1B] h-[350px]">
                     {fetching && <ActivityLoader />}
 
                     {!activitiesData && !fetching && (
@@ -274,112 +281,176 @@ export default function Dashboard() {
                         </div>
                       )}
 
-                    {savings.reverse().map((saving, index) => (
-                      <div key={index} className="text-sm p-6">
-                        <div className="flex flex-col gap-6">
-                          <div className="flex gap-4 justify-between items-center">
-                            <div className="flex flex-grow gap-4">
-                              <WalletIconPlain />
-                              <div className="flex flex-col gap-1 ">
-                                <p>
-                                  <b>
-                                    {ethers.utils.parseBytes32String(
-                                      saving.name
-                                    )}
-                                  </b>{" "}
-                                  Save created
-                                </p>
-                                <p>
-                                  <b>
-                                    {ethers.utils.parseBytes32String(
-                                      saving.name
-                                    )}
-                                  </b>{" "}
-                                  Save created
-                                </p>
-                                <p className="text-xs">
-                                  Lock period due{" "}
-                                  {toRelativeTime(saving.lockPeriod)}
-                                </p>
-                              </div>
-                            </div>
+                    <table className="min-w-full bg-[#1B1B1B] border-b border-tertiary-5">
+                      <thead className=""></thead>
+                      <tbody>
+                        {loading && <SavingListLoader />}
 
-                            <div className="flex flex-grow gap-2 py-1 px-3 items-center bg-tertiary-7 rounded-xl">
-                              <Circle />
-                              <p>Successful</p>
-                            </div>
-
-                            <Link
-                              href={`/view-save?id=${saving.id}&datecreated=${saving.date}&period=${saving.lockPeriod}`}
-                              className="block flex-grow "
-                            >
-                              manage
-                            </Link>
-
-                            {saving.date && (
-                              <p className="flex-grow ">
-                                {toFormattedDate(
-                                  parseInt(
-                                    `${ethers.BigNumber.from(saving.date)}`
-                                  )
-                                )}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-
-                    {activitiesData !== undefined &&
-                      activitiesData.savingsContractCreateds[0] && (
-                        <div className="text-sm p-6">
-                          <div className="flex flex-col gap-6">
-                            <div className="flex gap-8 justify-between items-center">
-                              <div className="flex gap-4">
-                                <WalletIconPlain />
-                                <div className="flex flex-col gap-1 ">
-                                  <p>Savings account credited</p>
-                                  <p className="text-xs">
-                                    {toRelativeTime(
-                                      activitiesData.savingsContractCreateds[0]
-                                        .date
-                                    )}
-                                  </p>
-                                </div>
-                              </div>
-
-                              <div className="flex gap-2 py-1 px-3 items-center bg-tertiary-7 rounded-xl">
-                                <Circle />
-                                <p>Successful</p>
-                              </div>
-
-                              <a
-                                href={`https://${
-                                  process.env.NODE_ENV === "development"
-                                    ? "sepolia.basescan.org"
-                                    : process.env.NODE_ENV === "production"
-                                      ? "basescan.org"
-                                      : "sepolia.basescan.org"
-                                        ? "basescan.org"
-                                        : "sepolia.basescan.org"
-                                }/address/${
-                                  activitiesData.savingsContractCreateds[0]
-                                    .savingsContract
-                                }`}
-                                target="_blank"
+                        {savings.map((saving, index) => (
+                          <tr
+                            key={index}
+                            className="hover:bg-tertiary-4 transition-all ease-in-out py-[23px]"
+                          >
+                            {/* <td className="border-b border-tertiary-5 text-center">
+                              <Link
+                                href={`/view-save?id=${saving.id}&datecreated=${saving.date}&period=${saving.lockPeriod}`}
+                                className="inline-block px-2 py-[23px] w-full"
                               >
-                                view
-                              </a>
+                                #{index + 1}
+                              </Link>
+                            </td> */}
 
-                              <p>
-                                {toFormattedDate(
-                                  activitiesData.savingsContractCreateds[0].date
-                                )}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      )}
+                            <td className="border-b border-tertiary-5 text-center">
+                              <Link
+                                href={`/view-save?id=${saving.id}&datecreated=${saving.date}&period=${saving.lockPeriod}`}
+                                className="inline-block px-2 py-[23px] w-full"
+                              >
+                                <div className="flex flex-grow gap-4">
+                                  <WalletIconPlain />
+                                  <div className="flex flex-col gap-1 ">
+                                    <p>
+                                      <b>
+                                        {ethers.utils.parseBytes32String(
+                                          saving.name
+                                        )}
+                                      </b>{" "}
+                                      Save created
+                                    </p>
+                                  </div>
+                                </div>
+                              </Link>
+                            </td>
+
+                            <td className="border-b border-tertiary-5 text-center">
+                              <Link
+                                href={`/view-save?id=${saving.id}&datecreated=${saving.date}&period=${saving.lockPeriod}`}
+                                className="inline-block px-2 py-[23px] w-full"
+                              >
+                                $
+                                <NumericFormat
+                                  thousandSeparator
+                                  displayType="text"
+                                  value={web3.utils.fromWei(
+                                    saving.totalDepositInUSD,
+                                    "ether"
+                                  )}
+                                  decimalScale={2}
+                                  fixedDecimalScale={
+                                    saving.totalDepositInUSD % 1 === 0
+                                      ? true
+                                      : false
+                                  }
+                                />
+                              </Link>
+                            </td>
+
+                            <td className="border-b border-tertiary-5 text-center">
+                              <Link
+                                href={`/view-save?id=${saving.id}&datecreated=${saving.date}&period=${saving.lockPeriod}`}
+                                className="inline-block px-2 py-[23px] w-full"
+                              >
+                                <div className="flex flex-grow gap-2 py-1 px-3 items-center justify-center bg-tertiary-7 rounded-xl">
+                                  <Circle />
+                                  <p>Successful</p>
+                                </div>
+                              </Link>
+                            </td>
+
+                            <td className="border-b border-tertiary-5 text-center">
+                              <Link
+                                href={`/view-save?id=${saving.id}&datecreated=${saving.date}&period=${saving.lockPeriod}`}
+                                className="inline-block px-2 py-[23px] w-full"
+                              >
+                                Fixed
+                              </Link>
+                            </td>
+
+                            <td className="border-b border-tertiary-5 text-center">
+                              <Link
+                                href={`/view-save?id=${saving.id}&datecreated=${saving.date}&period=${saving.lockPeriod}`}
+                                className="inline-block px-2 py-[23px] w-full"
+                              >
+                                {toFormattedDate(saving.date)}
+                              </Link>
+                            </td>
+                          </tr>
+                        ))}
+                        {activitiesData !== undefined &&
+                          activitiesData.savingsContractCreateds[0] && (
+                            <tr className="hover:bg-tertiary-4 transition-all ease-in-out py-[23px]">
+                              {/* <td className="border-b border-tertiary-5 text-center">
+                                <Link
+                                  href={`https://${chainUrl}/address/${
+                                    activitiesData.savingsContractCreateds[0]
+                                      .savingsContract
+                                  }`}
+                                  className="inline-block px-2 py-[23px] w-full"
+                                >
+                                  #{savings.length + 1}
+                                </Link>
+                              </td> */}
+
+                              <td className="border-b border-tertiary-5 text-center">
+                                <Link
+                                  href={`https://${chainUrl}/address/${activitiesData.savingsContractCreateds[0].savingsContract}`}
+                                  className="inline-block px-2 py-[23px] w-full"
+                                >
+                                  <div className="flex flex-grow gap-4">
+                                    <WalletIconPlain />
+                                    <div className="flex flex-col gap-1 ">
+                                      <p>
+                                        <b>Savings account created</b>{" "}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </Link>
+                              </td>
+
+                              <td className="border-b border-tertiary-5 text-center">
+                                <Link
+                                  href={`https://${chainUrl}/address/${activitiesData.savingsContractCreateds[0].savingsContract}`}
+                                  className="inline-block px-2 py-[23px] w-full"
+                                >
+                                  -
+                                </Link>
+                              </td>
+
+                              <td className="border-b border-tertiary-5 text-center">
+                                <Link
+                                  href={`https://${chainUrl}/address/${activitiesData.savingsContractCreateds[0].savingsContract}`}
+                                  className="inline-block px-2 py-[23px] w-full"
+                                >
+                                  <div className="flex flex-grow gap-2 py-1 px-3 items-center justify-center bg-tertiary-7 rounded-xl">
+                                    <Circle />
+                                    <p>Successful</p>
+                                  </div>
+                                </Link>
+                              </td>
+
+                              <td className="border-b border-tertiary-5 text-center">
+                                <Link
+                                  href={`https://${chainUrl}/address/${activitiesData.savingsContractCreateds[0].savingsContract}`}
+                                  className="inline-block px-2 py-[23px] w-full"
+                                >
+                                  -
+                                </Link>
+                              </td>
+
+                              <td className="border-b border-tertiary-5 text-center">
+                                <Link
+                                  href={`https://${chainUrl}/address/${activitiesData.savingsContractCreateds[0].savingsContract}`}
+                                  className="inline-block px-2 py-[23px] w-full"
+                                >
+                                  {toFormattedDate(
+                                    activitiesData.savingsContractCreateds[0]
+                                      .date
+                                  )}{" "}
+                                </Link>
+                              </td>
+                            </tr>
+                          )}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
 

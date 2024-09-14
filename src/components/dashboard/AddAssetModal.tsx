@@ -1,9 +1,6 @@
 import { StorageContractAbi } from "@/abis/StorageContractAbi";
-import {
-  assetsDetails,
-  factoryContractAddrs,
-  storageContractAddrs,
-} from "@/constants";
+import { assetsDetails } from "@/constants";
+import { useContractAddresses } from "@/constants/index";
 import { getEthersProvider } from "@/ethersProvider";
 import { config } from "@/wagmi";
 import { ethers } from "ethers";
@@ -14,6 +11,7 @@ import { BaseError, useReadContract } from "wagmi";
 import { useAccount } from "wagmi";
 import AssetsLoader from "./Loaders/AssetsLoader";
 import { erc20Abi } from "@/abis/erc20Abi";
+import Web3 from "web3";
 import { useWriteContract } from "wagmi";
 import { FactoryAbi } from "@/abis/FactoryContractAbi";
 import { DigitsaveAcctAbi } from "@/abis/DigitsaveAccountAbi";
@@ -49,6 +47,8 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({
   const savingIdBigNumber = BigNumber.from(savingId);
   const [isAlertModalOpen, setAlertModalOpen] = useState(true);
   const [isTrackModalOpen, setTrackModalOpen] = useState(false);
+  const web3 = new Web3();
+  const { factoryContractAddrs, storageContractAddrs } = useContractAddresses();
 
   const closeAlertModal = () => {
     setAlertModalOpen(false);
@@ -518,7 +518,9 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({
                       asset.isActive && (
                         <div
                           key={index}
-                          className={`w-full flex justify-between items-center border border-x-0 border-t-0 pb-4 border-b-tertiary-5 cursor-pointer ${savingsAssets.includes(asset.id) ? "opacity-50" : ""}`}
+                          className={`w-full flex justify-between items-center border border-x-0 border-t-0 pb-4 border-b-tertiary-5 cursor-pointer ${
+                            savingsAssets.includes(asset.id) ? "opacity-50" : ""
+                          }`}
                           onClick={() => {
                             if (savingsAssets.includes(asset.id)) {
                               alert("asset already added, topup instead");
@@ -539,10 +541,15 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({
                             <Image
                               width={32}
                               height={32}
-                              // @ts-ignore
-                              src={`${assetsDetails[chainId][asset.assetAddress].ticker}`}
-                              // @ts-ignore
-                              alt={`${assetsDetails[chainId][asset.assetAddress].name}`}
+                              src={`${
+                                // @ts-ignore
+                                assetsDetails[chainId][asset.assetAddress]
+                                  .ticker
+                              }`}
+                              alt={`${
+                                // @ts-ignore
+                                assetsDetails[chainId][asset.assetAddress].name
+                              }`}
                               className="border border-white rounded-full"
                             />
                             <div className="flex flex-col">
@@ -623,25 +630,41 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({
               <div className="flex gap-3 mt-2 bg-tertiary-6 p-4 rounded-md">
                 <button
                   onClick={() => handlePercentageClick(0.25, 1)}
-                  className={`font-semibold p-2 rounded-md ${percentClicked === 1 ? "bg-secondry-4 hover:bg-secondry-5 text-tertiary-7 " : "border border-neutral-4 hover:bg-gray-700 text-white "}`}
+                  className={`font-semibold p-2 rounded-md ${
+                    percentClicked === 1
+                      ? "bg-secondry-4 hover:bg-secondry-5 text-tertiary-7 "
+                      : "border border-neutral-4 hover:bg-gray-700 text-white "
+                  }`}
                 >
                   25%
                 </button>
                 <button
                   onClick={() => handlePercentageClick(0.5, 2)}
-                  className={`font-semibold p-2 rounded-md ${percentClicked === 2 ? "bg-secondry-4 hover:bg-secondry-5 text-tertiary-7 " : "border border-neutral-4 hover:bg-gray-700 text-white "}`}
+                  className={`font-semibold p-2 rounded-md ${
+                    percentClicked === 2
+                      ? "bg-secondry-4 hover:bg-secondry-5 text-tertiary-7 "
+                      : "border border-neutral-4 hover:bg-gray-700 text-white "
+                  }`}
                 >
                   50%
                 </button>
                 <button
                   onClick={() => handlePercentageClick(0.75, 3)}
-                  className={`font-semibold p-2 rounded-md ${percentClicked === 3 ? "bg-secondry-4 hover:bg-secondry-5 text-tertiary-7 " : "border border-neutral-4 hover:bg-gray-700 text-white "}`}
+                  className={`font-semibold p-2 rounded-md ${
+                    percentClicked === 3
+                      ? "bg-secondry-4 hover:bg-secondry-5 text-tertiary-7 "
+                      : "border border-neutral-4 hover:bg-gray-700 text-white "
+                  }`}
                 >
                   75%
                 </button>
                 <button
                   onClick={() => handlePercentageClick(1, 4)}
-                  className={`font-semibold p-2 rounded-md ${percentClicked === 4 ? "bg-secondry-4 hover:bg-secondry-5 text-tertiary-7 " : "border border-neutral-4 hover:bg-gray-700 text-white "}`}
+                  className={`font-semibold p-2 rounded-md ${
+                    percentClicked === 4
+                      ? "bg-secondry-4 hover:bg-secondry-5 text-tertiary-7 "
+                      : "border border-neutral-4 hover:bg-gray-700 text-white "
+                  }`}
                 >
                   MAX
                 </button>
@@ -666,7 +689,14 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({
         </div>
         <div className="w-full flex justify-center">
           <button
-            className={`bg-[#008080] hover:bg-teal-600 text-white font-medium text-lg py-3 px-4 mx-auto w-40 rounded-md ${approvalIsPending || addAssetIsPending || isApproving || isConfirming ? "cursor-not-allowed" : ""}`}
+            className={`bg-[#008080] hover:bg-teal-600 text-white font-medium text-lg py-3 px-4 mx-auto w-40 rounded-md ${
+              approvalIsPending ||
+              addAssetIsPending ||
+              isApproving ||
+              isConfirming
+                ? "cursor-not-allowed"
+                : ""
+            }`}
             onClick={() => submit()}
             disabled={
               approvalIsPending ||

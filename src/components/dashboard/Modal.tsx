@@ -24,11 +24,15 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <>
       <div
-        className={`${isOpen ? "fixed" : "hidden"} inset-0 bg-gray-800 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-30`}
+        className={`${
+          isOpen ? "fixed" : "hidden"
+        } inset-0 bg-gray-800 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-30`}
         onClick={onCloseModal}
       >
         <div
-          className={`${centerBg ? "bg-tertiary-7" : "bg-transparent"} px-8 py-20 rounded-lg w-[400px] max-w-sm text-center`}
+          className={`${
+            centerBg ? "bg-tertiary-7" : "bg-transparent"
+          } px-8 py-20 rounded-lg w-[400px] max-w-sm text-center`}
         >
           {/* status */}
           <div className="flex justify-center mb-8">{status}</div>

@@ -18,6 +18,7 @@ export async function getAssetBalance(erc20ContractAddress: string, address: str
     // Format the balance based on the decimals
     const formattedBalance = ethers.utils.formatUnits(balance, decimals);
 
+
     return formattedBalance
   } catch (error) {
     console.error('Error fetching balance:', error);

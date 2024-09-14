@@ -1,7 +1,14 @@
 import Link from "next/link";
 import React from "react";
-import { GithubIcon, LogoIcon, TwitterIcon } from "../../icon";
+import {
+  GithubIcon,
+  LinkedinIcon,
+  LogoIcon,
+  TwitterIcon,
+  YoutubeIcon,
+} from "../../icon";
 import { Link as ScrollLink } from "react-scroll";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -9,39 +16,25 @@ export default function Footer() {
       <div className="flex w-full justify-between mb-8 items-center">
         <div className="flex flex-col gap-8 ">
           <Link href={"/"}>
-            <LogoIcon />
+            <Image
+              src="/logo.png"
+              alt="logo"
+              className="md:w-44 w-32"
+              width={100}
+              height={100}
+            />
           </Link>
 
           <nav className=" md:flex gap-6 items-center">
             <ul className="sm:flex grid grid-cols-2 gap-8 text-neutral-3">
               <ScrollLink
-                to="assets"
-                spy={true}
-                smooth={true}
-                duration={500}
-                className="cursor-pointer hover:text-white transition-colors duration-300"
-              >
-                Crypto Assets
-              </ScrollLink>
-
-              <ScrollLink
-                to="learn"
+                to="/learn"
                 spy={true}
                 smooth={true}
                 duration={500}
                 className="cursor-pointer hover:text-white transition-colors duration-300"
               >
                 Learn
-              </ScrollLink>
-
-              <ScrollLink
-                to="about"
-                spy={true}
-                smooth={true}
-                duration={500}
-                className="cursor-pointer hover:text-white transition-colors duration-300"
-              >
-                About Us
               </ScrollLink>
 
               <ScrollLink
@@ -53,24 +46,19 @@ export default function Footer() {
               >
                 FAQ
               </ScrollLink>
+
+              <ScrollLink
+                to="roadmap"
+                spy={true}
+                smooth={true}
+                duration={500}
+                className="cursor-pointer hover:text-white transition-colors duration-300"
+              >
+                Roadmap
+              </ScrollLink>
             </ul>
           </nav>
         </div>
-
-        {/* <div className="flex gap-4">
-          <input
-            type="text"
-            placeholder="Enter your email"
-            className="bg-transparent py-1 px-4 placeholder-neutral-3 border rounded-lg"
-          />
-          <Link
-            href="#"
-            className="w-40 py-2 px-8 text-center rounded-lg bg-primary-0 text-neutral-3"
-          >
-            {" "}
-            Subscribe
-          </Link>
-        </div> */}
       </div>
 
       <hr />
@@ -81,9 +69,9 @@ export default function Footer() {
         <nav className=" md:flex gap-4 items-center">
           <ul className="flex gap-8">
             <li>
-              <Link href={"#"}>
+              <a target="_blank" href={"https://x.com/digitsave?s=21"}>
                 <TwitterIcon />
-              </Link>
+              </a>
             </li>
             <li>
               <a
@@ -91,6 +79,19 @@ export default function Footer() {
                 href={"https://github.com/orgs/DigitSave/repositories"}
               >
                 <GithubIcon />
+              </a>
+            </li>
+            <li>
+              <a target="_blank" href={"https://www.youtube.com/@digitsave"}>
+                <YoutubeIcon />
+              </a>
+            </li>
+            <li>
+              <a
+                target="_blank"
+                href={"https://www.linkedin.com/company/digitsave/"}
+              >
+                <LinkedinIcon />
               </a>
             </li>
           </ul>

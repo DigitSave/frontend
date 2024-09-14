@@ -1,60 +1,36 @@
-# Digitsave: Solving Financial Management Challenges with the Blockchain
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Problems
+## Getting Started
 
-Traditional savings platforms face:
+First, run the development server:
 
-- **Lack of Transparency:** Limited visibility into money management.
-- **Security Risks:** Vulnerability to hacks and fraud.
-- **Inefficiency:** Delayed transactions and high costs.
-- **Limited Flexibility:** Inflexible savings options.
-- **Low Returns:** Insufficient interest rates.
-- **Currency Depreciation:** Inflation reduces fiat value.
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-## Solutions
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### 1. Enhanced Transparency
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-- **Blockchain Technology:** Immutable ledger for complete transparency.
-- **Smart Contracts:** Automated enforcement without intermediaries.
-- **User-Owned Contracts:** Each user controls their own dedicated smart contract.
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-### 2. Improved Security
+## Learn More
 
-- **Decentralized System:** Reduced risk of hacks and fraud.
-- **Data Encryption:** Protects personal and financial data.
+To learn more about Next.js, take a look at the following resources:
 
-### 3. Increased Efficiency
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-- **Instant Transactions:** Near-instantaneous with blockchain.
-- **Lower Costs:** Minimal fees by removing intermediaries.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-### 4. Flexible Savings Options
+## Deploy on Vercel
 
-- **Customizable Plans:** Fixed or flexible savings for all goals.
-- **Automatic Savings:** Recurring deposits for consistent growth.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-### 5. Maximized Returns
-
-- **High-Yield Investments:** Better returns than traditional accounts.
-- **Interest on Locked Assets:** Earn returns even on locked savings.
-
-### 6. Mitigating Currency Depreciation
-
-- **Stablecoin Integration:** Save in stablecoins to avoid inflation.
-- **Diversified Investments:** Hedge against inflation and devaluation.
-
-## Use Cases for Digitsave
-
-- **Long & Short Term Savings:** Plan for retirement or Save for vacations.
-- **Automated Investing:** Grow savings with high-yield strategies.
-- **Transparent Management:** Real-time tracking of assets.
-- **Secure Transactions:** Confidence in data and asset protection.
-- **Hedge Against Inflation:** Use stablecoins and diverse investments.
-- **Personalized Control:** Own and control your smart contract.
-
-
-## Contract Addresses
-
-- **Factory Contract:** 0xc6Bb6bD945Af880fab19B5fbaC0D8e42a8942E12
-- **Storage Contract:** 0xFD0D395CA4E8b22f657F55e635F4D27D987BeFC0
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
