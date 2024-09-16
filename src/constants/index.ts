@@ -38,8 +38,8 @@ export const useContractAddresses = (): ContractAddresses => {
       chainId === 84532
         ? "sepolia.basescan.org"
         : chainId === 42421
-        ? "testnet.assetchain.org/"
-        : "testnet.assetchain.org/";
+        ? "testnet.assetchain.org"
+        : "testnet.assetchain.org";
   
   
     return {chainUrl};

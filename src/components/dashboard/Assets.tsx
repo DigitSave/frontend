@@ -11,6 +11,7 @@ import { config } from "@/wagmi";
 import { ethers } from "ethers";
 import { NumericFormat } from "react-number-format";
 import AssetsLoader from "./Loaders/AssetsLoader";
+import { AssetDetail } from "@/@types/assets.types";
 
 // Define the type for an asset object
 interface Asset {
@@ -29,7 +30,6 @@ const Assets: React.FC = () => {
   const provider = getEthersProvider(config);
   const { storageContractAddrs } = useContractAddresses();
   const chainId = useChainId();
-  const { isConnected } = useAccount();
 
   const {
     data: nextAssetIdData,
@@ -100,7 +100,20 @@ const Assets: React.FC = () => {
   const renderAsset = (asset: Asset, index: number) => {
     if (!asset.isActive || !assetsDetails || !chainId) return null;
     //@ts-ignore
-    const assetDetail = assetsDetails[chainId]?.[asset.assetAddress];
+    // const assetDetail = assetsDetails[chainId]?.[asset.assetAddress];
+
+    const unsupportedChainIds: number[] = [
+      /* array of chain IDs without Oracle support */
+    ];
+
+    const assetDetail = unsupportedChainIds.includes(chainId)
+      ? assetsDetails[84532]?.[
+          asset.assetAddress as keyof (typeof assetsDetails)[84532]
+        ]
+      : assetsDetails[chainId]?.[
+          asset.assetAddress as keyof (typeof assetsDetails)[typeof chainId]
+        ];
+
     if (!assetDetail) return null;
 
     const formattedPrice = Number(asset.price) / 10 ** assetDetail.decimal;
