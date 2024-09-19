@@ -114,8 +114,8 @@ const AccountTransferModal: React.FC<ModalProps> = ({
           </div>
 
           {/* Title and Subtitle */}
-          <h2 className="text-xl text-white font-semibold mb-2">
-            Transfer account ownership
+          <h2 className="text-xl text-white font-semibold mb-4">
+            Are you sure you want to Transfer account ownership?
           </h2>
           <p className={`text-neutral-3 mb-4`}>
             Transferring ownership to a new address will automatically make the

@@ -93,12 +93,15 @@ const AccountRenounceModal: React.FC<ModalProps> = ({
           </div>
 
           {/* Title and Subtitle */}
-          <h2 className="text-xl text-white font-semibold mb-2">
-            Renounce account ownership
+          <h2 className="text-xl text-white font-semibold mb-3">
+            Are you sure you want to Renounce account ownership?
           </h2>
           <p className={`text-neutral-3 mb-4`}>
-            Renouncing ownership to a your account will cause you to never have
-            access to your account again.
+            Renouncing ownership to your account will cause you to never have
+            access to your account ever again. <br />{" "}
+            <span className="text-positive-7">
+              No one can retrieve this address.
+            </span>
           </p>
 
           <div className="mt-4 flex justify-between items-center w-full">
