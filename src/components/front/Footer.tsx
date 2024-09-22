@@ -26,7 +26,7 @@ export default function Footer() {
           </Link>
 
           <nav className=" md:flex gap-6 items-center">
-            <ul className="sm:flex grid grid-cols-2 gap-8 text-neutral-3">
+            <ul className="sm:flex grid grid-cols-3 gap-8 text-neutral-3">
               <ScrollLink
                 to="/learn"
                 spy={true}
@@ -81,7 +81,7 @@ export default function Footer() {
                 <GithubIcon />
               </a>
             </li>
-            <li>
+            <li className="pt-1">
               <a target="_blank" href={"https://www.youtube.com/@digitsave"}>
                 <YoutubeIcon />
               </a>

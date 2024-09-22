@@ -207,8 +207,8 @@ export default function Home() {
               </h2>
               <p>
                 Track the growth of your crypto portfolio and assets in
-                real-time. Monitor your assets performance performance and make
-                informed decisions.
+                real-time. Monitor your assets performance and make informed
+                decisions.
               </p>
             </div>
             <div className="sm:p-14 p-5 text-center sm:text-left flex flex-col items-center md:items-start leading-relaxed bg-[#99999900] border  rounded-3xl">
@@ -217,9 +217,9 @@ export default function Home() {
                 Diverse Token Options
               </h2>
               <p>
-                Digitsave upports a wide range of cryptocurrencies, allowing you
-                to diversify your savings and choose the tokens that best meet
-                your financial goals.
+                Digitsave supports a wide range of cryptocurrencies, allowing
+                you to diversify your savings and choose the tokens that best
+                meet your financial goals.
               </p>
             </div>
             <div className="sm:p-14 p-5 text-center sm:text-left flex flex-col items-center md:items-start leading-relaxed bg-[#99999900] border  rounded-3xl">
