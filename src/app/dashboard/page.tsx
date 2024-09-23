@@ -375,7 +375,8 @@ export default function Dashboard() {
                             </td>
                           </tr>
                         ))}
-                        {activitiesData !== undefined &&
+                        {savingsAcct !== undefined &&
+                          savingsAcct &&
                           activitiesData.savingsContractCreateds[0] && (
                             <tr className="hover:bg-tertiary-4 transition-all ease-in-out py-[23px]">
                               {/* <td className="border-b border-tertiary-5 text-center">
@@ -392,7 +393,8 @@ export default function Dashboard() {
 
                               <td className="border-b border-tertiary-5 text-center">
                                 <Link
-                                  href={`https://${chainUrl}/address/${activitiesData.savingsContractCreateds[0].savingsContract}`}
+                                  href={`https://${chainUrl}/address/${savingsAcct}`}
+                                  target="_blank"
                                   className="inline-block px-2 py-[23px] w-full"
                                 >
                                   <div className="flex flex-grow gap-4">
@@ -408,7 +410,8 @@ export default function Dashboard() {
 
                               <td className="border-b border-tertiary-5 text-center">
                                 <Link
-                                  href={`https://${chainUrl}/address/${activitiesData.savingsContractCreateds[0].savingsContract}`}
+                                  href={`https://${chainUrl}/address/${savingsAcct}`}
+                                  target="_blank"
                                   className="inline-block px-2 py-[23px] w-full"
                                 >
                                   -
@@ -417,7 +420,8 @@ export default function Dashboard() {
 
                               <td className="border-b border-tertiary-5 text-center">
                                 <Link
-                                  href={`https://${chainUrl}/address/${activitiesData.savingsContractCreateds[0].savingsContract}`}
+                                  href={`https://${chainUrl}/address/${savingsAcct}`}
+                                  target="_blank"
                                   className="inline-block px-2 py-[23px] w-full"
                                 >
                                   <div className="flex flex-grow gap-2 py-1 px-3 items-center justify-center bg-tertiary-7 rounded-xl">
@@ -429,7 +433,8 @@ export default function Dashboard() {
 
                               <td className="border-b border-tertiary-5 text-center">
                                 <Link
-                                  href={`https://${chainUrl}/address/${activitiesData.savingsContractCreateds[0].savingsContract}`}
+                                  href={`https://${chainUrl}/address/${savingsAcct}`}
+                                  target="_blank"
                                   className="inline-block px-2 py-[23px] w-full"
                                 >
                                   -
@@ -438,7 +443,8 @@ export default function Dashboard() {
 
                               <td className="border-b border-tertiary-5 text-center">
                                 <Link
-                                  href={`https://${chainUrl}/address/${activitiesData.savingsContractCreateds[0].savingsContract}`}
+                                  href={`https://${chainUrl}/address/${savingsAcct}`}
+                                  target="_blank"
                                   className="inline-block px-2 py-[23px] w-full"
                                 >
                                   {toFormattedDate(
