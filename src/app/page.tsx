@@ -136,8 +136,8 @@ export default function Home() {
                   </h2>
                   <p className="text-sm sm:text-base">
                     Whether you are saving for the short term or looking to grow
-                    your assets over a longer period, our Safe Lock feature
-                    offers flexibility and security.
+                    your assets over a longer period, our Savings feature offers
+                    flexibility and security.
                   </p>
                 </div>
               </div>

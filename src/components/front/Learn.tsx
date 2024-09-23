@@ -182,7 +182,7 @@ const Learn: React.FC = () => {
         {activeSubsection ? (
           <Element name={activeSubsection.id}>
             <h2 className="text-xl font-bold mb-2">{activeSubsection.title}</h2>
-            <p className="mb-4 text-neutral-3">
+            <p className="mb-4 text-neutral-3 md:w-[70%]">
               {activeSubsection.description}
             </p>
             <div className="relative aspect-w-16 aspect-h-9">

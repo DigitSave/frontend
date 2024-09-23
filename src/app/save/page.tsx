@@ -410,7 +410,7 @@ export default function Save() {
                     href="/create-save"
                     className={`mx-auto mt-5 flex gap-2 items-center font-semibold  justify-center rounded-md bg-primary-0 text-neutral-3 w-44 py-4 mb-3 px-2 `}
                   >
-                    create save lock
+                    create save
                   </Link>
                 </div>
               </div>

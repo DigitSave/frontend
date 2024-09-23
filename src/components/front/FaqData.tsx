@@ -17,7 +17,7 @@ const FaqData = () => {
         "A Savings is just a single save box in your savings account where you can have a number of cryptoassets in it, and svings for that savings is distributed among the included assets.",
     },
     {
-      question: "How many save lock can i have?",
+      question: "How many savings can i have?",
       answer:
         "You can have as many savings as you want, as long as you are saving in them",
     },
