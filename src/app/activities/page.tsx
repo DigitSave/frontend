@@ -393,7 +393,7 @@ export default function Activities() {
                           ))}
                           {savingsAcct !== undefined &&
                             savingsAcct &&
-                            activitiesData.savingsContractCreateds[0] && (
+                            activitiesData?.savingsContractCreateds[0] && (
                               <tr className="hover:bg-tertiary-4 transition-all ease-in-out py-[23px]">
                                 <td className="border-b border-tertiary-5 text-center">
                                   <Link

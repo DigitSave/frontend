@@ -270,9 +270,9 @@ export default function Save() {
                             <th className="px-2 border-b border-tertiary-5 text-center py-[23px]">
                               Save Name
                             </th>
-                            <th className="px-2 border-b border-tertiary-5 text-center py-[23px]">
+                            {/* <th className="px-2 border-b border-tertiary-5 text-center py-[23px]">
                               Date Created
-                            </th>
+                            </th> */}
                             <th className="px-2 border-b border-tertiary-5 text-center py-[23px]">
                               Total Amount
                             </th>
@@ -311,14 +311,14 @@ export default function Save() {
                                 </Link>
                               </td>
 
-                              <td className="border-b border-tertiary-5 text-center">
+                              {/* <td className="border-b border-tertiary-5 text-center">
                                 <Link
                                   href={`/view-save?id=${saving.id}&datecreated=${saving.date}&period=${saving.lockPeriod}`}
                                   className="inline-block px-2 py-[23px] w-full"
                                 >
                                   {toFormattedDate(saving.date)}
                                 </Link>
-                              </td>
+                              </td> */}
 
                               <td className="border-b border-tertiary-5 text-center">
                                 <Link
