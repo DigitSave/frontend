@@ -117,24 +117,7 @@ export default function Activities() {
                   provider
                 );
 
-                // const filter = {
-                //   address: savingsAcct,
-                //   topics: [
-                //     ethers.utils.id("SavingCreated(uint256,uint256)"),
-                //     ethers.utils.hexZeroPad(ethers.utils.hexlify(i), 32),
-                //   ],
-                //   fromBlock: 13767310,
-                //   toBlock: 13767310,
-                // };
-
-                // console.log(filter);
-                const [
-                  savingData,
-                  // savingEvent
-                ] = await Promise.all([
-                  contract.savings(i),
-                  // provider?.getLogs(filter),
-                ]);
+                const [savingData] = await Promise.all([contract.savings(i)]);
 
                 return {
                   id: savingData.id.toString(),
@@ -146,7 +129,6 @@ export default function Activities() {
                   isCompleted: savingData.isCompleted,
                   date: 1725412179,
                   name: savingData.name,
-                  // eventLog: savingEvent,
                 };
               })()
             );
@@ -212,22 +194,6 @@ export default function Activities() {
             </div>
           )}
         </AnimatePresence>
-        {/* {!isConnected && (
-          <GuestLayout>
-            <div className="flex w-full flex-col item-center py-10 justify-center text-center gap-6 min-h-[350px]">
-              <div className="flex justify-center w-full">
-                <FileIcon />
-              </div>
-              <p className="mx-auto text-neutral-6 w-4/5">
-                Connect your wallet to start saving.
-              </p>
-
-              <div className="flex justify-center gap-6">
-                <ConnectButton showBalance={false} />
-              </div>
-            </div>
-          </GuestLayout>
-        )} */}
 
         {isLoading && isConnected && <FullPageLoader />}
 
@@ -328,9 +294,9 @@ export default function Activities() {
                             <th className="px-2 border-b border-tertiary-5 text-center py-[23px]">
                               Type
                             </th>
-                            <th className="px-2 border-b border-tertiary-5 text-center py-[23px]">
+                            {/* <th className="px-2 border-b border-tertiary-5 text-center py-[23px]">
                               Date
-                            </th>
+                            </th> */}
                           </tr>
                         </thead>
                         <tbody>
@@ -415,14 +381,14 @@ export default function Activities() {
                                 </Link>
                               </td>
 
-                              <td className="border-b border-tertiary-5 text-center">
+                              {/* <td className="border-b border-tertiary-5 text-center">
                                 <Link
                                   href={`/view-save?id=${saving.id}&datecreated=${saving.date}&period=${saving.lockPeriod}`}
                                   className="inline-block px-2 py-[23px] w-full"
                                 >
                                   {toFormattedDate(saving.date)}
                                 </Link>
-                              </td>
+                              </td> */}
                             </tr>
                           ))}
                           {savingsAcct !== undefined &&
@@ -489,18 +455,15 @@ export default function Activities() {
                                   </Link>
                                 </td>
 
-                                <td className="border-b border-tertiary-5 text-center">
+                                {/* <td className="border-b border-tertiary-5 text-center">
                                   <Link
                                     href={`https://${chainUrl}/address/${savingsAcct}`}
                                     target="_blank"
                                     className="inline-block px-2 py-[23px] w-full"
                                   >
-                                    {toFormattedDate(
-                                      activitiesData.savingsContractCreateds[0]
-                                        .date
-                                    )}{" "}
+                                    -
                                   </Link>
-                                </td>
+                                </td> */}
                               </tr>
                             )}
                         </tbody>

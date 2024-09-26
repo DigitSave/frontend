@@ -82,8 +82,6 @@ export default function Dashboard() {
     args: [],
   });
 
-  console.log(savings);
-
   useEffect(() => {
     if (nextSavingIdData) {
       setNextSavingId(parseInt(nextSavingIdData.toString()));
@@ -105,24 +103,7 @@ export default function Dashboard() {
                   provider
                 );
 
-                // const filter = {
-                //   address: savingsAcct,
-                //   topics: [
-                //     ethers.utils.id("SavingCreated(uint256,uint256)"),
-                //     ethers.utils.hexZeroPad(ethers.utils.hexlify(i), 32),
-                //   ],
-                //   fromBlock: 13767310,
-                //   toBlock: 13767310,
-                // };
-
-                // console.log(filter);
-                const [
-                  savingData,
-                  // savingEvent
-                ] = await Promise.all([
-                  contract.savings(i),
-                  // provider?.getLogs(filter),
-                ]);
+                const [savingData] = await Promise.all([contract.savings(i)]);
 
                 return {
                   id: savingData.id.toString(),
@@ -134,7 +115,6 @@ export default function Dashboard() {
                   isCompleted: savingData.isCompleted,
                   date: 1725412179,
                   name: savingData.name,
-                  // eventLog: savingEvent,
                 };
               })()
             );
@@ -291,15 +271,6 @@ export default function Dashboard() {
                             key={index}
                             className="hover:bg-tertiary-4 transition-all ease-in-out py-[23px]"
                           >
-                            {/* <td className="border-b border-tertiary-5 text-center">
-                              <Link
-                                href={`/view-save?id=${saving.id}&datecreated=${saving.date}&period=${saving.lockPeriod}`}
-                                className="inline-block px-2 py-[23px] w-full"
-                              >
-                                #{index + 1}
-                              </Link>
-                            </td> */}
-
                             <td className="border-b border-tertiary-5 text-center">
                               <Link
                                 href={`/view-save?id=${saving.id}&datecreated=${saving.date}&period=${saving.lockPeriod}`}
@@ -365,32 +336,20 @@ export default function Dashboard() {
                               </Link>
                             </td>
 
-                            <td className="border-b border-tertiary-5 text-center">
+                            {/* <td className="border-b border-tertiary-5 text-center">
                               <Link
                                 href={`/view-save?id=${saving.id}&datecreated=${saving.date}&period=${saving.lockPeriod}`}
                                 className="inline-block px-2 py-[23px] w-full"
                               >
                                 {toFormattedDate(saving.date)}
                               </Link>
-                            </td>
+                            </td> */}
                           </tr>
                         ))}
                         {savingsAcct !== undefined &&
                           savingsAcct &&
-                          activitiesData.savingsContractCreateds[0] && (
+                          activitiesData?.savingsContractCreateds[0] && (
                             <tr className="hover:bg-tertiary-4 transition-all ease-in-out py-[23px]">
-                              {/* <td className="border-b border-tertiary-5 text-center">
-                                <Link
-                                  href={`https://${chainUrl}/address/${
-                                    activitiesData.savingsContractCreateds[0]
-                                      .savingsContract
-                                  }`}
-                                  className="inline-block px-2 py-[23px] w-full"
-                                >
-                                  #{savings.length + 1}
-                                </Link>
-                              </td> */}
-
                               <td className="border-b border-tertiary-5 text-center">
                                 <Link
                                   href={`https://${chainUrl}/address/${savingsAcct}`}
@@ -441,18 +400,15 @@ export default function Dashboard() {
                                 </Link>
                               </td>
 
-                              <td className="border-b border-tertiary-5 text-center">
+                              {/* <td className="border-b border-tertiary-5 text-center">
                                 <Link
                                   href={`https://${chainUrl}/address/${savingsAcct}`}
                                   target="_blank"
                                   className="inline-block px-2 py-[23px] w-full"
                                 >
-                                  {toFormattedDate(
-                                    activitiesData.savingsContractCreateds[0]
-                                      .date
-                                  )}{" "}
+                                  -
                                 </Link>
-                              </td>
+                              </td> */}
                             </tr>
                           )}
                       </tbody>

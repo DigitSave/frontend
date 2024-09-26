@@ -31,7 +31,7 @@ const roadmapData: RoadmapItem[] = [
   {
     date: "SEPTEMBER 2024",
     title: "MVP Development",
-    description: "MVP desing and implementation",
+    description: "MVP Design and implementation",
     tasks: [
       "UI/UX Design commerced",
       "UI Implemetatation",
