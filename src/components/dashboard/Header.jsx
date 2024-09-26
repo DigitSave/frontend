@@ -47,18 +47,18 @@ export default function Header({ navOpen, setNavOpen }) {
       <div
         className={` w-full fixed top-0 left-0 ${scrolled ? "bg-[#008888]" : ""}  transition-all duration-500 ease-in-out`}
       >
-        <div className="flex justify-between items-center h-20 px-10 md:py-6 lg:px-20">
+        <div className="flex justify-between items-center h-20 px-4 sm:px-10 md:py-6 lg:px-20">
           <Link href={"/"}>
             <Image
               src="/logo.png"
               alt="logo"
-              className="md:w-44 w-32"
+              className="md:w-40 sm:w-32 w-24"
               width={100}
               height={100}
             />
           </Link>
           <div className="flex gap-4">
-            <ConnectButton showBalance={false} chainStatus={'icon'}  />
+            <ConnectButton showBalance={false} chainStatus={'icon'} accountStatus="avatar" />
             <button className="lg:hidden" onClick={() => setNavOpen(!navOpen)}>
               {navOpen ? <CloseIcon /> : <HamburgerIcon />}
             </button>
