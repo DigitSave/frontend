@@ -11,6 +11,8 @@ import {
   YellowPlusIcon,
 } from "@/icon";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
+import MobileSidebar from "@/components/dashboard/MobileSidebar";
 import { useAccount, useReadContract } from "wagmi";
 import { DigitsaveAcctAbi } from "@/abis/DigitsaveAccountAbi";
 import { FactoryAbi } from "@/abis/FactoryContractAbi";
@@ -170,9 +172,33 @@ export default function ViewSave() {
       <Header navOpen={navOpen} setNavOpen={setNavOpen} />
       <section className="flex min-h-screen border-t border-tertiary-6">
         <div className="w-1/5">
-          <div className="w-1/5 fixed">
-            <Sidebar />
+          <div className="w-1/5 hidden lg:block">
+            <div className="w-1/5 fixed">
+              <Sidebar />
+            </div>
           </div>
+          <AnimatePresence>
+            {navOpen && (
+              <div className="w-full h-screen lg:hidden fixed block  z-20">
+                <div
+                  onClick={() => setNavOpen(!navOpen)}
+                  className="h-screen w-full cursor-pointer bg-transparent backdrop-blur-sm fixed z-20"
+                ></div>
+                <motion.div
+                  exit={{ width: 0, opacity: 0, transition: { duration: 0.6 } }}
+                  animate={{
+                    opacity: 1,
+                    transition: { duration: 0.9 },
+                  }}
+                  initial={{ opacity: 0 }}
+                  className=" sm:w-1/3 w-full fixed bg-tertiary-0 z-40"
+                >
+                  {" "}
+                  <MobileSidebar />
+                </motion.div>
+              </div>
+            )}
+          </AnimatePresence>
         </div>
 
         <div className="w-4/5 flex flex-col">

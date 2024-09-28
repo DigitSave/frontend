@@ -169,8 +169,10 @@ export default function Activities() {
     <main className="text-neutral-2">
       <Header navOpen={navOpen} setNavOpen={setNavOpen} />
       <section className="flex min-h-screen border-t border-tertiary-6">
-        <div className="w-1/5">
-          <Sidebar />
+        <div className="w-1/5 hidden lg:block">
+          <div className="w-1/5 fixed">
+            <Sidebar />
+          </div>
         </div>
         <AnimatePresence>
           {navOpen && (

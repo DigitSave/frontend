@@ -37,11 +37,11 @@ export default function Header() {
         >
           <Link href={"/"}>
             <Image
-              src="/logo.png"
+              src={`/logo.png`}
               alt="logo"
-              className="md:w-44 w-32"
-              width={100}
-              height={100}
+              className="md:w-40 sm:w-32 w-24"
+              width={120}
+              height={20}
             />
           </Link>
 

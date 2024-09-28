@@ -423,7 +423,7 @@ export default function Dashboard() {
         )}
 
         {!isAddressValid && isConnected && !error && !isLoading && (
-          <div className="flex w-4/5 flex-col item-center justify-center text-center gap-6">
+          <div className="flex w-full lg:w-4/5 flex-col item-center justify-center text-center gap-6">
             <div className="flex justify-center w-full">
               <FileIcon />
             </div>
@@ -431,7 +431,7 @@ export default function Dashboard() {
             <p className="text-neutral-3 text-xl font-medium">
               No savings Account found
             </p>
-            <p className="mx-auto text-neutral-6 w-2/5">
+            <p className="mx-auto text-neutral-6 w-3/5 lg:w-2/5">
               You don’t have a savings account yet.
             </p>
             <button
