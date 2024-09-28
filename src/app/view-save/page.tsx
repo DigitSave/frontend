@@ -219,7 +219,7 @@ export default function ViewSave() {
           </div>
 
           {saving[0]?.assets.length > 0 && (
-            <section className="w-full m-h-screen w-4/4 px-6 py-10">
+            <section className="w-full m-h-screen px-6 py-10">
               <div className="flex gap-4 w-full">
                 <div className="w-3/5 flex flex-col gap-4 p-6 bg-center rounded-lg bg-[url('/images/stats-bg.png')]">
                   <div className="flex gap-8 items-center">
@@ -311,7 +311,7 @@ export default function ViewSave() {
             </section>
           )}
 
-          <section className="w-full m-h-screen w-4/4 px-6 py-10">
+          <section className="w-full m-h-screen px-6 py-10">
             <h1 className="font-swiss text-2xl p-6 border-b border-tertiary-4 w-full">
               Assets Details
             </h1>

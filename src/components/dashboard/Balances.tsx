@@ -87,8 +87,8 @@ export default function Balances() {
     }
   }, [nextSavingId, chainId]);
   return (
-    <section className="w-full m-h-screen w-4/4 px-6 py-10">
-      <div className="flex gap-4 w-full">
+    <section className="w-full m-h-screen px-6 py-10">
+      <div className="flex flex-row lg:flex-row gap-4 w-full">
         <div className="w-full lg:w-3/5 flex flex-col gap-4 p-6 bg-center rounded-lg bg-[url('/images/stats-bg.png')]">
           <div className="flex gap-8 items-center">
             <span className="text-sm">Total Balance</span>

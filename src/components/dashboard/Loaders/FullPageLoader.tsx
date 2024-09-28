@@ -3,7 +3,7 @@ import React from "react";
 export default function FullPageLoader() {
   return (
     <div className="w-full flex flex-col">
-      <section className="w-full m-h-screen w-4/4 px-6 py-10">
+      <section className="w-full m-h-screen px-6 py-10">
         <div className="flex gap-4 w-full">
           <div className="w-3/5 flex flex-col gap-4 p-6 bg-center rounded-lg border mx-auto border-blue-300 shadow ">
             <div className="animate-pulse flex space-x-4">
@@ -30,7 +30,7 @@ export default function FullPageLoader() {
         </div>
       </section>
 
-      <section className="w-full m-h-screen w-4/4 px-6 py-10">
+      <section className="w-full m-h-screen px-6 py-10">
         <div className="flex gap-4 w-full">
           <div className="w-3/5 flex flex-col gap-4 animate-pulse">
             <div className="h-2 w-2/5 bg-slate-700 rounded"></div>

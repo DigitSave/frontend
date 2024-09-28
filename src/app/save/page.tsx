@@ -178,7 +178,10 @@ export default function Save() {
 
         {/* guest */}
         {!isConnected && (
-          <GuestLayout>
+          <GuestLayout
+            title={"Savings"}
+            subTitle="Let’s see how well you are doing."
+          >
             <div className="flex w-full flex-col item-center py-10 justify-center text-center gap-6 min-h-[350px]">
               <div className="flex justify-center w-full">
                 <FileIcon />
@@ -284,7 +287,7 @@ export default function Save() {
             {/* Balances */}
             <Balances />
 
-            <section className="w-full m-h-screen w-4/4 px-6 py-10">
+            <section className="w-full m-h-screen px-6 py-10">
               <div className="flex gap-4 w-full">
                 <div className="w-full flex flex-col gap-4">
                   <h1 className="font-swiss text-2xl">All Savings</h1>

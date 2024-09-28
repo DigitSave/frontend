@@ -156,7 +156,7 @@ export default function Dashboard() {
                 </p>
               </div>
               {/* actions  */}
-              <section className="w-full m-h-screen w-4/4 px-6  h-[500px] overflow-y-scroll py-10">
+              <section className="w-full m-h-screen px-6  h-[500px] overflow-y-scroll py-10">
                 <div className="flex gap-4 w-full">
                   <div className="w-full flex flex-col gap-4">
                     <div className="w-full flex flex-col  rounded-lg  ">

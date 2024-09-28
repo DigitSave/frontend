@@ -186,7 +186,10 @@ export default function Dashboard() {
 
         {/* GUEST LAYOUT */}
         {!isConnected && (
-          <GuestLayout>
+          <GuestLayout
+            title={"Overview"}
+            subTitle="Get a heads up on how your assets are doing"
+          >
             <div className="flex w-full flex-col item-center py-10 justify-center text-center gap-6 min-h-[350px]">
               <div className="flex justify-center w-full">
                 <FileIcon />
@@ -226,9 +229,9 @@ export default function Dashboard() {
             <Balances />
 
             {/* history and token */}
-            <section className="w-full m-h-screen w-4/4   px-6 py-10">
-              <div className="flex gap-4 w-full">
-                <div className="w-3/5 flex flex-col gap-4">
+            <section className="w-full m-h-screen px-6 py-10">
+              <div className="flex flex-col md:flex-row  gap-4 w-full">
+                <div className="w-full md:w-3/5 flex flex-col gap-4">
                   <p className="font-semibold">Recent activities</p>
 
                   <div className="w-full flex flex-col overflow-y-scroll rounded-lg bg-[#1B1B1B] h-[350px]">
@@ -422,7 +425,9 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                <Assets />
+                <div className="w-full md:w-2/5 ">
+                  <Assets />
+                </div>
               </div>
             </section>
           </div>

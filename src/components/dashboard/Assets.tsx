@@ -284,7 +284,7 @@ const Assets: React.FC = () => {
   };
 
   return (
-    <div className="w-2/5 flex flex-col gap-4">
+    <div className="w-full flex flex-col gap-4">
       <p className="font-semibold">Supported assets</p>
       <div className="w-full flex flex-col rounded-lg gap-4 bg-[#2B2B2B80] p-6">
         {assets.map(renderAsset)}
