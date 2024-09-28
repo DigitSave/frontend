@@ -12,6 +12,8 @@ import { ethers } from "ethers";
 import { NumericFormat } from "react-number-format";
 import AssetsLoader from "./Loaders/AssetsLoader";
 import { AssetDetail } from "@/@types/assets.types";
+import { erc20Abi } from "viem";
+import { isEqual } from "lodash";
 
 // Define the type for an asset object
 interface Asset {
@@ -26,7 +28,8 @@ const Assets: React.FC = () => {
   const [assets, setAssets] = useState<Asset[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [nextAssetId, setNextAssetId] = useState<number | null>(null);
-
+  const [balances, setBalances] = useState<any[]>([]);
+  const { address, isDisconnected } = useAccount();
   const provider = getEthersProvider(config);
   const { storageContractAddrs } = useContractAddresses();
   const chainId = useChainId();
@@ -80,7 +83,9 @@ const Assets: React.FC = () => {
             })
           );
 
-          setAssets(formattedAssets);
+          if (!isEqual(assets, formattedAssets)) {
+            setAssets(formattedAssets);
+          }
         } catch (error) {
           console.error("Error fetching assets:", error);
         } finally {
@@ -91,6 +96,61 @@ const Assets: React.FC = () => {
       fetchAllAssets();
     }
   }, [nextAssetId, chainId, provider, storageContractAddrs]);
+
+  // fetches the balances of a user per asset
+  useEffect(() => {
+    if (assets.length > 0) {
+      const fetchBalances = async () => {
+        try {
+          const assetBalancePromises = [];
+          for (let i = 0; i < assets.length; i++) {
+            // Create a new promise for each asset fetch
+            assetBalancePromises.push(
+              (async () => {
+                const contract = new ethers.Contract(
+                  assets[i].assetAddress,
+                  erc20Abi,
+                  provider
+                );
+
+                const [balance, decimals] = await Promise.all([
+                  contract.balanceOf(address),
+                  contract.decimals(),
+                ]);
+
+                const formatedBalance = ethers.utils.formatUnits(
+                  balance,
+                  decimals
+                );
+                const formatedPrice = ethers.utils.formatUnits(
+                  assets[i].price,
+                  decimals
+                );
+
+                return {
+                  balance: formatedBalance,
+                  usdBal: parseInt(formatedBalance) * parseInt(formatedPrice),
+                };
+              })()
+            );
+          }
+
+          // Wait for all promises to resolve
+          const assetBalance = await Promise.all(assetBalancePromises);
+
+          if (!isEqual(balances, assetBalance)) {
+            setBalances(assetBalance);
+          }
+        } catch (error) {
+          console.error("Error fetching balances:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchBalances();
+    }
+  }, [assets]);
 
   if (isLoadingAssetId || loading) return <AssetsLoader />;
 
@@ -120,28 +180,105 @@ const Assets: React.FC = () => {
 
     return (
       <div key={index} className="w-full flex justify-between items-center">
-        <div className="flex gap-4 items-center">
-          <Image
-            width={48}
-            height={48}
-            src={assetDetail.ticker}
-            alt={assetDetail.name}
-            className="border border-white rounded-full"
-          />
-          <div className="flex flex-col gap-1">
-            <p>{assetDetail.name}</p>
-          </div>
-        </div>
-        <p>
-          {"$ "}
-          <NumericFormat
-            value={formattedPrice}
-            thousandSeparator
-            displayType="text"
-            decimalScale={2}
-            fixedDecimalScale={formattedPrice % 1 === 0}
-          />
-        </p>
+        {isDisconnected ? (
+          <>
+            <div className="flex gap-4 items-center">
+              <Image
+                width={40}
+                height={40}
+                src={assetDetail.ticker}
+                alt={assetDetail.name}
+                className="border border-white rounded-full"
+              />
+              <div className="flex flex-col gap-1">
+                <p>{assetDetail.name}</p>
+              </div>
+            </div>
+            <p>
+              {"$ "}
+              <NumericFormat
+                value={formattedPrice}
+                thousandSeparator
+                displayType="text"
+                decimalScale={2}
+                fixedDecimalScale={formattedPrice % 1 === 0}
+              />
+            </p>
+          </>
+        ) : (
+          <>
+            {" "}
+            <div className="flex items-center gap-2">
+              <Image
+                width={40}
+                height={40}
+                src={`${
+                  // @ts-ignore
+                  assetsDetails[chainId][asset.assetAddress].ticker
+                }`}
+                alt={`${
+                  // @ts-ignore
+                  assetsDetails[chainId][asset.assetAddress].name
+                }`}
+                className="border border-white rounded-full"
+              />
+              <div className="flex flex-col">
+                <p className="flex items-center gap-1">
+                  <span className=" text-base">
+                    {
+                      // @ts-ignore
+                      assetsDetails[chainId][asset.assetAddress].name
+                    }
+                  </span>
+                </p>
+
+                <p className="text-[12px] text-[#979797]">
+                  {"$ "}
+                  <NumericFormat
+                    value={formattedPrice}
+                    thousandSeparator
+                    displayType="text"
+                    decimalScale={2}
+                    fixedDecimalScale={formattedPrice % 1 === 0}
+                  />
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <div className="flex flex-col">
+                <p className="flex justify-end gap-1">
+                  {balances.length > 0 && (
+                    <NumericFormat
+                      className=" text-base"
+                      thousandSeparator
+                      displayType="text"
+                      value={balances[index].balance}
+                      decimalScale={balances[index].balance % 1 === 0 ? 2 : 8}
+                      fixedDecimalScale={
+                        balances[index].balance % 1 === 0 ? true : false
+                      }
+                    />
+                  )}
+                </p>
+                <p className="flex text-[12px] text-[#979797]">
+                  {"~ $ "}
+                  {balances.length > 0 && (
+                    <NumericFormat
+                      className="flex justify-end text-[12px] text-[#979797]"
+                      thousandSeparator
+                      displayType="text"
+                      value={balances[index].usdBal}
+                      decimalScale={balances[index].usdBal % 1 === 0 ? 2 : 8}
+                      fixedDecimalScale={
+                        balances[index].usdBal % 1 === 0 ? true : false
+                      }
+                    />
+                  )}
+                </p>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     );
   };

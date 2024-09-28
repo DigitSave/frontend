@@ -53,12 +53,20 @@ export default function Header({ navOpen, setNavOpen }) {
               src="/logo.png"
               alt="logo"
               className="md:w-40 sm:w-32 w-24"
-              width={100}
-              height={100}
+              width={120}
+              height={20}
             />
           </Link>
           <div className="flex gap-4">
+            <div className="md:hidden">
             <ConnectButton showBalance={false} chainStatus={'icon'} accountStatus="avatar" />
+              
+            </div>
+
+            <div className="hidden md:block">
+            <ConnectButton showBalance={false} chainStatus={'icon'}  />
+              
+            </div>
             <button className="lg:hidden" onClick={() => setNavOpen(!navOpen)}>
               {navOpen ? <CloseIcon /> : <HamburgerIcon />}
             </button>

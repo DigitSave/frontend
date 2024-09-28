@@ -25,6 +25,7 @@ import {
   FullAsset,
   SavingsAsset,
 } from "@/@types/assets.types";
+import { isEqual } from "lodash";
 
 const TopupAssetModal: React.FC<TopupAssetModalProps> = ({
   isOpen,
@@ -112,7 +113,9 @@ const TopupAssetModal: React.FC<TopupAssetModalProps> = ({
 
           // Wait for all promises to resolve
           const assetBalance = await Promise.all(assetBalancePromises);
-          setBalances(assetBalance);
+          if (!isEqual(balances, assetBalance)) {
+            setBalances(assetBalance);
+          }
         } catch (error) {
           console.error("Error fetching balances:", error);
         } finally {
@@ -312,7 +315,9 @@ const TopupAssetModal: React.FC<TopupAssetModalProps> = ({
 
           // Wait for all promises to resolve
           const assetsData = await Promise.all(assetPromises);
-          setAssets(assetsData);
+          if (!isEqual(assets, assetsData)) {
+            setAssets(assetsData);
+          }
         } catch (error) {
           console.error("Error fetching assets:", error);
         } finally {

@@ -198,9 +198,9 @@ const Roadmap: React.FC = () => {
                         <path
                           d="M17.3334 8L10.0001 15.3333L6.66675 12"
                           stroke="#0D0D0D"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         />
                       </svg>
                     ) : (

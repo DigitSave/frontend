@@ -26,6 +26,7 @@ import {
   FullAsset,
   SavingsAsset,
 } from "@/@types/assets.types";
+import { isEqual } from "lodash";
 
 const AddAssetModal: React.FC<AddAssetModalProps> = ({
   isOpen,
@@ -113,7 +114,9 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({
 
           // Wait for all promises to resolve
           const assetBalance = await Promise.all(assetBalancePromises);
-          setBalances(assetBalance);
+          if (!isEqual(balances, assetBalance)) {
+            setBalances(assetBalance);
+          }
         } catch (error) {
           console.error("Error fetching balances:", error);
         } finally {
@@ -316,7 +319,9 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({
 
           // Wait for all promises to resolve
           const assetsData = await Promise.all(assetPromises);
-          setAssets(assetsData);
+          if (!isEqual(assets, assetsData)) {
+            setAssets(assetsData);
+          }
         } catch (error) {
           console.error("Error fetching assets:", error);
         } finally {
@@ -327,6 +332,21 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({
       fetchAllAssets();
     }
   }, [nextAssetId, chainId, assets, isConfirmed]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+
+    // Only allow numbers and a single decimal point
+    if (value.includes(".") && selectedAsset?.decimal) {
+      const [whole, fractional] = value.split(".");
+      if (fractional && fractional.length > selectedAsset.decimal) {
+        // Truncate fractional part to match the token's decimals
+        value = `${whole}.${fractional.slice(0, selectedAsset.decimal)}`;
+      }
+    }
+
+    setInputValue(value);
+  };
 
   async function submit() {
     // onClose()
@@ -498,7 +518,9 @@ const AddAssetModal: React.FC<AddAssetModalProps> = ({
                   <input
                     type="number"
                     value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
+                    // onChange={(e) => setInputValue(e.target.value)}
+                    step={10}
+                    onChange={(e) => handleInputChange(e)}
                     className="bg-transparent p-2 outline-none border rounded-l-md text-white border-tertiary-5"
                   />
                   {selectedAsset && (
