@@ -155,6 +155,7 @@ export default function Dashboard() {
     <main className="text-neutral-2">
       <Header navOpen={navOpen} setNavOpen={setNavOpen} />
       <section className="flex min-h-screen border-t border-tertiary-6">
+        {/* SIDEBAR */}
         <div className="w-1/5 hidden lg:block">
           <div className="w-1/5 fixed">
             <Sidebar />
@@ -182,6 +183,8 @@ export default function Dashboard() {
             </div>
           )}
         </AnimatePresence>
+
+        {/* GUEST LAYOUT */}
         {!isConnected && (
           <GuestLayout>
             <div className="flex w-full flex-col item-center py-10 justify-center text-center gap-6 min-h-[350px]">
@@ -199,8 +202,10 @@ export default function Dashboard() {
           </GuestLayout>
         )}
 
+        {/* LOADING */}
         {isLoading && isConnected && <OverviewLoader />}
 
+        {/* ERROR WHILE CONNECTED */}
         {error && isConnected && (
           <div className="flex w-4/5 flex-col my-auto text-center gap-6">
             <div className="flex justify-center w-full">
@@ -214,6 +219,7 @@ export default function Dashboard() {
           </div>
         )}
 
+        {/* EVERYTING OK LAYOUT */}
         {isAddressValid && isConnected && (
           <div className="w-4/5 flex flex-col">
             {/* Balances */}
@@ -422,29 +428,49 @@ export default function Dashboard() {
           </div>
         )}
 
+        {/* NO SAVINGS ACCOUNT LAYOUT */}
         {!isAddressValid && isConnected && !error && !isLoading && (
-          <div className="flex w-full lg:w-4/5 flex-col item-center justify-center text-center gap-6">
-            <div className="flex justify-center w-full">
-              <FileIcon />
-            </div>
+          <div className="w-full lg:w-4/5 ">
+            <h1 className="f p-6 pb-2 font-bold text-lg font-swiss mb-20">
+              <p className="text-white sm:px-4">Overview</p>
+            </h1>
+            <div className="flex w-full flex-col item-center justify-center text-center gap-6">
+              <div className="flex justify-center w-full">
+                <FileIcon />
+              </div>
 
-            <p className="text-neutral-3 text-xl font-medium">
-              No savings Account found
-            </p>
-            <p className="mx-auto text-neutral-6 w-3/5 lg:w-2/5">
-              You don’t have a savings account yet.
-            </p>
-            <button
-              className={`mx-auto mt-10 flex gap-2 items-center font-semibold  justify-center rounded-md bg-primary-0 text-white  py-4 px-12 ${
-                !Boolean(createSavingsAccount?.request)
-                  ? "cursor-not-allowed"
-                  : "cursor-pointer"
-              }`}
-              disabled={!Boolean(createSavingsAccount?.request)}
-              onClick={() => writeContract(createSavingsAccount!.request)}
-            >
-              {isPending ? "Loading..." : "create account"}
-            </button>
+              <p className="text-neutral-3 text-xl font-medium">
+                No savings Account found
+              </p>
+              <p className="mx-auto text-neutral-6 w-3/5 lg:w-2/5">
+                You don’t have a savings account yet.
+              </p>
+              <button
+                className={` mx-auto mt-10 flex gap-2 items-center font-semibold  justify-center rounded-md bg-primary-0 text-white  py-3 md:py-4 px-10 md:px-12 ${
+                  !Boolean(createSavingsAccount?.request)
+                    ? "cursor-not-allowed"
+                    : "cursor-pointer"
+                }`}
+                disabled={!Boolean(createSavingsAccount?.request)}
+                onClick={() => writeContract(createSavingsAccount!.request)}
+              >
+                <span className="">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13.8313 0H6.16868L0 6.16867V13.8313L6.16868 20H13.8313L20 13.8313V6.16867L13.8313 0ZM7.22892 13.9277L3.27712 9.97589L7.22892 6.0241C8.72289 4.53012 11.1807 4.53012 12.6747 6.0241L16.6265 9.97589L12.6747 13.9277C11.1807 15.4217 8.77108 15.4217 7.22892 13.9277Z"
+                      fill="#F7F7F7"
+                    />
+                  </svg>
+                </span>
+                <span>{isPending ? "Loading..." : "create account"}</span>
+              </button>
+            </div>
           </div>
         )}
 

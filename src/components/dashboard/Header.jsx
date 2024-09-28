@@ -64,7 +64,7 @@ export default function Header({ navOpen, setNavOpen }) {
             </div>
 
             <div className="hidden md:block">
-            <ConnectButton showBalance={false} chainStatus={'icon'}  />
+            <ConnectButton showBalance={false} chainStatus="name" />
               
             </div>
             <button className="lg:hidden" onClick={() => setNavOpen(!navOpen)}>
