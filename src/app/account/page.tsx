@@ -147,7 +147,7 @@ export default function Dashboard() {
             </div>
           </div>
         ) : (
-          <div className="w-full flex flex-col gap-4">
+          <div className="w-full lg:w-4/5 flex flex-col gap-4">
             <div className="w-full flex flex-col">
               <div className="p-6 pb-0">
                 <h1 className="font-bold text-2xl">Account</h1>
@@ -162,14 +162,14 @@ export default function Dashboard() {
                     <div className="w-full flex flex-col  rounded-lg  ">
                       <div className="w-full flex flex-col gap-4">
                         <div
-                          className="flex justify-between items-center border-b border-tertiary-4 py-8 cursor-pointer"
+                          className="flex justify-between items-center border-b border-tertiary-4 gap-4 py-8 cursor-pointer"
                           onClick={() => {
                             setTransfertAlertModalOpen(true);
                             setRenounceAlertModalOpen(false);
                           }}
                         >
                           <div className="">
-                            <h3 className="font-medium text-2xl">
+                            <h3 className="font-medium text-xl sm:text-2xl lg:text-2xl">
                               Transfer account ownership
                             </h3>
                           </div>
@@ -183,14 +183,14 @@ export default function Dashboard() {
 
                       <div className="w-full flex flex-col gap-4">
                         <div
-                          className="flex justify-between items-center border-b border-tertiary-4 py-8 cursor-pointer"
+                          className="flex gap-4 justify-between items-center border-b border-tertiary-4 py-8 cursor-pointer"
                           onClick={() => {
                             setRenounceAlertModalOpen(true);
                             setTransfertAlertModalOpen(false);
                           }}
                         >
                           <div className="">
-                            <h3 className="font-medium text-2xl">
+                            <h3 className="font-medium text-xl sm:text-2xl lg:text-2xl">
                               Renounce ownership
                             </h3>
                           </div>
