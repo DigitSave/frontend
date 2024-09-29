@@ -276,7 +276,7 @@ export default function Save() {
           )}
 
         {isConnected && hasSavings && (
-          <div className="w-4/5 flex flex-col">
+          <div className="w-full lg:w-4/5 flex flex-col">
             <div className="p-6 pb-0">
               <h1 className="font-bold text-2xl">Savings</h1>
               <p className="text-tertiary-4 font-medium text-xl">
@@ -426,7 +426,7 @@ export default function Save() {
           !isLoadingSavingId &&
           !errorUserSavingsContracts &&
           !isLoadingUserSavingsContracts && (
-            <div className="w-4/5 flex flex-col">
+            <div className="w-full lg:w-4/5 flex flex-col">
               <div className="p-6 pb-0">
                 <h1 className="font-bold text-2xl">Savings</h1>
                 <p className="text-tertiary-4 font-medium text-xl">
@@ -439,7 +439,7 @@ export default function Save() {
               <div className="mx-6 mt-2 flex gap-2 p-2 w-[170px] bg-[#42B0B01A] rounded-tr-xl rounded-bl-xl">
                 <InfoIcon />
                 <Link href="/learn#faq" className="text-xs">
-                  What is a Savng?
+                  What is a Saving?
                 </Link>
               </div>
 
