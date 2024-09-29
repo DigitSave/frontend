@@ -35,6 +35,7 @@ import Web3 from "web3";
 import SavingListLoader from "@/components/dashboard/Loaders/SavingListLoader";
 import { NumericFormat } from "react-number-format";
 import { useRouter } from "next/navigation";
+import OverviewLoader from "@/components/dashboard/Loaders/OverviewLoader";
 
 export default function Activities() {
   const router = useRouter();
@@ -197,10 +198,10 @@ export default function Activities() {
           )}
         </AnimatePresence>
 
-        {isLoading && isConnected && <FullPageLoader />}
+        {isLoading && isConnected && <OverviewLoader />}
 
         {error && isConnected && (
-          <div className="flex w-4/5 flex-col my-auto text-center gap-6">
+          <div className="flex w-full lg:w-4/5 flex-col my-auto text-center gap-6">
             <div className="flex justify-center w-full">
               <FileIcon />
             </div>
@@ -213,7 +214,7 @@ export default function Activities() {
         )}
 
         {isAddressValid && isConnected && (
-          <div className="w-4/5 flex flex-col">
+          <div className="w-full lg:w-4/5 flex flex-col">
             <div className="p-6 pb-0">
               <h1 className="font-bold text-2xl">Activities</h1>
               <p className="text-tertiary-4 font-medium text-xl">

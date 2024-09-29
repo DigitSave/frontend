@@ -2,10 +2,10 @@ import React from "react";
 
 export default function FullPageLoader() {
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full lg:w-4/5 flex flex-col">
       <section className="w-full m-h-screen px-6 py-10">
-        <div className="flex gap-4 w-full">
-          <div className="w-3/5 flex flex-col gap-4 p-6 bg-center rounded-lg border mx-auto border-blue-300 shadow ">
+        <div className="flex flex-col md:flex-row gap-4 w-full">
+          <div className="w-full lg:w-3/5 flex flex-col gap-4 p-6 bg-center rounded-lg border mx-auto border-blue-300 shadow ">
             <div className="animate-pulse flex space-x-4">
               <div className="flex-1 space-y-6 py-1">
                 <div className="space-y-6">
@@ -17,7 +17,7 @@ export default function FullPageLoader() {
             </div>
           </div>
 
-          <div className="w-2/5 flex flex-col gap-4 p-6 bg-center rounded-lg border mx-auto border-blue-300 shadow ">
+          <div className="w-full lg:w-2/5 flex flex-col gap-4 p-6 bg-center rounded-lg border mx-auto border-blue-300 shadow ">
             <div className="animate-pulse flex space-x-4">
               <div className="flex-1 space-y-6 py-1">
                 <div className="space-y-6">
@@ -31,8 +31,8 @@ export default function FullPageLoader() {
       </section>
 
       <section className="w-full m-h-screen px-6 py-10">
-        <div className="flex gap-4 w-full">
-          <div className="w-3/5 flex flex-col gap-4 animate-pulse">
+        <div className="flex flex-col xl:flex-row gap-4 w-full">
+          <div className="w-full lxl:w-3/5 flex flex-col gap-4 animate-pulse">
             <div className="h-2 w-2/5 bg-slate-700 rounded"></div>
             <div className="w-full flex flex-col rounded-lg border mx-auto border-blue-300 shadow">
               <div className="p-6">
@@ -153,7 +153,7 @@ export default function FullPageLoader() {
             </div>
           </div>
 
-          <div className="w-2/5 flex flex-col gap-4 animate-pulse">
+          <div className="w-full lxl:w-2/5 flex flex-col gap-4 animate-pulse">
             <div className="h-2 w-2/5 bg-slate-700 rounded"></div>
             <div className="w-full flex flex-col rounded-lg border mx-auto border-blue-300 shadow">
               <div className="p-6">
