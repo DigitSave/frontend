@@ -224,14 +224,20 @@ export default function Dashboard() {
 
         {/* EVERYTING OK LAYOUT */}
         {isAddressValid && isConnected && (
-          <div className="w-4/5 flex flex-col">
+          <div className="w-full lg:w-4/5 flex flex-col">
+            <div className="p-6 pb-0">
+              <h1 className="font-bold text-2xl">Overview</h1>
+              <p className="text-tertiary-4 font-medium font-swiss text-lg md:text-xl">
+                Get a heads up on how your assets are doing
+              </p>
+            </div>
             {/* Balances */}
             <Balances />
 
             {/* history and token */}
             <section className="w-full m-h-screen px-6 py-10">
-              <div className="flex flex-col md:flex-row  gap-4 w-full">
-                <div className="w-full md:w-3/5 flex flex-col gap-4">
+              <div className="flex flex-col xl:flex-row  gap-4 w-full">
+                <div className="w-full xl:w-3/5 flex flex-col gap-4">
                   <p className="font-semibold">Recent activities</p>
 
                   <div className="w-full flex flex-col overflow-y-scroll rounded-lg bg-[#1B1B1B] h-[350px]">
@@ -425,7 +431,7 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                <div className="w-full md:w-2/5 ">
+                <div className="w-full xl:w-2/5 ">
                   <Assets />
                 </div>
               </div>
