@@ -18,12 +18,12 @@ export default function Home() {
           id="Hero"
           className="w-full font-swiss text-neutral-3 sm:pt-28 py-16 sm:px-20bg-cover bg-[url('/images/learn-hero-bg.png')]"
         >
-          <div className="text-center w-full lg:w-[60%] mx-auto">
+          <div className="text-center w-full lg:w-[60%] mx-auto px-4">
             <h2 className="text-white font-bold text-xl sm:text-3xl lg:text-4xl leading-relaxed mx-auto lg:w-[60%]">
               Learn and grow with web3
             </h2>
-            <p className=" pt-2 text-sm font-thin sm:text-base mt-4 mx-auto lg:w-[70%] text-neutral-3 leading-loose">
-              An easy-to-follow education guide that teach you how web3 works
+            <p className=" pt-2 text-sm font-thin sm:text-base mt-4 mx-auto sm:w-[90%] md:w-[80%] lg:w-[70%] text-neutral-3 leading-loose">
+              An easy-to-follow educational guide that teach you how web3 works
               and how to use our platform to create a savings account and create
               savings
             </p>

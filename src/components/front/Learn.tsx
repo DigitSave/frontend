@@ -51,7 +51,7 @@ const sections: Section[] = [
     title: "Create Savings Account",
     subsections: [
       {
-        id: "creaeSavingsAccount",
+        id: "createSavingsAccount",
         title: "Create a saving account",
         description:
           "Just like in traditional banking, you need a savings account to save, below is an easy guide on how to create a savings account in few seconds",
@@ -91,20 +91,20 @@ const sections: Section[] = [
     ],
   },
   {
-    title: "Withraw",
+    title: "Withdraw",
     subsections: [
       {
-        id: "WithrawAll",
+        id: "WithdrawAll",
         title: "Withdraw All Asset",
         description:
           "When the lock period for a save is reached, you can withdraw all assets at once, check the video on how to withdraw all assets",
         videoUrl: "https://www.youtube.com/watch?v=JT9N0EefS7o&t",
       },
       {
-        id: "WithrawSingle",
+        id: "WithdrawSingle",
         title: "Withdraw Single Asset",
         description:
-          "When the lock period for a save is reached, you can withdraw part or all from a single asset, check the video on how to withdraw a single  assets",
+          "When the lock period for a save is reached, you can withdraw part or all from a single asset, check the video on how to withdraw a single asset",
         videoUrl: "https://www.youtube.com/watch?v=JT9N0EefS7o&t",
       },
     ],
@@ -123,7 +123,7 @@ const Learn: React.FC = () => {
     setActiveSubsection(subsection);
     scroller.scrollTo(subsection.id, {
       smooth: true,
-      //   offset: -100,
+      offset: -100,
     });
   };
 
@@ -136,21 +136,25 @@ const Learn: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row h-screen text-white lg:h-[500px]">
+    <div className="flex flex-col lg:flex-row  text-white">
       {/* Sidebar */}
-      <div className="w-full lg:w-1/4 p-4 overflow-auto overflow-y-scroll">
+      <div className="w-full lg:w-1/4 p-4 lg:overflow-auto">
         {sections.map((section, index) => (
           <div key={index} className="mb-6">
             <div
-              className="flex justify-between items-center cursor-pointer"
+              className="flex gap-4 justify-between items-center cursor-pointer"
               onClick={() => toggleSection(section.title)}
             >
-              <h3 className="text-lg font-bold mb-2">{section.title}</h3>
-              {expandedSections.includes(section.title) ? (
-                <FaChevronUp className="text-white" />
-              ) : (
-                <FaChevronDown className="text-white" />
-              )}
+              <h3 className="text-lg font-semi-bold xl:font-bold mb-2">
+                {section.title}
+              </h3>
+              <div className="w-3">
+                {expandedSections.includes(section.title) ? (
+                  <FaChevronUp className="text-white" />
+                ) : (
+                  <FaChevronDown className="text-white" />
+                )}
+              </div>
             </div>
             {expandedSections.includes(section.title) && (
               <ul className="space-y-2 pl-4">
@@ -169,6 +173,44 @@ const Learn: React.FC = () => {
                     >
                       {subsection.title}
                     </Link>
+
+                    {/* Mobile view - Show video under each subsection */}
+                    <div className="lg:hidden mt-4">
+                      {activeSubsection?.id === subsection.id && (
+                        <Element name={subsection.id}>
+                          <h2 className="text-xl font-bold mb-2">
+                            {subsection.title}
+                          </h2>
+                          <p className="mb-4 text-neutral-3 w-full">
+                            {subsection.description}
+                          </p>
+
+                          <div className="relative sm:hidden md:hidden w-full pb-6 mx-auto">
+                            <ReactPlayer
+                              url={subsection.videoUrl}
+                              width={"300px"}
+                              controls
+                            />
+                          </div>
+
+                          <div className="relative hidden sm:block md:hidden w-full pb-6 mx-auto">
+                            <ReactPlayer
+                              url={subsection.videoUrl}
+                              width={"421px"}
+                              controls
+                            />
+                          </div>
+
+                          <div className="relative hidden sm:hidden md:block w-full pb-6 mx-auto">
+                            <ReactPlayer
+                              url={subsection.videoUrl}
+                              width={"549px"}
+                              controls
+                            />
+                          </div>
+                        </Element>
+                      )}
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -177,8 +219,8 @@ const Learn: React.FC = () => {
         ))}
       </div>
 
-      {/* Content Area */}
-      <div className="flex-1 p-4 overflow-auto">
+      {/* Content Area - Only for larger screens */}
+      <div className="hidden lg:block flex-1 p-4 lg:overflow-auto">
         {activeSubsection ? (
           <Element name={activeSubsection.id}>
             <h2 className="text-xl font-bold mb-2">{activeSubsection.title}</h2>
